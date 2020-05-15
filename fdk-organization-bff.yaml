@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: fdk-organization-bff
+  version: '1.0'
+  description: Backend for Frontend service that provides information about organizations and their published content in Felles Datakatalogs
+  contact:
+    name: Felles Datakatalog
+    url: 'https://fellesdatakatalog.digdir.no/'
+    email: fellesdatakatalog@digdir.no
+  license:
+    url: 'http://data.norge.no/nlod/no/2.0'
+    name: License of API
+servers:
+  - url: 'http://organization-bff.data.norge.no'
+    description: production
+paths:
+  /organizationcatalogs:
+    get:
+      summary: Get all organizations and their content in Felles Datakatalog
+      tags:
+        - organizationcatalogs
+      operationId: get-organizationcatalogs
+      responses:
+        '200':
+          description: OK.Returns an array of all organizations and their content in Felles Datakatalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationCatalogList'
+  '/organizationcatalog/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: organization-id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - ogranizationcatalogs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationCatalog'
+      operationId: get-organizationcatalog-organization-id
+components:
+  schemas:
+    OrganizationCatalog:
+      title: OrganizationCatalog
+      type: object
+      x-examples:
+        example-fylke:
+          organization:
+            organisasjonsform: FYLK
+            naeringskode:
+              uri: 'http://www.ssb.no/nace/sn2007/84.110'
+              code: '84.110'
+              prefLabel:
+                'no': Generell offentlig administrasjon
+            sektorkode:
+              uri: 'http://www.brreg.no/sektorkode/6500'
+              code: '6500'
+              prefLabel:
+                'no': Kommuneforvaltningen
+            valid: true
+            uri: 'http://data.brreg.no/enhetsregisteret/enhet/971045698'
+            id: '971045698'
+            name: ROGALAND FYLKESKOMMUNE
+            orgPath: /FYLKE/971045698
+            prefLabel:
+              'no': Rogaland fylkeskommune
+          dataset_count: 0
+          dataservice_count: 5
+          concept_count: 189
+          informationmodel_count: 27
+      properties:
+        organization:
+          type: object
+          properties:
+            id:
+              type: string
+            uri:
+              type: string
+            name:
+              type: string
+            orgPath:
+              type: string
+            prefLabel:
+              $ref: '#/components/schemas/LanguageObject'
+            valid:
+              type: boolean
+            sektorkode:
+              $ref: '#/components/schemas/Code'
+            nareingskode:
+              $ref: '#/components/schemas/Code'
+        dataset_count:
+          type: integer
+        concept_count:
+          type: integer
+        dataservice_count:
+          type: string
+        informationmodel_count:
+          type: string
+    OrganizationCatalogList:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationCatalog'
+    Code:
+      title: Code
+      type: object
+      properties:
+        uri:
+          type: string
+        code:
+          type: string
+        prefLabel:
+          $ref: '#/components/schemas/LanguageObject'
+    LanguageObject:
+      title: LanguageObject
+      type: object
+      properties:
+        nb:
+          type: string
+        nn:
+          type: string
+        en:
+          type: string
+        'no':
+          type: string
+      x-examples:
+        example-text:
+          nb: En tekst på Bokmål
+          nn: Ein tekst på Nynorsk
+          no: Ein teks på Norsk, uspesifisert
+          en: Some text in english
