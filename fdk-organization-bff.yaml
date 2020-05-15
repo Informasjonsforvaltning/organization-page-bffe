@@ -22,12 +22,12 @@ paths:
       operationId: get-organizationcatalogs
       responses:
         '200':
-          description: OK.Returns an array of all organizations and their content in Felles Datakatalog
+          description: OK. Returns an array of all organizations and their content in Felles Datakatalog
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalogList'
-  '/organizationcatalog/{id}':
+  '/organizationcatalog/{organization-id}':
     parameters:
       - schema:
           type: string
@@ -40,7 +40,7 @@ paths:
         - ogranizationcatalogs
       responses:
         '200':
-          description: OK
+          description: OK. Returns an organizations and its content in Felles Datakatalog
           content:
             application/json:
               schema:
@@ -54,19 +54,6 @@ components:
       x-examples:
         example-fylke:
           organization:
-            organisasjonsform: FYLK
-            naeringskode:
-              uri: 'http://www.ssb.no/nace/sn2007/84.110'
-              code: '84.110'
-              prefLabel:
-                'no': Generell offentlig administrasjon
-            sektorkode:
-              uri: 'http://www.brreg.no/sektorkode/6500'
-              code: '6500'
-              prefLabel:
-                'no': Kommuneforvaltningen
-            valid: true
-            uri: 'http://data.brreg.no/enhetsregisteret/enhet/971045698'
             id: '971045698'
             name: ROGALAND FYLKESKOMMUNE
             orgPath: /FYLKE/971045698
@@ -82,20 +69,12 @@ components:
           properties:
             id:
               type: string
-            uri:
-              type: string
             name:
               type: string
             orgPath:
               type: string
             prefLabel:
               $ref: '#/components/schemas/LanguageObject'
-            valid:
-              type: boolean
-            sektorkode:
-              $ref: '#/components/schemas/Code'
-            nareingskode:
-              $ref: '#/components/schemas/Code'
         dataset_count:
           type: integer
         concept_count:
@@ -111,16 +90,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrganizationCatalog'
-    Code:
-      title: Code
-      type: object
-      properties:
-        uri:
-          type: string
-        code:
-          type: string
-        prefLabel:
-          $ref: '#/components/schemas/LanguageObject'
     LanguageObject:
       title: LanguageObject
       type: object
@@ -137,5 +106,5 @@ components:
         example-text:
           nb: En tekst på Bokmål
           nn: Ein tekst på Nynorsk
-          no: Ein teks på Norsk, uspesifisert
+          'no': Ein tekst på Norsk, uspesifisert
           en: Some text in english
