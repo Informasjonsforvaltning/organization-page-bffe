@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+mock = "*"
+
+[packages]
+request = "*"
+flask = "*"
+flask-cors = "*"
+flask-restful = "*"
+python-dotenv = "*"
+gunicorn = "*"
+
+
+[requires]
+python_version = "3.8"
