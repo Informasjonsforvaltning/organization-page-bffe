@@ -1,0 +1,23 @@
+{
+  "id" : "85ce1efd-45d1-4510-b1a7-e3cdd844e62c",
+  "name" : "apis",
+  "request" : {
+    "url" : "/apis?orgPath=/PRIVAT/974442167",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"total\":0,\"hits\":[]}",
+    "headers" : {
+      "Server" : "nginx/1.17.9",
+      "Date" : "Mon, 18 May 2020 10:13:20 GMT",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Vary" : [ "Accept-Encoding", "Accept, Accept-Encoding" ],
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "85ce1efd-45d1-4510-b1a7-e3cdd844e62c",
+  "persistent" : true,
+  "insertionIndex" : 762
+}

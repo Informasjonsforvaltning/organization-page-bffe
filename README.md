@@ -16,7 +16,7 @@ ORGANIZATION_CATALOG_URL="http://localhost:8080/"
 CONCEPT_HARVESTER_URL="http://localhost:8080/"
 DATASETT_HARVESTER_URL="http://localhost:8080/"                
 DATASERVICE_HARVESTER_URL="http://localhost:8080/"     
-INOFRMATION_MODEL_HARVESTER_URL="http://localhost:8080/"                 
+INFORMATION_MODEL_HARVESTER_URL="http://localhost:8080/"                 
 ```
 
 ```
@@ -59,9 +59,15 @@ options:
 ```
  
 ``` 
-update-organization-catalog #pull all content from fellesdatakatalog/publisher into organization-catalog
+update-organization-catalog # pull all content from fellesdatakatalog/publisher into organization-catalog
 options:
---env                      #which environment that should be updated. Defaults to production  
+--env                      # which environment that should be updated. Defaults to production  
+```
+
+```
+record_harvest_data # record mock_dat from harvesters, prerequisite: wiremock running record and playback on root url
+--old                      # wether to record data from old (as opposed to new) harvesters, defaults to false 
+--env                      # which environment that should be updated (must be same as target for recordings). Defaults to production  
 ```
 
 ## Troubleshooting
