@@ -27,7 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalogList'
-  '/organizationcatalog/{organization-id}':
+  '/organizationcatalog/{id}':
     parameters:
       - schema:
           type: string
@@ -45,6 +45,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalog'
+
       operationId: get-organizationcatalog-organization-id
 components:
   schemas:
@@ -55,7 +56,6 @@ components:
         example-fylke:
           organization:
             id: '971045698'
-            name: ROGALAND FYLKESKOMMUNE
             orgPath: /FYLKE/971045698
             prefLabel:
               'no': Rogaland fylkeskommune
