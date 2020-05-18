@@ -65,10 +65,10 @@ components:
           informationmodel_count: 27
       properties:
         organization:
+          id:
+            type: string
           type: object
           properties:
-            id:
-              type: string
             orgPath:
               type: string
             name:
