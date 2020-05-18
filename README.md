@@ -15,7 +15,8 @@ fdk-fulltext-search
 ORGANIZATION_CATALOG_URL="http://localhost:8080/"
 CONCEPT_HARVESTER_URL="http://localhost:8080/"
 DATASETT_HARVESTER_URL="http://localhost:8080/"                
-DATASERVICE_HARVESTER_URL="http://localhost:8080/"                 
+DATASERVICE_HARVESTER_URL="http://localhost:8080/"     
+INOFRMATION_MODEL_HARVESTER_URL="http://localhost:8080/"                 
 ```
 
 ```
@@ -38,11 +39,10 @@ options:
 --image: name of the image that should be tested. Defaults to digdir/fulltext-search:latest
 ```
 #### Updating mock data
-1. Set API_URL env variable to the url you want to collect mock data from
-2. Start a wiremock instance 
+1. delete data for the url in ./mock/mappings
+2. Start wiremock: `docker-compose up` 
 3. Start [record and playback](http://wiremock.org/docs/record-playback/) with target url 
-3. run the wanted http requests 
-4. copy files from the wiremock instance's /mappings directory into mock/mappings
+4. run the wanted http requests (replace the target url with `localhost:8080`) 
 
 ### Other invoke tasks
 ```
@@ -58,7 +58,12 @@ options:
 --remove                     #remove associated containers, networks and images   
 ```
  
- 
+``` 
+update-organization-catalog #pull all content from fellesdatakatalog/publisher into organization-catalog
+options:
+--env                      #which environment that should be updated. Defaults to production  
+```
+
 ## Troubleshooting
 ### Mac: unknown locale: UTF-8 in Python
 `open ~/.bash_profile:`

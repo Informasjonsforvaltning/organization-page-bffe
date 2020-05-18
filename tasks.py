@@ -1,4 +1,5 @@
 import os
+import requests
 from invoke import task
 
 pipenv_install = "pipenv install --dev"
@@ -56,3 +57,23 @@ def contract_test(ctx, image="digdir/fdk-organization-bff:latest", compose=False
         start_docker(ctx, image)
     pipenv_run_test = "pipenv run pytest -m contract --tb=line"
     ctx.run(pipenv_run_test)
+
+
+@task
+def update_organization_catalog(ctx, env=None):
+    if env:
+        publisher_url = "https://www.{0}.fellesdatakatalog.digdir.no/publisher".format(env)
+        org_catalog_url = "https://organization-catalogue.{0}.fellesdatakatalog.digdir.no/organizations/".format(env)
+    else:
+        publisher_url = "https://www.fellesdatakatalog.digdir.no/publisher"
+        org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/".format(env)
+
+    print(publisher_url)
+    print(org_catalog_url)
+
+    publishers = requests.get(url=publisher_url)
+    for hit in publishers.json()["hits"]["hits"]:
+        update_url = org_catalog_url + (hit["_source"]["id"])
+        print(update_url)
+        x = requests.get(url=update_url, headers={'Accept': 'application/json'})
+        print(x)
