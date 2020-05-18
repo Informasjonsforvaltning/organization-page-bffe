@@ -1,0 +1,24 @@
+{
+  "id" : "e14325be-559e-40a2-bc9b-29b875471492",
+  "name" : "informationmodels",
+  "request" : {
+    "url" : "/informationmodels",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 301,
+    "body" : "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301 Moved Permanently</h1></center>\r\n<hr><center>nginx/1.17.9</center>\r\n</body>\r\n</html>\r\n",
+    "headers" : {
+      "Server" : "nginx/1.17.9",
+      "Date" : "Mon, 18 May 2020 13:01:26 GMT",
+      "Content-Type" : "text/html",
+      "Location" : "https://fellesdatakatalog.digdir.no/api/informationmodels",
+      "Vary" : "Accept, Accept-Encoding",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "e14325be-559e-40a2-bc9b-29b875471492",
+  "persistent" : true,
+  "insertionIndex" : 1091
+}

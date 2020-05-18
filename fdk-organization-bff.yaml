@@ -46,6 +46,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalog'
       operationId: get-organizationcatalog-organization-id
+  /ready:
+    get:
+      summary: check if application is ready to accept requests
+      operationId: get-ready
+      responses:
+        '200':
+          description: OK if service is runnning and can contact other services
+        '503':
+          description: Temporarily unavailable. Returned if fdk-organization-bff can not contact other services
+          content:
+            application/json:
+              schema:
+
 components:
   schemas:
     OrganizationCatalog:
@@ -139,3 +152,9 @@ components:
           nn: Ein tekst på Nynorsk
           no: Ein teks på Norsk, uspesifisert
           en: Some text in english
+    ErrorMessage:
+      type: object
+      properties:
+        reason:
+          type: string
+

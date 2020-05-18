@@ -97,6 +97,10 @@ def record_content_from_old_harvesters(env=None):
     else:
         org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/".format(env)
     organizations = requests.get(url=org_catalog_url, headers={'Accept': 'application/json'})
+    requests.get(url=old_info_model)
+    requests.get(url=old_concepts)
+    requests.get(url=old_datasets)
+    requests.get(url=old_dataservices)
 
     for org in organizations.json():
         orgPath = get_org_path_for_old_harvester(org["orgPath"])
