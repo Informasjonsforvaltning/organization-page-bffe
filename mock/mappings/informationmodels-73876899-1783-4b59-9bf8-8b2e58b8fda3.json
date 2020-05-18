@@ -1,0 +1,23 @@
+{
+  "id" : "73876899-1783-4b59-9bf8-8b2e58b8fda3",
+  "name" : "informationmodels",
+  "request" : {
+    "url" : "/informationmodels?orgPath=/FYLKE/958381492",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"page\" : {\n    \"size\" : 10,\n    \"totalElements\" : 0,\n    \"totalPages\" : 0,\n    \"number\" : 0\n  },\n  \"aggregations\" : { }\n}",
+    "headers" : {
+      "Server" : "nginx/1.17.9",
+      "Date" : "Mon, 18 May 2020 10:13:10 GMT",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Vary" : [ "Accept-Encoding", "Accept, Accept-Encoding" ],
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "73876899-1783-4b59-9bf8-8b2e58b8fda3",
+  "persistent" : true,
+  "insertionIndex" : 580
+}
