@@ -57,7 +57,7 @@ components:
           organization:
             id: '971045698'
             orgPath: /FYLKE/971045698
-            prefLabel:
+            name:
               'no': Rogaland fylkeskommune
           dataset_count: 0
           dataservice_count: 5
@@ -69,11 +69,9 @@ components:
           properties:
             id:
               type: string
-            name:
-              type: string
             orgPath:
               type: string
-            prefLabel:
+            name:
               $ref: '#/components/schemas/LanguageObject'
         dataset_count:
           type: integer
