@@ -5,7 +5,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-from src.endpoints import OrganizationCatalogs, OrganizationCatalogWithId, Ready
+from src.endpoints import OrganizationCatalogs, OrganizationCatalogWithId, Ping, Ready
 
 
 def create_app(test_config=None):
@@ -31,5 +31,6 @@ def create_app(test_config=None):
     api.add_resource(Ready, "/ready")
     api.add_resource(OrganizationCatalogs, '/organizationcatalogs')
     api.add_resource(OrganizationCatalogWithId, '/organizationcatalogs/<string:organization_id>')
+    api.add_resource(Ping, '/ping')
 
     return app

@@ -1,4 +1,4 @@
-fdk-fulltext-search
+fdk-organization-bff
 ---------------------
 
 ## Developing
