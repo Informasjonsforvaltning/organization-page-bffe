@@ -7,6 +7,14 @@ root_dir = os.path
 
 
 @task
+def unit_test(ctx, install=False):
+    pipenv_run_test = "pipenv run pytest -m unit"
+    if install:
+        ctx.run(pipenv_install)
+    ctx.run(pipenv_run_test)
+
+
+@task
 def build_image(ctx, tags="digdir/fdk-organization-bff:latest", staging=False):
     if staging:
         ctx.run(pipenv_install)
