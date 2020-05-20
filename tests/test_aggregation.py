@@ -151,10 +151,10 @@ def test_get_organization_catalog_should_return_error_msg_for_dataservices(mock_
 
 @pytest.mark.unit
 def test_get_organization_catalog_should_return_error_msg_for_informationmodels(mock_get_organizations,
-                                                                           mock_get_concepts,
-                                                                           mock_get_datasets,
-                                                                           mock_get_informationmodels_exception,
-                                                                           mock_get_dataservices):
+                                                                                mock_get_concepts,
+                                                                                mock_get_datasets,
+                                                                                mock_get_informationmodels_exception,
+                                                                                mock_get_dataservices):
     result = get_organization_catalog_list()
     assert "status" in result.keys()
     assert result["status"] == "error"
@@ -163,9 +163,21 @@ def test_get_organization_catalog_should_return_error_msg_for_informationmodels(
 
 
 def called_with_all_orgPaths(mock: MagicMock, org_path_list: list):
-    args = []
-    for call in mock.call_args_list:
-        args.append(call[0][0])
+    call_args = []
 
-    all_orgpaths = set(args).union(set(org_path_list))
-    return all_orgpaths.__len__() == args.__len__()
+    for call in mock.call_args_list:
+        call_args.append(call[0][0])
+
+    old_org_paths = []
+    for path in org_path_list:
+        old_org_paths.append(get_old_org_path_format(path))
+
+    all_orgpaths = set(call_args).union(set(old_org_paths))
+    return all_orgpaths.__len__() == call_args.__len__()
+
+
+def get_old_org_path_format(org_path: str):
+    if org_path.startswith("/"):
+        return org_path
+    else:
+        return f"/{org_path}"
