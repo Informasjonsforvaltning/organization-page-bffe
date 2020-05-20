@@ -1,0 +1,22 @@
+version: "3"
+services:
+  servicesmock:
+    image: rodolpheche/wiremock
+    ports:
+      - "8080:8080"
+    volumes:
+      - $MOCK_DIR/mock/mappings:/home/wiremock/mappings
+  fdk-organization-bff:
+      image: $TEST_IMAGE
+      ports:
+        - "8000:8000"
+      depends_on:
+        - servicesmock
+      environment:
+        - HOST_URL=http://localhost
+        - HOST_PORT=8000
+        - ORGANIZATION_CATALOG_URL=http://servicesmock:8080/organizations
+        - CONCEPT_HARVESTER_URL=http://servicesmock:8080/concepts
+        - DATASET_HARVESTER_URL=http://servicesmock:8080/datasets
+        - DATASERVICE_HARVESTER_URL=http://servicesmock:8080/apis
+        - INFORMATIONMODELS_HARVESTER_URL=http://servicesmock:8080/informationmodels

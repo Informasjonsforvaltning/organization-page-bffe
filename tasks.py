@@ -7,6 +7,14 @@ root_dir = os.path
 
 
 @task
+def unit_test(ctx, install=False):
+    pipenv_run_test = "pipenv run pytest -m unit"
+    if install:
+        ctx.run(pipenv_install)
+    ctx.run(pipenv_run_test)
+
+
+@task
 def build_image(ctx, tags="digdir/fdk-organization-bff:latest", staging=False):
     if staging:
         ctx.run(pipenv_install)
@@ -97,6 +105,10 @@ def record_content_from_old_harvesters(env=None):
     else:
         org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/".format(env)
     organizations = requests.get(url=org_catalog_url, headers={'Accept': 'application/json'})
+    requests.get(url=old_info_model)
+    requests.get(url=old_concepts)
+    requests.get(url=old_datasets)
+    requests.get(url=old_dataservices)
 
     for org in organizations.json():
         orgPath = get_org_path_for_old_harvester(org["orgPath"])

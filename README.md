@@ -12,11 +12,11 @@ fdk-fulltext-search
 
 #### Env variables:
 ```
-ORGANIZATION_CATALOG_URL="http://localhost:8080/"
-CONCEPT_HARVESTER_URL="http://localhost:8080/"
-DATASETT_HARVESTER_URL="http://localhost:8080/"                
-DATASERVICE_HARVESTER_URL="http://localhost:8080/"     
-INFORMATION_MODEL_HARVESTER_URL="http://localhost:8080/"                 
+ORGANIZATION_CATALOG_URL=http://localhost:8080/organizations
+CONCEPT_HARVESTER_URL=http://localhost:8080/concepts
+DATASET_HARVESTER_URL=http://localhost:8080/datasets
+INFORMATIONMODELS_HARVESTER_URL=http://localhost:8080/informationmodels
+DATASERVICE_HARVESTER_URL=http://localhost:8080/apis
 ```
 
 ```
