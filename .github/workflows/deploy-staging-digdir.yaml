@@ -24,6 +24,9 @@ jobs:
     - name: Install invoke
       run: pip install invoke
 
+    - name: Install requests
+      run: pip install requests
+
     - name: Setup gcloud CLI
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
