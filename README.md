@@ -1,4 +1,4 @@
-fdk-fulltext-search
+fdk-organization-bff
 ---------------------
 
 ## Developing
@@ -11,7 +11,7 @@ fdk-fulltext-search
 ```
 
 #### Env variables:
-```
+```          
 ORGANIZATION_CATALOG_URL=http://localhost:8080/organizations
 CONCEPT_HARVESTER_URL=http://localhost:8080/concepts
 DATASET_HARVESTER_URL=http://localhost:8080/datasets

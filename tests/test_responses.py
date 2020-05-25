@@ -4,7 +4,7 @@ import pytest
 
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
 from tests.test_data import org_5, concept_response, dataset_response, \
-    dataservice_response, info_model_response, org4, org_1, org_5_without_prefLabel_object
+    dataservice_response, info_model_response, org4, org_1
 
 
 @pytest.mark.unit
@@ -15,7 +15,7 @@ def test_organization_catalog_response():
             "name": {
                 "no": "POLITI- OG LENSMANNSETATEN"
             },
-            "orgPath": "STAT/972417831/915429785"
+            "orgPath": "/STAT/972417831/915429785"
         },
         "dataset_count": 3,
         "concept_count": 0,
@@ -77,7 +77,6 @@ def test_organization_catalog_list_response():
                                                 concepts=concept_response(0),
                                                 informationmodels=info_model_response(200)
                                                 )
-
 
     list_response = OrganizationCatalogListResponse()
     list_response.add_organization_catalog(org_catalog_1)

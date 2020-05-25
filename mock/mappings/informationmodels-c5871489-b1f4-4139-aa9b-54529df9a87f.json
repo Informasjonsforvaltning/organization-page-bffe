@@ -1,0 +1,23 @@
+{
+  "id" : "c5871489-b1f4-4139-aa9b-54529df9a87f",
+  "name" : "informationmodels",
+  "request" : {
+    "url" : "/informationmodels?orgPath=/KOMMUNE/938275130",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\n  \"page\" : {\n    \"size\" : 10,\n    \"totalElements\" : 0,\n    \"totalPages\" : 0,\n    \"number\" : 0\n  },\n  \"aggregations\" : { }\n}",
+    "headers" : {
+      "Server" : "nginx/1.17.9",
+      "Date" : "Wed, 20 May 2020 07:08:50 GMT",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Vary" : [ "Accept-Encoding", "Accept, Accept-Encoding" ],
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "c5871489-b1f4-4139-aa9b-54529df9a87f",
+  "persistent" : true,
+  "insertionIndex" : 102
+}

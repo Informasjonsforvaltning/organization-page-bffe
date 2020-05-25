@@ -1,5 +1,6 @@
 import os
 import requests
+import logging
 
 from src.utils import ServiceKey, FetchFromServiceException
 
@@ -21,17 +22,24 @@ service_urls = {
 }
 
 
-def check_available(service: ServiceKey):
+def check_available(service: ServiceKey, header=None):
     try:
-        result = requests.get(url=service_urls[service], timeout=10)
+        if header:
+            result = requests.get(url=service_urls[service], headers=header, timeout=10)
+        else:
+            result = requests.get(url=service_urls[service], timeout=10)
         result.raise_for_status()
         return True
     except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
+        logging.error(f"error when attempting to contact {service} on {service_urls[service]}")
+        print(f"error when attempting to contact {service} on {service_urls[service]}")
         return False
 
 
 def is_ready():
-    if not check_available(ServiceKey.ORGANIZATIONS):
+    logging.info("attempting to contact services")
+    print("attempting to contact services")
+    if not check_available(ServiceKey.ORGANIZATIONS, header={"Accept": "application/json"}):
         return error_msg(
             f" error when contacting {ServiceKey.ORGANIZATIONS} at {service_urls[ServiceKey.ORGANIZATIONS]}")
     if not check_available(ServiceKey.INFO_MODELS):

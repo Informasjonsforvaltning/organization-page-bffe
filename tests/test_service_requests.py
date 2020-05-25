@@ -20,7 +20,9 @@ service_urls = {
 @pytest.mark.unit
 def test_get_organizations(mock_get_services_request):
     get_organizations()
-    mock_get_services_request.assert_called_once_with(url="http://localhost:8080/organizations", timeout=10)
+    mock_get_services_request.assert_called_once_with(url="http://localhost:8080/organizations",
+                                                      headers={"Accept": "application/json"},
+                                                      timeout=10)
 
 
 @pytest.mark.unit

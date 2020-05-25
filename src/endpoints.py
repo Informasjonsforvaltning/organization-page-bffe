@@ -19,6 +19,11 @@ class OrganizationCatalogWithId(Resource):
         abort(http_status_code=501, description="Not implemented")
 
 
+class Ping(Resource):
+    def get(self):
+        return 200
+
+
 class Ready(Resource):
     def get(self):
         result = is_ready()
