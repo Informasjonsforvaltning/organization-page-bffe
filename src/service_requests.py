@@ -32,13 +32,11 @@ def check_available(service: ServiceKey, header=None):
         return True
     except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
         logging.error(f"error when attempting to contact {service} on {service_urls[service]}")
-        print(f"error when attempting to contact {service} on {service_urls[service]}")
         return False
 
 
 def is_ready():
     logging.info("attempting to contact services")
-    print("attempting to contact services")
     if not check_available(ServiceKey.ORGANIZATIONS, header={"Accept": "application/json"}):
         return error_msg(
             f" error when contacting {ServiceKey.ORGANIZATIONS} at {service_urls[ServiceKey.ORGANIZATIONS]}")
