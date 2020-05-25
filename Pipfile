@@ -10,7 +10,6 @@ pytest-mock = "*"
 mock = "*"
 
 [packages]
-request = "*"
 flask = "*"
 flask-cors = "*"
 flask-restful = "*"
