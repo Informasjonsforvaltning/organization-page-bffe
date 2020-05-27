@@ -1,14 +1,32 @@
+import asyncio
 import os
 import requests
 import logging
+import httpx
+from httpcore import ConnectError
+from httpx import HTTPError
 
 from src.utils import ServiceKey, FetchFromServiceException
 
 
-def error_msg(reason: str):
+def error_msg(reason: str, serviceKey: ServiceKey):
     return {
         "status": "error",
+        "service": serviceKey,
         "reason": f"{reason}"
+    }
+
+
+def connection_error_msg(serviceKey: ServiceKey):
+    return {
+        "status": 500,
+        "service": serviceKey,
+        "reason": f"Connection error on {service_urls[serviceKey]}"
+    }
+def service_error_msg(serviceKey: ServiceKey):
+    return {
+        "service": serviceKey,
+        "reason": f"Connection error on {service_urls[serviceKey]}"
     }
 
 
@@ -22,37 +40,54 @@ service_urls = {
 }
 
 
-def check_available(service: ServiceKey, header=None):
-    try:
-        if header:
-            result = requests.get(url=service_urls[service], headers=header, timeout=10)
-        else:
-            result = requests.get(url=service_urls[service], timeout=10)
-        result.raise_for_status()
-        return True
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        logging.error(f"error when attempting to contact {service} on {service_urls[service]}")
-        print(f"error when attempting to contact {service} on {service_urls[service]}")
-        return False
+async def check_available(service: ServiceKey, header=None):
+    async with httpx.AsyncClient() as client:
+        try:
+            if header:
+                result = await client.get(url=service_urls[service], headers=header, timeout=10)
+            else:
+                result = await client.get(url=service_urls[service], timeout=10)
+            result.raise_for_status()
+            return True
+        except (ConnectError, HTTPError) as err:
+            error_log_msg = f"error when attempting to contact {service} on {service_urls[service]}"
+            if isinstance(err, HTTPError):
+                logging.error("{0}: HttpStatus: {1}".format(error_log_msg, result.status_code))
+            else:
+                logging.error(error_log_msg)
+            return False
 
 
 def is_ready():
-    logging.info("attempting to contact services")
-    print("attempting to contact services")
-    if not check_available(ServiceKey.ORGANIZATIONS, header={"Accept": "application/json"}):
-        return error_msg(
-            f" error when contacting {ServiceKey.ORGANIZATIONS} at {service_urls[ServiceKey.ORGANIZATIONS]}")
-    if not check_available(ServiceKey.INFO_MODELS):
-        return error_msg(f" error when contacting {ServiceKey.INFO_MODELS} at {service_urls[ServiceKey.INFO_MODELS]}")
-    if not check_available(ServiceKey.DATA_SERVICES):
-        return error_msg(
-            f" error when contacting {ServiceKey.DATA_SERVICES} at {service_urls[ServiceKey.DATA_SERVICES]}")
-    if not check_available(ServiceKey.DATA_SETS):
-        return error_msg(f" error when contacting {ServiceKey.DATA_SETS} at {service_urls[ServiceKey.DATA_SETS]}")
-    if not check_available(ServiceKey.CONCEPTS):
-        return error_msg(f" error when contacting {ServiceKey.CONCEPTS} at {service_urls[ServiceKey.CONCEPTS]}")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    availability_requests = asyncio.gather(
+        check_available(ServiceKey.ORGANIZATIONS, header={"Accept": "application/json"}),
+        check_available(ServiceKey.DATA_SETS, header={"Accept": "application/json"}),
+        check_available(ServiceKey.DATA_SERVICES, header={"Accept": "application/json"}),
+        check_available(ServiceKey.CONCEPTS),
+        check_available(ServiceKey.INFO_MODELS)
+    )
+    org, dataset, dataservice, concept, info_models = loop.run_until_complete(availability_requests)
 
-    return {"status": "OK"}
+    service_errors = []
+    if not org:
+        return connection_error_msg(serviceKey=ServiceKey.ORGANIZATIONS)
+    if not dataset:
+        service_errors.append(service_error_msg(serviceKey=ServiceKey.DATA_SETS))
+    if not dataservice:
+        service_errors.append(service_error_msg(serviceKey=ServiceKey.DATA_SERVICES))
+    if not info_models:
+        service_errors.append(service_error_msg(serviceKey=ServiceKey.INFO_MODELS))
+    if not concept:
+        service_errors.append(service_error_msg(serviceKey=ServiceKey.CONCEPTS))
+    response = {
+        "status": 200,
+        "message": "service is running",
+    }
+    if service_errors.__len__() > 0:
+        response["external_errors"] = service_errors
+    return response
 
 
 def get_organizations():

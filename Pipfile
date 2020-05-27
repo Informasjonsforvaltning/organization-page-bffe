@@ -16,6 +16,7 @@ flask-restful = "*"
 python-dotenv = "*"
 gunicorn = "*"
 requests = "*"
+httpx = "*"
 
 [requires]
 python_version = "3.8"

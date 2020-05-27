@@ -1,3 +1,6 @@
+import json
+
+from flask import Response
 from flask_restful import Resource, abort
 
 from src.aggregation import get_organization_catalog_list
@@ -27,7 +30,7 @@ class Ping(Resource):
 class Ready(Resource):
     def get(self):
         result = is_ready()
-        if result["status"] == "error":
-            abort(http_status_code=503, description=result["reason"])
-        else:
-            return result
+        http_code = result["status"]
+        del result["status"]
+
+        return result, http_code
