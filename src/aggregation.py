@@ -11,13 +11,14 @@ def get_organization_catalog_list():
         for organization in organizations:
             # temporary fix for discrepancies between orgpaths in organization catalog and harvester
             old_format = get_old_org_path_format(organization["orgPath"])
+            new_format = get_new_org_path_format(organization["orgPath"])
             organization["orgPath"] = old_format
             catalog = OrganizationCatalogResponse(
                 organization=organization,
                 datasets=get_datasets_for_organization(old_format),
                 dataservices=get_dataservices_for_organization(old_format),
                 concepts=get_concepts_for_organization(old_format),
-                informationmodels=get_informationmodels_for_organization(old_format)
+                informationmodels=get_informationmodels_for_organization(new_format)
             )
             response_list.add_organization_catalog(catalog)
         return response_list
@@ -30,3 +31,10 @@ def get_old_org_path_format(org_path: str):
         return org_path
     else:
         return f"/{org_path}"
+
+
+def get_new_org_path_format(orgPath: str):
+    if orgPath.startswith("/"):
+        return orgPath[1:]
+    else:
+        return orgPath

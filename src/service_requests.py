@@ -114,6 +114,10 @@ def get_informationmodels_for_organization(orgPath):
         result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath={orgPath}",
                               timeout=10)
         result.raise_for_status()
+        if result.json()["page"]["totalElements"] == 0:
+            result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath=/{orgPath}",
+                                  timeout=10)
+            result.raise_for_status()
         return result.json()
     except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
         raise FetchFromServiceException(

@@ -26,6 +26,7 @@ class OrganizationCatalogListResponse:
         self.org_list = []
 
     def add_organization_catalog(self, organization_catalog: OrganizationCatalogResponse):
+        print(organization_catalog)
         self.org_list.append(organization_catalog.__dict__)
 
     def map_response(self):

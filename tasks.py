@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 from invoke import task
@@ -99,28 +100,25 @@ def record_content_from_old_harvesters(env=None):
     old_dataservices = "http://localhost:8080/apis?orgPath="
     old_concepts = "http://localhost:8080/concepts?orgPath="
     old_info_model = "http://localhost:8080/informationmodels?orgPath="
+    with open(f"{os.getcwd()}/mock/mappings/organizations-21af49fb-e881-4c42-8228-26f3fc43ea9c.json") as mockorgs:
+        organizations = json.loads(mockorgs.read())
+        for org in organizations['response']['jsonBody']:
+            org_catalog_orgPath = org["orgPath"]
+            orgPath = get_org_path_for_old_harvester(org["orgPath"])
+            print(f"-----collecting data for org {orgPath} ----.")
+            dataset_res = requests.get(url=f"{old_datasets}{orgPath}", headers={'Accept': 'application/json'})
+            dataset_res = requests.get(url=f"{old_datasets}{org_catalog_orgPath}", headers={'Accept': 'application/json'})
+            print("datasets: {0}".format(dataset_res.status_code))
+            dataservice_res = requests.get(url=f"{old_dataservices}{orgPath}")
+            dataservice_res = requests.get(url=f"{old_dataservices}{org_catalog_orgPath}")
+            print("dataservices: {0}".format(dataservice_res.status_code))
+            concepts_res = requests.get(url=f"{old_concepts}{orgPath}")
+            concepts_res = requests.get(url=f"{old_concepts}{org_catalog_orgPath}")
+            print("concepts: {0}".format(concepts_res.status_code))
+            info_res = requests.get(url=f"{old_info_model}{org_catalog_orgPath}")
+            info_res = requests.get(url=f"{old_info_model}{orgPath}")
 
-    if env:
-        org_catalog_url = "https://organization-catalogue.{0}.fellesdatakatalog.digdir.no/organizations/".format(env)
-    else:
-        org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/".format(env)
-    organizations = requests.get(url=org_catalog_url, headers={'Accept': 'application/json'})
-    requests.get(url=old_info_model)
-    requests.get(url=old_concepts)
-    requests.get(url=old_datasets)
-    requests.get(url=old_dataservices)
-
-    for org in organizations.json():
-        orgPath = get_org_path_for_old_harvester(org["orgPath"])
-        print(f"-----collecting data for org {orgPath} ----.")
-        dataset_res = requests.get(url=f"{old_datasets}{orgPath}", headers={'Accept': 'application/json'})
-        print("datasets: {0}".format(dataset_res.status_code))
-        dataservice_res = requests.get(url=f"{old_dataservices}{orgPath}")
-        print("dataservices: {0}".format(dataservice_res.status_code))
-        concepts_res = requests.get(url=f"{old_concepts}{orgPath}")
-        print("concepts: {0}".format(concepts_res.status_code))
-        info_res = requests.get(url=f"{old_info_model}{orgPath}")
-        print("informationmodels: {0}".format(info_res.status_code))
+            print("informationmodels: {0}".format(info_res.status_code))
 
 
 def get_content_from_new_harvesters():
