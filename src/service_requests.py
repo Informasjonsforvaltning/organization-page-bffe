@@ -1,11 +1,13 @@
 import asyncio
 import os
+from json.decoder import JSONDecodeError
+
 import requests
 import logging
 import httpx
-from httpcore import ConnectError
+from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError
-
+from src.responses import OrganizationCatalogResponse
 from src.utils import ServiceKey, FetchFromServiceException
 
 
@@ -23,6 +25,8 @@ def connection_error_msg(serviceKey: ServiceKey):
         "service": serviceKey,
         "reason": f"Connection error on {service_urls[serviceKey]}"
     }
+
+
 def service_error_msg(serviceKey: ServiceKey):
     return {
         "service": serviceKey,
@@ -49,7 +53,7 @@ async def check_available(service: ServiceKey, header=None):
                 result = await client.get(url=service_urls[service], timeout=10)
             result.raise_for_status()
             return True
-        except (ConnectError, HTTPError) as err:
+        except (ConnectError, HTTPError, ConnectTimeout) as err:
             error_log_msg = f"error when attempting to contact {service} on {service_urls[service]}"
             if isinstance(err, HTTPError):
                 logging.error("{0}: HttpStatus: {1}".format(error_log_msg, result.status_code))
@@ -91,74 +95,105 @@ def is_ready():
 
 
 def get_organizations():
-    try:
-        result = requests.get(url=service_urls[ServiceKey.ORGANIZATIONS],
-                              headers={"Accept": "application/json"},
-                              timeout=10)
-        result.raise_for_status()
-        return result.json()
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        raise FetchFromServiceException(
-            execution_point=ServiceKey.ORGANIZATIONS,
-            url=service_urls[ServiceKey.ORGANIZATIONS]
-        )
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    organizations = loop.run_until_complete(get_organizations_async())
+    loop.close()
+    return organizations
 
 
-def get_concepts_for_organization(orgPath):
-    try:
-        result = requests.get(url=f"{service_urls[ServiceKey.CONCEPTS]}?orgPath={orgPath}",
-                              timeout=10)
-        result.raise_for_status()
-        return result.json()
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        raise FetchFromServiceException(
-            execution_point=ServiceKey.CONCEPTS,
-            url=service_urls[ServiceKey.CONCEPTS]
-        )
-
-
-def get_datasets_for_organization(orgPath):
-    try:
-        result = requests.get(url=f"{service_urls[ServiceKey.DATA_SETS]}?orgPath={orgPath}",
-                              headers={"Accept": "application/json"},
-                              timeout=10)
-        result.raise_for_status()
-        return result.json()
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        raise FetchFromServiceException(
-            execution_point=ServiceKey.DATA_SETS,
-            url=service_urls[ServiceKey.DATA_SETS]
-        )
-
-
-def get_dataservices_for_organization(orgPath):
-    try:
-        result = requests.get(url=f"{service_urls[ServiceKey.DATA_SERVICES]}?orgPath={orgPath}",
-                              timeout=10)
-        result.raise_for_status()
-        return result.json()
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        raise FetchFromServiceException(
-            execution_point=ServiceKey.DATA_SERVICES,
-            url=service_urls[ServiceKey.DATA_SERVICES]
-        )
-
-
-def get_informationmodels_for_organization(orgPath):
-    try:
-        result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath={orgPath}",
-                              timeout=10)
-        result.raise_for_status()
-        if result.json()["page"]["totalElements"] == 0:
-            result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath=/{orgPath}",
-                                  timeout=10)
+async def get_organizations_async():
+    async with httpx.AsyncClient() as client:
+        try:
+            result = await client.get(url=service_urls[ServiceKey.ORGANIZATIONS],
+                                      headers={"Accept": "application/json"},
+                                      timeout=10)
             result.raise_for_status()
-        return result.json()
-    except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
-        raise FetchFromServiceException(
-            execution_point=ServiceKey.INFO_MODELS,
-            url=service_urls[ServiceKey.INFO_MODELS]
-        )
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.ORGANIZATIONS,
+                url=service_urls[ServiceKey.ORGANIZATIONS]
+            )
+
+
+async def get_concepts_for_organization(orgPath):
+    async with httpx.AsyncClient() as client:
+        try:
+            result = await client.get(url=f"{service_urls[ServiceKey.CONCEPTS]}?orgPath={orgPath}",
+                                      timeout=10)
+            result.raise_for_status()
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.CONCEPTS,
+                url=service_urls[ServiceKey.CONCEPTS]
+            )
+        except JSONDecodeError:
+            return {
+                "page": {
+                    "totalElements": 0
+                }
+            }
+
+
+async def get_datasets_for_organization(orgPath):
+    async with httpx.AsyncClient() as client:
+        try:
+            result = await client.get(url=f"{service_urls[ServiceKey.DATA_SETS]}?orgPath={orgPath}",
+                                      headers={"Accept": "application/json"},
+                                      timeout=10)
+            result.raise_for_status()
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.DATA_SETS,
+                url=service_urls[ServiceKey.DATA_SETS]
+            )
+        except JSONDecodeError:
+            return {
+                "page": {
+                    "totalElements": 0
+                }
+            }
+
+
+async def get_dataservices_for_organization(orgPath):
+    async with httpx.AsyncClient() as client:
+        try:
+            result = await client.get(url=f"{service_urls[ServiceKey.DATA_SERVICES]}?orgPath={orgPath}",
+                                      timeout=10)
+            result.raise_for_status()
+            return result.json()
+        except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.DATA_SERVICES,
+                url=service_urls[ServiceKey.DATA_SERVICES]
+            )
+        except JSONDecodeError:
+            return {
+                "page": {
+                    "totalElements": 0
+                }
+            }
+
+
+async def get_informationmodels_for_organization(orgPath):
+    async with httpx.AsyncClient() as client:
+        try:
+            result = await client.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath={orgPath}",
+                                      timeout=10)
+            result.raise_for_status()
+            if result.json()["page"]["totalElements"] == 0:
+                result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath=/{orgPath}",
+                                      timeout=10)
+                result.raise_for_status()
+            return result.json()
+        except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.INFO_MODELS,
+                url=service_urls[ServiceKey.INFO_MODELS]
+            )
 
 
 def get_org_path_for_old_harvester(orgPath: str):
