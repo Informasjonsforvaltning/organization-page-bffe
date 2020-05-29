@@ -55,7 +55,7 @@ async def check_available(service: ServiceKey, header=None):
         except (ConnectError, HTTPError, ConnectTimeout) as err:
             error_log_msg = f"error when attempting to contact {service} on {service_urls[service]}"
             if isinstance(err, HTTPError):
-                logging.error("{0}: HttpStatus: {1}".format(error_log_msg, result.status_code))
+                logging.error(f"{error_log_msg}: HttpStatus: {result.status_code}")
             else:
                 logging.error(error_log_msg)
             return False
