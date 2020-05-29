@@ -9,7 +9,7 @@ root_dir = os.path
 
 @task
 def unit_test(ctx, install=False):
-    pipenv_run_test = "pipenv run pytest -m unit"
+    pipenv_run_test = "pipenv run pytest -m unit --disable-warnings"
     if install:
         ctx.run(pipenv_install)
     ctx.run(pipenv_run_test)
@@ -117,7 +117,6 @@ def record_content_from_old_harvesters(env=None):
             print("concepts: {0}".format(concepts_res.status_code))
             info_res = requests.get(url=f"{old_info_model}{org_catalog_orgPath}")
             info_res = requests.get(url=f"{old_info_model}{orgPath}")
-
             print("informationmodels: {0}".format(info_res.status_code))
 
 

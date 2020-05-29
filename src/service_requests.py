@@ -7,7 +7,6 @@ import logging
 import httpx
 from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError
-from src.responses import OrganizationCatalogResponse
 from src.utils import ServiceKey, FetchFromServiceException
 
 
@@ -165,10 +164,10 @@ async def get_dataservices_for_organization(orgPath):
                                       timeout=10)
             result.raise_for_status()
             return result.json()
-        except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
+        except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
-                execution_point=ServiceKey.DATA_SERVICES,
-                url=service_urls[ServiceKey.DATA_SERVICES]
+                execution_point=ServiceKey.CONCEPTS,
+                url=service_urls[ServiceKey.CONCEPTS]
             )
         except JSONDecodeError:
             return {
@@ -185,15 +184,21 @@ async def get_informationmodels_for_organization(orgPath):
                                       timeout=10)
             result.raise_for_status()
             if result.json()["page"]["totalElements"] == 0:
-                result = requests.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath=/{orgPath}",
-                                      timeout=10)
+                result = await client.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}?orgPath=/{orgPath}",
+                                          timeout=10)
                 result.raise_for_status()
             return result.json()
-        except (requests.HTTPError, requests.RequestException, requests.Timeout) as err:
+        except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
-                execution_point=ServiceKey.INFO_MODELS,
-                url=service_urls[ServiceKey.INFO_MODELS]
+                execution_point=ServiceKey.CONCEPTS,
+                url=service_urls[ServiceKey.CONCEPTS]
             )
+        except JSONDecodeError:
+            return {
+                "page": {
+                    "totalElements": 0
+                }
+            }
 
 
 def get_org_path_for_old_harvester(orgPath: str):
