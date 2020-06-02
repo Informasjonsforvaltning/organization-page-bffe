@@ -1,6 +1,8 @@
+import asyncio
+
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
-from src.service_requests import get_organizations, get_datasets_for_organization, get_dataservices_for_organization, \
-    get_concepts_for_organization, get_informationmodels_for_organization
+from src.service_requests import get_organizations, get_concepts_for_organization, get_dataservices_for_organization, \
+    get_datasets_for_organization, get_informationmodels_for_organization
 from src.utils import FetchFromServiceException
 
 
@@ -8,22 +10,37 @@ def get_organization_catalog_list():
     response_list = OrganizationCatalogListResponse()
     try:
         organizations = get_organizations()
-        for organization in organizations:
-            # temporary fix for discrepancies between orgpaths in organization catalog and harvester
-            old_format = get_old_org_path_format(organization["orgPath"])
-            new_format = get_new_org_path_format(organization["orgPath"])
-            organization["orgPath"] = old_format
-            catalog = OrganizationCatalogResponse(
-                organization=organization,
-                datasets=get_datasets_for_organization(old_format),
-                dataservices=get_dataservices_for_organization(old_format),
-                concepts=get_concepts_for_organization(old_format),
-                informationmodels=get_informationmodels_for_organization(new_format)
-            )
-            response_list.add_organization_catalog(catalog)
+        response_list.org_list = get_organization_catalog_list_async(organizations)
         return response_list
     except FetchFromServiceException as err:
         return err.__dict__
+
+
+def get_organization_catalog_list_async(organizations):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    collection_tasks = asyncio.gather(*[get_catalog_for_organization(org) for org in organizations])
+    result = loop.run_until_complete(collection_tasks)
+    return result
+
+
+async def get_catalog_for_organization(organization):
+    old_format = get_old_org_path_format(organization["orgPath"])
+    new_format = get_new_org_path_format(organization["orgPath"])
+    organization["orgPath"] = old_format
+    content_requests = asyncio.gather(get_concepts_for_organization(old_format),
+                                      get_datasets_for_organization(old_format),
+                                      get_dataservices_for_organization(old_format),
+                                      get_informationmodels_for_organization(new_format)
+                                      )
+    concepts, datasets, dataservices, informationmodels = await content_requests
+    return OrganizationCatalogResponse(
+        organization=organization,
+        concepts=concepts,
+        informationmodels=informationmodels,
+        datasets=datasets,
+        dataservices=dataservices
+    ).__dict__
 
 
 def get_old_org_path_format(org_path: str):

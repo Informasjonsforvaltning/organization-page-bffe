@@ -16,6 +16,8 @@ flask-restful = "*"
 python-dotenv = "*"
 gunicorn = "*"
 requests = "*"
+httpx = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.8"
