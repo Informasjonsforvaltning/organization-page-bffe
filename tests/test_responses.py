@@ -1,5 +1,3 @@
-import json
-
 import pytest
 
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
@@ -15,7 +13,7 @@ def test_organization_catalog_response():
             "name": {
                 "no": "POLITI- OG LENSMANNSETATEN"
             },
-            "orgPath": "/STAT/972417831/915429785"
+            "orgPath": "STAT/972417831/915429785"
         },
         "dataset_count": 3,
         "concept_count": 0,

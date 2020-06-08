@@ -15,7 +15,7 @@ class OrganizationCatalogResponse:
             "orgPath": organization["orgPath"],
             "name": get_name(organization),
         }
-        self.dataset_count = datasets["hits"]["total"]
+        self.dataset_count = datasets["count"]
         self.dataservice_count = dataservices["total"]
         self.informationmodel_count = informationmodels["page"]["totalElements"]
         self.concept_count = concepts["page"]["totalElements"]
@@ -26,7 +26,6 @@ class OrganizationCatalogListResponse:
         self.org_list = []
 
     def add_organization_catalog(self, organization_catalog: OrganizationCatalogResponse):
-        print(organization_catalog)
         self.org_list.append(organization_catalog.__dict__)
 
     def map_response(self):
