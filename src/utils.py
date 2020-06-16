@@ -65,32 +65,24 @@ def encode_for_sparql(string: str):
         .replace(")", "%29")
 
 
-hasjk = """PREFIX dct: <http://purl.org/dc/terms/>PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX owl: <http://www.w3.org/2002/07/owl%23>
-SELECT ?uri ?name (COUNT(?item) AS ?count)
-WHERE {
-  ?publisher a foaf:Agent .
-  ?item dct:publisher ?publisher .
-  {
-    SELECT ?publisher ?uri ?name
-    WHERE {
-      ?publisher a foaf:Agent .
-      OPTIONAL {
-        ?publisher foaf:name ?name .
-      }
-      OPTIONAL {
-        ?publisher owl:sameAs ?sameAs .
-      }
-      BIND(COALESCE(?sameAs, STR(?publisher)) AS ?uri)
-    }
-  }
-}
-GROUP BY ?uri ?name
-ORDER BY DESC(?count)"""
-
 DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
 FOAF_PREFIX = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
 OWL_PREFIX = "PREFIX owl: <http://www.w3.org/2002/07/owl%23>"
 sparql_queries = {
     ServiceKey.DATA_SETS: build_dataset_sparql_query()
 }
+
+
+def aggregation_cache(function):
+    memo = {}
+
+    def wrapper(organizations_from_service, concepts, datasets, dataservices,
+                informationmodels):
+        content_hash = hash(tuple([x for x in concepts+datasets+dataservices+informationmodels]))
+        if content_hash in memo:
+            return memo[content_hash]
+        else:
+            rv = function(organizations_from_service, concepts, datasets, dataservices,informationmodels)
+            memo[content_hash] = rv
+            return rv
+    return wrapper

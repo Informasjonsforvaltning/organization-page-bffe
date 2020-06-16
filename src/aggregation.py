@@ -1,12 +1,16 @@
 import asyncio
+import logging
+import time
 from asyncio import get_event_loop
+
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
 from src.service_requests import get_organizations, get_concepts, get_datasets, get_dataservices, \
     get_informationmodels, get_organization
-from src.utils import FetchFromServiceException
+from src.utils import FetchFromServiceException, aggregation_cache
 
 
 def get_organization_catalog_list():
+    start = time.time()
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -16,12 +20,14 @@ def get_organization_catalog_list():
                                           get_dataservices(),
                                           get_informationmodels())
         organizations, concepts, datasets, dataservices, informationmodels = loop.run_until_complete(content_requests)
+        logging.debug(f"data collection took {time.time() - start}")
 
         return aggregate_results(organizations, concepts, datasets, dataservices, informationmodels)
     except FetchFromServiceException as err:
         return err.__dict__
 
 
+@aggregation_cache
 def aggregate_results(organizations_from_service, concepts, datasets, dataservices,
                       informationmodels) -> OrganizationCatalogListResponse:
     iterator = ResultIterator(organizations=organizations_from_service,
