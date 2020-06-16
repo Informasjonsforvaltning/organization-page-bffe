@@ -1,0 +1,3385 @@
+{
+  "_embedded": {
+    "informationmodels": [
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/981105516"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/985399077"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/984936923"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/874761532"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/914459265"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/920204368"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/982583462"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/981105516"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986128433"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/981544315"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761122"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/987414502"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/984936923"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761467"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/881143712"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/981105516"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986128433"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/987414502"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761122"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971040238"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986128433"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/985399077"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761122"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761122"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/982583462"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/970237372"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/982583462"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986128433"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986128433"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/915933149"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/958935420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/991825827"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/960885406"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/981544315"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/881143712"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/874761222"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/889640782"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/982391490"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/880455702"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/985399077"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761211"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/970237372"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/938275130"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/982391490"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760223"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/985399077"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761467"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {}
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/916132727"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076"
+        }
+      },
+      {
+        "title": {},
+        "publisher": {
+          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/991825827"
+        }
+      }
+    ]
+  },
+  "page": {
+    "size": 1000,
+    "totalElements": 567,
+    "totalPages": 1,
+    "number": 0
+  },
+  "aggregations": {}
+}

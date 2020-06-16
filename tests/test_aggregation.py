@@ -1,183 +1,155 @@
-from unittest.mock import MagicMock
-
 import pytest
-from src.aggregation import get_organization_catalog_list
-from src.utils import FetchFromServiceException
-from src.service_requests import ServiceKey
-from tests.test_data import org_1, org_2, org_3, concept_response, dataset_response, dataservice_response, \
-    info_model_response, org_5
+
+from src.aggregation import aggregate_results
+from src.responses import OrganizationCatalogListResponse
+from src.result_readers import ParsedContent
+from tests.test_data import org_1, org_2, parsed_org_from_geonorge
 
 
-@pytest.fixture
-def mock_get_organizations(mocker):
-    return mocker.patch('src.aggregation.get_organizations',
-                        return_value=[org_1, org_2, org_3, org_5]
-                        )
+def parsed_response_with_uri(count, organization):
+    return ParsedContent(count=count, name=organization["name"], org_id=organization["norwegianRegistry"])
 
 
-@pytest.fixture
-def mock_get_organizations_exception(mocker):
-    return mocker.patch('src.aggregation.get_organizations',
-                        side_effect=FetchFromServiceException(
-                            execution_point=ServiceKey.ORGANIZATIONS,
-                            url="http://mock.grape/organizations"
-                        ))
+def parsed_response_with_id(count, organization):
+    return ParsedContent(count=count, name=organization["name"], org_id=organization["organizationId"])
 
 
-@pytest.fixture
-def mock_get_concepts(mocker):
-    return mocker.patch('src.aggregation.get_concepts_for_organization', return_value=concept_response(92))
-
-
-@pytest.fixture
-def mock_get_concepts_exception(mocker):
-    return mocker.patch('src.aggregation.get_concepts_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.CONCEPTS,
-        url="http://mock.grape/concepts"
-    ))
-
-
-@pytest.fixture
-def mock_get_datasets(mocker):
-    return mocker.patch('src.aggregation.get_datasets_for_organization', return_value=dataset_response(8))
-
-
-@pytest.fixture
-def mock_get_datasets_exception(mocker):
-    return mocker.patch('src.aggregation.get_datasets_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.DATA_SETS,
-        url="http://mock.grape/dataset"
-    ))
-
-
-@pytest.fixture
-def mock_get_dataservices(mocker):
-    return mocker.patch('src.aggregation.get_dataservices_for_organization', return_value=dataservice_response(23))
-
-
-@pytest.fixture
-def mock_get_dataservices_exception(mocker):
-    return mocker.patch('src.aggregation.get_dataservices_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.DATA_SERVICES,
-        url="http://mock.grape/dataservices"
-    ))
-
-
-@pytest.fixture()
-def mock_get_informationmodels(mocker):
-    return mocker.patch('src.aggregation.get_informationmodels_for_organization',
-                        return_value=info_model_response(1))
-
-
-@pytest.fixture()
-def mock_get_informationmodels_exception(mocker):
-    return mocker.patch('src.aggregation.get_informationmodels_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.INFO_MODELS,
-        url="http://mock.grape/informationmodels"
-    ))
+def default_org(name):
+    return {
+        "prefLabel": {
+            "no": name
+        },
+        "orgPath": f"ANNET/{name}",
+        "name": name
+    }
 
 
 @pytest.mark.unit
-def test_get_organization_catalog_list(mock_get_organizations,
-                                       mock_get_concepts,
-                                       mock_get_datasets,
-                                       mock_get_dataservices,
-                                       mock_get_informationmodels):
-    orgpath_list = [org_1["orgPath"], org_2["orgPath"], org_3["orgPath"], org_5["orgPath"]]
-    result = get_organization_catalog_list()
-    assert mock_get_organizations.call_count == 1
-    assert mock_get_concepts.call_count == 4
-    assert mock_get_informationmodels.call_count == 4
-    assert mock_get_datasets.call_count == 4
-    assert mock_get_dataservices.call_count == 4
-    assert called_with_all_orgPaths(mock_get_concepts, orgpath_list)
-    #assert called_with_all_orgPaths(mock_get_informationmodels, info_orgpath_list)
-    assert called_with_all_orgPaths(mock_get_dataservices, orgpath_list)
-    assert called_with_all_orgPaths(mock_get_datasets, orgpath_list)
-    assert result.org_list.__len__() == 4
+def test_aggregate_result_should_return_catalog_list_response(mocker):
+    get_org_mock = mocker.patch('src.aggregation.get_organization', return_value={})
+    result: OrganizationCatalogListResponse = \
+        aggregate_results(organizations_from_service=[org_1, org_2],
+                          concepts=[parsed_response_with_uri(count=3,
+                                                             organization=org_1)],
+                          dataservices=[parsed_response_with_id(count=5,
+                                                                organization=org_1),
+                                        parsed_response_with_id(count=1115,
+                                                                organization=org_2)],
+                          datasets=[parsed_response_with_uri(count=76,
+                                                             organization=org_2)],
+                          informationmodels=[parsed_response_with_uri(count=22,
+                                                                      organization=org_1),
+                                             parsed_response_with_uri(count=58,
+                                                                      organization=org_2)]
+                          )
+    assert result.count() == 2
+    org_1_result: dict = result.org_list[0]
+    org_2_result: dict = result.org_list[1]
+    assert get_org_mock.await_count == 0
+    assert org_1_result["id"] == org_1["organizationId"]
+    assert org_1_result["organization"]["orgPath"] == org_1["orgPath"]
+    assert org_1_result["dataset_count"] == 0
+    assert org_1_result["concept_count"] == 3
+    assert org_1_result["informationmodel_count"] == 22
+    assert org_1_result["dataservice_count"] == 5
+    assert org_2_result["id"] == org_2["organizationId"]
+    assert org_2_result["organization"]["orgPath"] == org_2["orgPath"]
+    assert org_2_result["dataset_count"] == 76
+    assert org_2_result["concept_count"] == 0
+    assert org_2_result["informationmodel_count"] == 58
+    assert org_2_result["dataservice_count"] == 1115
 
 
 @pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_organizations(mock_get_organizations_exception,
-                                                                            mock_get_concepts,
-                                                                            mock_get_datasets,
-                                                                            mock_get_informationmodels,
-                                                                            mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "organization" in result["reason"]
+def test_aggregate_result_should_return_catalog_list_response_with_new_organization_by_uri(mocker):
+    get_org_count = mocker.patch('src.aggregation.get_organization', return_value=org_1)
+    result: OrganizationCatalogListResponse = \
+        aggregate_results(organizations_from_service=[org_2],
+                          concepts=[parsed_response_with_uri(count=3,
+                                                             organization=org_1)],
+                          dataservices=[parsed_response_with_id(count=1115,
+                                                                organization=org_2)],
+                          datasets=[parsed_response_with_uri(count=76,
+                                                             organization=org_2)],
+                          informationmodels=[parsed_response_with_uri(count=22,
+                                                                      organization=org_1),
+                                             parsed_response_with_uri(count=58,
+                                                                      organization=org_2)]
+                          )
+    assert result.count() == 2
+    assert get_org_count.await_count == 1
+    org_1_result: dict = result.org_list[1]
+    org_2_result: dict = result.org_list[0]
+    assert org_1_result["organization"]["orgPath"] == org_1["orgPath"]
+    assert org_1_result["dataset_count"] == 0
+    assert org_1_result["concept_count"] == 3
+    assert org_1_result["informationmodel_count"] == 22
+    assert org_1_result["dataservice_count"] == 0
+    assert org_2_result["organization"]["orgPath"] == org_2["orgPath"]
+    assert org_2_result["dataset_count"] == 76
+    assert org_2_result["concept_count"] == 0
+    assert org_2_result["informationmodel_count"] == 58
+    assert org_2_result["dataservice_count"] == 1115
 
 
 @pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_concepts(mock_get_organizations,
-                                                                       mock_get_concepts_exception,
-                                                                       mock_get_datasets,
-                                                                       mock_get_informationmodels,
-                                                                       mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "concepts" in result["reason"]
+def test_aggregate_result_should_return_catalog_list_response_with_mixed_alt_and_norwegian_ir(mocker):
+    get_org_mock = mocker.patch('src.aggregation.get_organization', return_value=parsed_org_from_geonorge)
+    result: OrganizationCatalogListResponse = \
+        aggregate_results(organizations_from_service=[org_2],
+                          concepts=[parsed_response_with_id(count=3,
+                                                            organization=parsed_org_from_geonorge)],
+                          dataservices=[parsed_response_with_id(count=1115,
+                                                                organization=parsed_org_from_geonorge)],
+                          datasets=[parsed_response_with_id(count=76,
+                                                            organization=org_2)],
+                          informationmodels=[parsed_response_with_id(count=22,
+                                                                     organization=parsed_org_from_geonorge),
+                                             parsed_response_with_id(count=58,
+                                                                     organization=org_2)]
+                          )
+    assert result.count() == 2
+    assert get_org_mock.await_count == 1
+    geo_norge_result: dict = result.org_list[1]
+    org_2_result: dict = result.org_list[0]
+    assert geo_norge_result["organization"]["orgPath"] == parsed_org_from_geonorge["orgPath"]
+    assert geo_norge_result["concept_count"] == 3
+    assert geo_norge_result["dataservice_count"] == 1115
+    assert geo_norge_result["dataset_count"] == 0
+    assert geo_norge_result["informationmodel_count"] == 22
+    assert org_2_result["organization"]["orgPath"] == org_2["orgPath"]
+    assert org_2_result["concept_count"] == 0
+    assert org_2_result["dataservice_count"] == 0
+    assert org_2_result["dataset_count"] == 76
+    assert org_2_result["informationmodel_count"] == 58
 
 
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_datasets(mock_get_organizations,
-                                                                       mock_get_concepts,
-                                                                       mock_get_datasets_exception,
-                                                                       mock_get_informationmodels,
-                                                                       mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "datasets" in result["reason"]
-
-
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_dataservices(mock_get_organizations,
-                                                                           mock_get_concepts,
-                                                                           mock_get_datasets,
-                                                                           mock_get_informationmodels,
-                                                                           mock_get_dataservices_exception):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "dataservices" in result["reason"]
-
-
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_informationmodels(mock_get_organizations,
-                                                                                mock_get_concepts,
-                                                                                mock_get_datasets,
-                                                                                mock_get_informationmodels_exception,
-                                                                                mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "informationmodels" in result["reason"]
-
-
-def called_with_all_orgPaths(mock: MagicMock, org_path_list: list):
-    call_args = []
-
-    for call in mock.call_args_list:
-        call_args.append(call[0][0])
-
-    old_org_paths = []
-    for path in org_path_list:
-        old_org_paths.append(get_old_org_path_format(path))
-
-    all_orgpaths = set(call_args).union(set(old_org_paths))
-    return all_orgpaths.__len__() == call_args.__len__()
-
-
-def get_old_org_path_format(org_path: str):
-    if org_path.startswith("/"):
-        return org_path
-    else:
-        return f"/{org_path}"
+def test_aggregate_result_should_return_catalog_list_response_with_mixed_alt_norwegian_and_default_id(mocker):
+    get_org_mock = mocker.patch('src.aggregation.get_organization', return_value=parsed_org_from_geonorge)
+    result: OrganizationCatalogListResponse = \
+        aggregate_results(organizations_from_service=[org_2],
+                          concepts=[parsed_response_with_id(count=3,
+                                                            organization=parsed_org_from_geonorge)],
+                          dataservices=[parsed_response_with_id(count=1115,
+                                                                organization=parsed_org_from_geonorge)],
+                          datasets=[parsed_response_with_id(count=76,
+                                                            organization=org_2)],
+                          informationmodels=[parsed_response_with_id(count=22,
+                                                                     organization=parsed_org_from_geonorge),
+                                             parsed_response_with_id(count=58,
+                                                                     organization=org_2)]
+                          )
+    assert result.count() == 2
+    assert get_org_mock.await_count == 1
+    geo_norge_result: dict = result.org_list[1]
+    org_2_result: dict = result.org_list[0]
+    assert geo_norge_result["organization"]["orgPath"] == parsed_org_from_geonorge["orgPath"]
+    assert geo_norge_result["concept_count"] == 3
+    assert geo_norge_result["dataservice_count"] == 1115
+    assert geo_norge_result["dataset_count"] == 0
+    assert geo_norge_result["informationmodel_count"] == 22
+    assert org_2_result["organization"]["orgPath"] == org_2["orgPath"]
+    assert org_2_result["concept_count"] == 0
+    assert org_2_result["dataservice_count"] == 0
+    assert org_2_result["dataset_count"] == 76
+    assert org_2_result["informationmodel_count"] == 58
