@@ -1,0 +1,10 @@
+{
+  "name" : "apisReady",
+  "request" : {
+    "url" : "/apis",
+    "method" : "GET"
+  },
+  "response": {
+    "status": 200
+  }
+}

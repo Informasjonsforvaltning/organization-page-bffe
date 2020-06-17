@@ -1,5 +1,4 @@
 import asyncio
-import os
 from json.decoder import JSONDecodeError
 
 import logging
@@ -10,7 +9,8 @@ from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError
 
 from src.result_readers import read_sparql_table, read_alt_organization_rdf_xml, ParsedContent, parse_es_results
-from src.utils import ServiceKey, FetchFromServiceException, sparql_queries, BadUriException, encode_for_sparql
+from src.utils import ServiceKey, FetchFromServiceException, sparql_queries, BadUriException, encode_for_sparql, \
+    service_ready_urls, service_urls
 
 
 def error_msg(reason: str, serviceKey: ServiceKey):
@@ -45,25 +45,6 @@ def default_org(name: str, org_id):
         "name": name,
         "organizationId": org_id
     }
-
-
-service_urls = {
-    ServiceKey.ORGANIZATIONS: os.getenv('ORGANIZATION_CATALOG_URL') or "http://localhost:8080/organizations",
-    ServiceKey.INFO_MODELS: os.getenv('INFORMATIONMODELS_HARVESTER_URL') or "http://localhost:8080/informationmodels",
-    ServiceKey.DATA_SERVICES: os.getenv('DATASERVICE_HARVESTER_URL') or "http://localhost:8080/apis",
-    ServiceKey.DATA_SETS: os.getenv('DATASET_HARVESTER_URL') or "http://localhost:8080/datasets",
-    ServiceKey.CONCEPTS: os.getenv('CONCEPT_HARVESTER_URL') or "http://localhost:8080/concepts"
-
-}
-
-service_ready_urls = {
-    ServiceKey.ORGANIZATIONS: os.getenv('ORGANIZATION_CATALOG_URL') or "http://localhost:8080/organizations",
-    ServiceKey.INFO_MODELS: os.getenv('INFORMATIONMODELS_HARVESTER_URL') or "http://localhost:8080/informationmodels",
-    ServiceKey.DATA_SERVICES: os.getenv('DATASERVICE_HARVESTER_URL') or "http://localhost:8080/apis",
-    ServiceKey.DATA_SETS: f"{os.getenv('DATASET_HARVESTER_URL')}/ready" or "http://localhost:8080/ready",
-    ServiceKey.CONCEPTS: os.getenv('CONCEPT_HARVESTER_URL') or "http://localhost:8080/concepts"
-
-}
 
 
 async def check_available(service: ServiceKey, header=None):
@@ -278,13 +259,6 @@ async def get_organization_from_alternative_registry(organization_iri):
         except (SAXParseException, TypeError):
             raise BadUriException(execution_point=ServiceKey.ORGANIZATIONS,
                                   url=organization_iri)
-        except (ConnectError,ConnectTimeout):
+        except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(execution_point=ServiceKey.ORGANIZATIONS,
                                             url=organization_iri)
-
-
-def get_org_path_for_old_harvester(orgPath: str):
-    if orgPath.startswith("/"):
-        return orgPath
-    else:
-        return f"/{orgPath}"

@@ -15,8 +15,8 @@ services:
       environment:
         - HOST_URL=http://localhost
         - HOST_PORT=8000
-        - ORGANIZATION_CATALOG_URL=http://servicesmock:8080/organizations
-        - CONCEPT_HARVESTER_URL=http://servicesmock:8080/concepts
+        - ORGANIZATION_CATALOG_URL=http://servicesmock:8080
+        - CONCEPT_HARVESTER_URL=http://servicesmock:8080
         - DATASET_HARVESTER_URL=http://servicesmock:8080/datasets
-        - DATASERVICE_HARVESTER_URL=http://servicesmock:8080/apis
-        - INFORMATIONMODELS_HARVESTER_URL=http://servicesmock:8080/informationmodels
+        - DATASERVICE_HARVESTER_URL=http://servicesmock:8080
+        - INFORMATIONMODELS_HARVESTER_URL=http://servicesmock:8080
