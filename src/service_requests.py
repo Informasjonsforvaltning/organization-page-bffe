@@ -278,7 +278,7 @@ async def get_organization_from_alternative_registry(organization_iri):
         except (SAXParseException, TypeError):
             raise BadUriException(execution_point=ServiceKey.ORGANIZATIONS,
                                   url=organization_iri)
-        except ConnectError:
+        except (ConnectError,ConnectTimeout):
             raise FetchFromServiceException(execution_point=ServiceKey.ORGANIZATIONS,
                                             url=organization_iri)
 
