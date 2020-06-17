@@ -80,8 +80,10 @@ def aggregation_cache(function):
                 informationmodels):
         content_hash = hash(tuple([x for x in concepts+datasets+dataservices+informationmodels]))
         if content_hash in memo:
+            print("from cahce")
             return memo[content_hash]
         else:
+            print("new aggregation")
             rv = function(organizations_from_service, concepts, datasets, dataservices,informationmodels)
             memo[content_hash] = rv
             return rv

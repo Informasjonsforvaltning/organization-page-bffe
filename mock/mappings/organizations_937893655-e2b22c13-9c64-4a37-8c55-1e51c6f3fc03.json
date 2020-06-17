@@ -1,0 +1,29 @@
+{
+  "id" : "e2b22c13-9c64-4a37-8c55-1e51c6f3fc03",
+  "name" : "organizations_937893655",
+  "request" : {
+    "url" : "/organizations/937893655",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"937893655\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937893655\",\"internationalRegistry\":null,\"name\":\"LILLESANDS SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/937893655\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"4215\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 17 Jun 2020 07:43:58 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "e2b22c13-9c64-4a37-8c55-1e51c6f3fc03",
+  "persistent" : true,
+  "insertionIndex" : 29
+}

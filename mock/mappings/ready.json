@@ -1,0 +1,10 @@
+{
+  "name" : "organizationsReady",
+  "request" : {
+    "url" : "/ready",
+    "method" : "GET"
+  },
+  "response": {
+    "status": 200
+  }
+}

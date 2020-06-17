@@ -1,0 +1,29 @@
+{
+  "id" : "3ef2ebed-49e3-414a-9f9a-3d44a376441d",
+  "name" : "937891512",
+  "request" : {
+    "url" : "/937891512",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"937891512\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937891512\",\"internationalRegistry\":null,\"name\":\"SPAREBANKEN DIN\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/937891512\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"3817\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 17 Jun 2020 07:14:55 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "3ef2ebed-49e3-414a-9f9a-3d44a376441d",
+  "persistent" : true,
+  "insertionIndex" : 13
+}

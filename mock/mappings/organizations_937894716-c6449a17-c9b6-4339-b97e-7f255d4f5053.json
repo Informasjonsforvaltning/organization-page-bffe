@@ -1,0 +1,29 @@
+{
+  "id" : "c6449a17-c9b6-4339-b97e-7f255d4f5053",
+  "name" : "organizations_937894716",
+  "request" : {
+    "url" : "/organizations/937894716",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"937894716\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937894716\",\"internationalRegistry\":null,\"name\":\"SPARESKILLINGSBANKEN\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/937894716\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"4204\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 17 Jun 2020 07:44:51 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "c6449a17-c9b6-4339-b97e-7f255d4f5053",
+  "persistent" : true,
+  "insertionIndex" : 32
+}

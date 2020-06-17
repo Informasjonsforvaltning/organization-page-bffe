@@ -170,9 +170,7 @@ def test_get_organization_should_return_default_organization(event_loop, mocker)
             name="sjfdlk",
             org_id="https://hjafdkahsfk.hasfjk",
             count=789)))
-    assert result == {
-        "prefLabel": {
-            "no": "sjfdlk"
-        },
-        "orgPath": "ANNET/sjfdlk"
-    }
+    assert result == {'name': 'sjfdlk',
+                      'orgPath': 'ANNET/sjfdlk',
+                      'organizationId': 'https://hjafdkahsfk.hasfjk',
+                      'prefLabel': {'no': 'sjfdlk'}}

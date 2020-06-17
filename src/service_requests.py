@@ -139,7 +139,7 @@ async def get_organization(missing_organization: ParsedContent):
             return await get_organization_from_alternative_registry(missing_organization.alternativeRegistry_iri)
     except (FetchFromServiceException, BadUriException):
         org_id = norwegian_id if norwegian_id else missing_organization.alternativeRegistry_iri if missing_organization.alternativeRegistry_iri else None
-        return default_org(name=missing_organization.name, org_id = org_id)
+        return default_org(name=missing_organization.name, org_id=org_id)
 
 
 async def get_concepts():
@@ -206,8 +206,8 @@ async def get_dataservices():
             return parse_es_results(es_results=es_result_list, with_uri=False)
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
-                execution_point=ServiceKey.CONCEPTS,
-                url=service_urls[ServiceKey.CONCEPTS]
+                execution_point=ServiceKey.DATA_SERVICES,
+                url=service_urls[ServiceKey.DATA_SERVICES]
             )
         except JSONDecodeError:
             return []
@@ -219,7 +219,7 @@ async def get_informationmodels():
             es_result_list = []
             while True:
                 result = await client.get(url=f"{service_urls[ServiceKey.INFO_MODELS]}",
-                                          params={"returnfields": "publisher", "size": "10000"},
+                                          params={"returnfields": "publisher", "size": "10000", "page": 0},
                                           timeout=5)
                 result.raise_for_status()
                 es_result_list.extend(result.json()["_embedded"]["informationmodels"])
@@ -229,8 +229,8 @@ async def get_informationmodels():
             return parse_es_results(es_result_list, with_uri=True)
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
-                execution_point=ServiceKey.CONCEPTS,
-                url=service_urls[ServiceKey.CONCEPTS]
+                execution_point=ServiceKey.INFO_MODELS,
+                url=service_urls[ServiceKey.INFO_MODELS]
             )
         except JSONDecodeError:
             return []

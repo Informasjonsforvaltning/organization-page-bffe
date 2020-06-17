@@ -1,0 +1,10 @@
+{
+  "name" : "organizations",
+  "request" : {
+    "url" : "/organizations/971274042",
+    "method" : "GET"
+  },
+  "response": {
+    "status": 404
+  }
+}

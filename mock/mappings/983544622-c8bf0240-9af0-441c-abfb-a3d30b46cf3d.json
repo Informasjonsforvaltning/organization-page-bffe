@@ -1,0 +1,29 @@
+{
+  "id" : "c8bf0240-9af0-441c-abfb-a3d30b46cf3d",
+  "name" : "983544622",
+  "request" : {
+    "url" : "/983544622",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"983544622\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/983544622\",\"internationalRegistry\":null,\"name\":\"HELSEDIREKTORATET\",\"orgType\":\"ORGL\",\"orgPath\":\"STAT/983887406/983544622\",\"subOrganizationOf\":\"983887406\",\"issued\":\"2001-08-13\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 17 Jun 2020 07:19:12 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "c8bf0240-9af0-441c-abfb-a3d30b46cf3d",
+  "persistent" : true,
+  "insertionIndex" : 25
+}

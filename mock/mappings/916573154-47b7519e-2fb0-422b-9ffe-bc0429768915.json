@@ -1,0 +1,29 @@
+{
+  "id" : "47b7519e-2fb0-422b-9ffe-bc0429768915",
+  "name" : "916573154",
+  "request" : {
+    "url" : "/916573154",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"916573154\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/916573154\",\"internationalRegistry\":null,\"name\":\"NORDAX BANK AB (PUBL)\",\"orgType\":\"NUF\",\"orgPath\":\"PRIVAT/916573154\",\"subOrganizationOf\":null,\"issued\":\"2016-01-18\",\"municipalityNumber\":null,\"industryCode\":\"00.000\",\"sectorCode\":null,\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 17 Jun 2020 07:16:23 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "47b7519e-2fb0-422b-9ffe-bc0429768915",
+  "persistent" : true,
+  "insertionIndex" : 19
+}
