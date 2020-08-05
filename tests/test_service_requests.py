@@ -161,10 +161,15 @@ class HttpResponseMock:
         self.request = {}
 
 
+def get_orgpath_mock(name):
+    return f"/ANNET/{name}"
+
+
 @pytest.mark.unit
 def test_get_organization_should_return_default_organization(event_loop, mocker):
     mocker.patch('src.service_requests.get_organization_from_alternative_registry',
                  side_effect=BadUriException(execution_point="lkaslfa"))
+    org_catalog_mock = mocker.patch(get_request, return_value=get_xhttp_mock(status_code=200, text=get_orgpath_mock("sjfdlk")))
     result = event_loop.run_until_complete(get_organization(
         missing_organization=ParsedContent(
             name="sjfdlk",

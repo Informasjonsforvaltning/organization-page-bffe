@@ -1,0 +1,29 @@
+{
+  "id" : "9f19dbe3-d3c6-44a4-bd38-a0c2abd1632e",
+  "name" : "organizations_947278770",
+  "request" : {
+    "url" : "/organizations/947278770",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"947278770\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/947278770\",\"internationalRegistry\":null,\"name\":\"ORKLA SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"/PRIVAT/947278770\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"5059\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Wed, 05 Aug 2020 12:18:49 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "9f19dbe3-d3c6-44a4-bd38-a0c2abd1632e",
+  "persistent" : true,
+  "insertionIndex" : 47
+}

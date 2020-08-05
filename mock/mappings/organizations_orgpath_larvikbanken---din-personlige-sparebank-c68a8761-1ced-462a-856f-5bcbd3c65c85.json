@@ -1,0 +1,29 @@
+{
+  "id" : "c68a8761-1ced-462a-856f-5bcbd3c65c85",
+  "name" : "organizations_orgpath_larvikbanken---din-personlige-sparebank",
+  "request" : {
+    "url" : "/organizations/orgpath/LARVIKBANKEN%20-%20DIN%20PERSONLIGE%20SPAREBANK",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "/ANNET/LARVIKBANKEN - DIN PERSONLIGE SPAREBANK",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "text/plain;charset=UTF-8",
+      "Date" : "Wed, 05 Aug 2020 12:12:45 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "c68a8761-1ced-462a-856f-5bcbd3c65c85",
+  "persistent" : true,
+  "insertionIndex" : 39
+}

@@ -36,15 +36,29 @@ def service_error_msg(serviceKey: ServiceKey):
     }
 
 
-def default_org(name: str, org_id):
+async def get_default_org(name: str, org_id):
+    orgpath = await get_orgpath_from_organization_catalog(name)
     return {
         "prefLabel": {
             "no": name
         },
-        "orgPath": f"/ANNET/{name}",
+        "orgPath": orgpath,
         "name": name,
         "organizationId": org_id
     }
+
+
+async def get_orgpath_from_organization_catalog(name: str):
+    catalog_url = f"{service_urls[ServiceKey.ORGANIZATIONS]}/orgpath/{name}"
+    async with httpx.AsyncClient() as client:
+        try:
+            orgpath = await client.get(url=catalog_url,
+                                       timeout=1)
+            orgpath.raise_for_status()
+            return orgpath.text
+        except (HTTPError, ConnectError):
+            raise FetchFromServiceException(execution_point=ServiceKey.ORGANIZATIONS,
+                                            url=catalog_url)
 
 
 async def check_available(service: ServiceKey, header=None):
@@ -120,7 +134,7 @@ async def get_organization(missing_organization: ParsedContent):
             return await get_organization_from_alternative_registry(missing_organization.alternativeRegistry_iri)
     except (FetchFromServiceException, BadUriException):
         org_id = norwegian_id if norwegian_id else missing_organization.alternativeRegistry_iri if missing_organization.alternativeRegistry_iri else None
-        return default_org(name=missing_organization.name, org_id=org_id)
+        return await get_default_org(name=missing_organization.name, org_id=org_id)
 
 
 async def get_concepts():
