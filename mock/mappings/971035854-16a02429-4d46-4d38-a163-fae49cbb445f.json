@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"971035854\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971035854\",\"internationalRegistry\":null,\"name\":\"UNIVERSITETET I OSLO\",\"orgType\":\"ORGL\",\"orgPath\":\"STAT/872417842/971035854\",\"subOrganizationOf\":\"872417842\",\"issued\":\"1995-03-12\",\"municipalityNumber\":\"0301\",\"industryCode\":\"85.421\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"971035854\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971035854\",\"internationalRegistry\":null,\"name\":\"UNIVERSITETET I OSLO\",\"orgType\":\"ORGL\",\"orgPath\":\"/STAT/872417842/971035854\",\"subOrganizationOf\":\"872417842\",\"issued\":\"1995-03-12\",\"municipalityNumber\":\"0301\",\"industryCode\":\"85.421\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

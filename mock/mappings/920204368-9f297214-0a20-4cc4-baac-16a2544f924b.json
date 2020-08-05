@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"920204368\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/920204368\",\"internationalRegistry\":null,\"name\":\"OSLO KOMMUNE OSLO ORIGO\",\"orgType\":\"ORGL\",\"orgPath\":\"KOMMUNE/958935420/976819845/920204368\",\"subOrganizationOf\":\"976819845\",\"issued\":\"2018-01-08\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"920204368\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/920204368\",\"internationalRegistry\":null,\"name\":\"OSLO KOMMUNE OSLO ORIGO\",\"orgType\":\"ORGL\",\"orgPath\":\"/KOMMUNE/958935420/976819845/920204368\",\"subOrganizationOf\":\"976819845\",\"issued\":\"2018-01-08\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

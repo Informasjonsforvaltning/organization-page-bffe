@@ -25,13 +25,17 @@ class OrganizationCatalogResponse:
         self.informationmodel_count = informationmodels.count if informationmodels else 0
         self.concept_count = concepts.count if concepts else 0
 
+    def has_content(self):
+        return self.dataservice_count + self.informationmodel_count + self.dataset_count + self.concept_count > 0
+
 
 class OrganizationCatalogListResponse:
     def __init__(self):
         self.org_list = []
 
     def add_organization_catalog(self, organization_catalog: OrganizationCatalogResponse):
-        self.org_list.append(organization_catalog.__dict__)
+        if organization_catalog.has_content():
+            self.org_list.append(organization_catalog.__dict__)
 
     def map_response(self):
         return {

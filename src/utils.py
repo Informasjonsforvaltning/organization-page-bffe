@@ -53,14 +53,6 @@ def build_dataset_sparql_query():
 
 
 def encode_for_sparql(string: str):
-    """"""
-    encoding = {
-        " ": "%20",
-        "<": "%3C",
-        ">": "%3E",
-        "(": "%28",
-        ")": "%29",
-    }
     return string \
         .replace(" ", "%20") \
         .replace("<", "%3C") \
@@ -90,7 +82,6 @@ def aggregation_cache(function):
             rv = function(organizations_from_service, concepts, datasets, dataservices, informationmodels)
             memo[content_hash] = rv
             return rv
-
     return wrapper
 
 

@@ -13,7 +13,7 @@ def test_organization_catalog_response():
             "name": {
                 "no": "POLITI- OG LENSMANNSETATEN"
             },
-            "orgPath": "STAT/972417831/915429785"
+            "orgPath": "/STAT/972417831/915429785"
         },
         "dataset_count": 3,
         "concept_count": 0,
@@ -41,7 +41,7 @@ def test_organization_without_prefLabel_catalog_response():
             "name": {
                 "no": "ARKIVVERKET"
             },
-            "orgPath": "STAT/972417866/961181399"
+            "orgPath": "/STAT/972417866/961181399"
         },
         "dataset_count": 3,
         "concept_count": 0,

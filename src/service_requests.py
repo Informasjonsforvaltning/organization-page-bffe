@@ -41,7 +41,7 @@ def default_org(name: str, org_id):
         "prefLabel": {
             "no": name
         },
-        "orgPath": f"ANNET/{name}",
+        "orgPath": f"/ANNET/{name}",
         "name": name,
         "organizationId": org_id
     }

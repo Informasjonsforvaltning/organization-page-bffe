@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"937901925\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937901925\",\"internationalRegistry\":null,\"name\":\"ØRLAND SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/937901925\",\"subOrganizationOf\":null,\"issued\":\"1995-03-12\",\"municipalityNumber\":\"5057\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"937901925\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937901925\",\"internationalRegistry\":null,\"name\":\"ØRLAND SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"/PRIVAT/937901925\",\"subOrganizationOf\":null,\"issued\":\"1995-03-12\",\"municipalityNumber\":\"5057\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

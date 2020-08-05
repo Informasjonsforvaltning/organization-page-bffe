@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"980374181\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/980374181\",\"internationalRegistry\":null,\"name\":\"LANDKREDITT BANK AS\",\"orgType\":\"AS\",\"orgPath\":\"PRIVAT/980374181\",\"subOrganizationOf\":null,\"issued\":\"1999-01-19\",\"municipalityNumber\":\"0301\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"980374181\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/980374181\",\"internationalRegistry\":null,\"name\":\"LANDKREDITT BANK AS\",\"orgType\":\"AS\",\"orgPath\":\"/PRIVAT/980374181\",\"subOrganizationOf\":null,\"issued\":\"1999-01-19\",\"municipalityNumber\":\"0301\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

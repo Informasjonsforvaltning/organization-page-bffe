@@ -19,7 +19,7 @@ def default_org(name):
         "prefLabel": {
             "no": name
         },
-        "orgPath": f"ANNET/{name}",
+        "orgPath": f"/ANNET/{name}",
         "name": name
     }
 
@@ -93,7 +93,7 @@ def test_aggregate_result_should_return_catalog_list_response_with_new_organizat
 
 
 @pytest.mark.unit
-def test_aggregate_result_should_return_catalog_list_response_with_mixed_alt_and_norwegian_ir(mocker):
+def test_aggregate_result_should_return_catalog_list_response_with_mixed_alt_and_norwegian_iri(mocker):
     get_org_mock = mocker.patch('src.aggregation.get_organization', return_value=parsed_org_from_geonorge)
     result: OrganizationCatalogListResponse = \
         aggregate_results(organizations_from_service=[org_2],
@@ -140,7 +140,6 @@ def test_aggregate_result_should_return_catalog_list_response_with_mixed_alt_nor
                                                                      organization=org_2)]
                           )
     assert result.count() == 2
-    assert get_org_mock.await_count == 1
     geo_norge_result: dict = result.org_list[1]
     org_2_result: dict = result.org_list[0]
     assert geo_norge_result["organization"]["orgPath"] == parsed_org_from_geonorge["orgPath"]

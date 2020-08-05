@@ -140,7 +140,7 @@ def read_alt_organization_rdf_xml(organization):
     return {
         "prefLabel": pref_labels,
         "name": org_path_label(pref_labels),
-        "orgPath": f"ANNET/{org_path_label(pref_labels)}"
+        "orgPath": f"/ANNET/{org_path_label(pref_labels)}"
     }
 
 

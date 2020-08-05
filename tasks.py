@@ -119,13 +119,6 @@ ORDER BY DESC(?count)"""
     ctx.run("docker-compose down")
 
 
-def get_org_path_for_old_harvester(orgPath: str):
-    if orgPath.startswith("/"):
-        return orgPath
-    else:
-        return f"/{orgPath}"
-
-
 def start_recording_curl(ctx, record_url):
     start_recording_req = "curl -d '{\"targetBaseUrl\": \"{0}\" }' -H " \
                           "'Content-Type: application/json' http://localhost:8080/__admin/recordings/start".format(

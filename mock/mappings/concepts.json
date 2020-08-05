@@ -115,7 +115,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
           "name": "PATENTSTYRET",
-          "orgPath": "STAT/912660680/971526157",
+          "orgPath": "/STAT/912660680/971526157",
           "prefLabel": {
             "no": "PATENTSTYRET"
           }
@@ -129,7 +129,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
           "name": "PATENTSTYRET",
-          "orgPath": "STAT/912660680/971526157",
+          "orgPath": "/STAT/912660680/971526157",
           "prefLabel": {
             "no": "PATENTSTYRET"
           }
@@ -143,7 +143,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
           "name": "PATENTSTYRET",
-          "orgPath": "STAT/912660680/971526157",
+          "orgPath": "/STAT/912660680/971526157",
           "prefLabel": {
             "no": "PATENTSTYRET"
           }

@@ -6,7 +6,7 @@ org_1: dict = {
     "internationalRegistry": None,
     "name": "REGISTERENHETEN I BRØNNØYSUND",
     "orgType": "ORGL",
-    "orgPath": "STAT/912660680/974760673",
+    "orgPath": "/STAT/912660680/974760673",
     "subOrganizationOf": "912660680",
     "issued": "1995-08-09",
     "municipalityNumber": "1813",
@@ -40,7 +40,7 @@ org_3: dict = {
     "internationalRegistry": None,
     "name": "ENTUR AS",
     "orgType": "AS",
-    "orgPath": "PRIVAT/917422575",
+    "orgPath": "/PRIVAT/917422575",
     "subOrganizationOf": None,
     "issued": "2016-07-04",
     "municipalityNumber": "0301",
@@ -55,7 +55,7 @@ org4: dict = {
     "internationalRegistry": None,
     "name": "ARKIVVERKET",
     "orgType": "ORGL",
-    "orgPath": "STAT/972417866/961181399",
+    "orgPath": "/STAT/972417866/961181399",
     "subOrganizationOf": "972417866",
     "issued": "1995-08-09",
     "municipalityNumber": "0301",
@@ -76,7 +76,7 @@ org_5: dict = {
     "internationalRegistry": None,
     "name": "POLITI- OG LENSMANNSETATEN",
     "orgType": "ORGL",
-    "orgPath": "STAT/972417831/915429785",
+    "orgPath": "/STAT/972417831/915429785",
     "subOrganizationOf": "972417831",
     "issued": "2015-05-22",
     "municipalityNumber": "0301",
@@ -93,7 +93,7 @@ org_5_without_prefLabel_object = {
     "internationalRegistry": None,
     "name": "POLITI- OG LENSMANNSETATEN",
     "orgType": "ORGL",
-    "orgPath": "STAT/972417831/915429785",
+    "orgPath": "/STAT/972417831/915429785",
     "subOrganizationOf": "972417831",
     "issued": "2015-05-22",
     "municipalityNumber": "0301",
@@ -107,7 +107,7 @@ org_alt_registry: dict = {
     "internationalRegistry": None,
     "name": "REGISTERENHETEN I BRØNNØYSUND",
     "orgType": "ORGL",
-    "orgPath": "STAT/912660680/974760673",
+    "orgPath": "/STAT/912660680/974760673",
     "subOrganizationOf": "912660680",
     "issued": "1995-08-09",
     "municipalityNumber": "1813",
@@ -164,7 +164,7 @@ info_es_response_size_1_total_7 = {
                 "publisher": {
                     "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420",
                     "name": "FISKERIDIREKTORATET",
-                    "orgPath": "STAT/912660680/971203420"
+                    "orgPath": "/STAT/912660680/971203420"
                 }
             }
 
@@ -239,7 +239,7 @@ geonorge_rdf_organization = """<?xml version="1.0" encoding="utf-8"?>
 </rdf:RDF>"""
 
 parsed_org_from_geonorge = {'name': 'Fylkeskommunene',
-                            'orgPath': 'ANNET/Fylkeskommunene',
+                            'orgPath': '/ANNET/Fylkeskommunene',
                             'organizationId': 'http://oneofthegoodones/56725740',
                             'prefLabel': {'nb': 'Fylkeskommunene', 'no': 'Fylkeskommunene'}
                             }

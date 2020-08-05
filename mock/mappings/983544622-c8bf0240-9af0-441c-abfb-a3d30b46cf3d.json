@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"983544622\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/983544622\",\"internationalRegistry\":null,\"name\":\"HELSEDIREKTORATET\",\"orgType\":\"ORGL\",\"orgPath\":\"STAT/983887406/983544622\",\"subOrganizationOf\":\"983887406\",\"issued\":\"2001-08-13\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"983544622\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/983544622\",\"internationalRegistry\":null,\"name\":\"HELSEDIREKTORATET\",\"orgType\":\"ORGL\",\"orgPath\":\"/STAT/983887406/983544622\",\"subOrganizationOf\":\"983887406\",\"issued\":\"2001-08-13\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

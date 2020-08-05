@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"958935420\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/958935420\",\"internationalRegistry\":null,\"name\":\"OSLO KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"KOMMUNE/958935420\",\"subOrganizationOf\":null,\"issued\":\"1995-06-07\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"958935420\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/958935420\",\"internationalRegistry\":null,\"name\":\"OSLO KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/958935420\",\"subOrganizationOf\":null,\"issued\":\"1995-06-07\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

@@ -17,7 +17,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971203420",
           "name": "FISKERIDIREKTORATET",
-          "orgPath": "STAT/912660680/971203420"
+          "orgPath": "/STAT/912660680/971203420"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:42",
@@ -35,7 +35,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:44",
@@ -53,7 +53,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:44",
@@ -71,7 +71,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:43",
@@ -89,7 +89,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076",
           "name": "SKATTEETATEN",
-          "orgPath": "STAT/972417807/974761076"
+          "orgPath": "/STAT/972417807/974761076"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:43",
@@ -107,7 +107,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076",
           "name": "SKATTEETATEN",
-          "orgPath": "STAT/972417807/974761076"
+          "orgPath": "/STAT/972417807/974761076"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:43",
@@ -125,7 +125,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971527412",
           "name": "NORSK KULTURRÅD",
-          "orgPath": "STAT/972417866/971527412"
+          "orgPath": "/STAT/972417866/971527412"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:46",
@@ -143,7 +143,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622",
           "name": "HELSEDIREKTORATET",
-          "orgPath": "STAT/983887406/983544622"
+          "orgPath": "/STAT/983887406/983544622"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:44",
@@ -161,7 +161,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:44",
@@ -179,7 +179,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
           "name": "PATENTSTYRET",
-          "orgPath": "STAT/912660680/971526157"
+          "orgPath": "/STAT/912660680/971526157"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:45",
@@ -197,7 +197,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076",
           "name": "SKATTEETATEN",
-          "orgPath": "STAT/972417807/974761076"
+          "orgPath": "/STAT/972417807/974761076"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:46",
@@ -215,7 +215,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076",
           "name": "SKATTEETATEN",
-          "orgPath": "STAT/972417807/974761076"
+          "orgPath": "/STAT/972417807/974761076"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:45",
@@ -233,7 +233,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/986186999",
           "name": "STATENS SIVILRETTSFORVALTNING",
-          "orgPath": "STAT/972417831/986186999"
+          "orgPath": "/STAT/972417831/986186999"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:46",
@@ -251,7 +251,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:47",
@@ -269,7 +269,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:48",
@@ -287,7 +287,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:48",
@@ -305,7 +305,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:48",
@@ -323,7 +323,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:49",
@@ -341,7 +341,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:49",
@@ -359,7 +359,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:46",
@@ -377,7 +377,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:49",
@@ -395,7 +395,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/974761076",
           "name": "SKATTEETATEN",
-          "orgPath": "STAT/972417807/974761076"
+          "orgPath": "/STAT/972417807/974761076"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:49",
@@ -413,7 +413,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
           "name": "FINANSTILSYNET",
-          "orgPath": "STAT/972417807/840747972"
+          "orgPath": "/STAT/972417807/840747972"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:50",
@@ -431,7 +431,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:50",
@@ -449,7 +449,7 @@
         "publisher": {
           "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
           "name": "STATISTISK SENTRALBYRÅ",
-          "orgPath": "STAT/972417807/971526920"
+          "orgPath": "/STAT/972417807/971526920"
         },
         "harvest": {
           "firstHarvested": "2020-02-26T15:03:49",

@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"938275130\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/938275130\",\"internationalRegistry\":null,\"name\":\"SKEDSMO KOMMUNE UNDER SLETTING FRA 01.01.2020\",\"orgType\":\"KOMM\",\"orgPath\":\"KOMMUNE/938275130\",\"subOrganizationOf\":null,\"issued\":\"1995-06-07\",\"municipalityNumber\":\"3030\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"938275130\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/938275130\",\"internationalRegistry\":null,\"name\":\"SKEDSMO KOMMUNE UNDER SLETTING FRA 01.01.2020\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/938275130\",\"subOrganizationOf\":null,\"issued\":\"1995-06-07\",\"municipalityNumber\":\"3030\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

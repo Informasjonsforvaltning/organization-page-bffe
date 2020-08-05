@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"837902622\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/837902622\",\"internationalRegistry\":null,\"name\":\"HALTDALEN SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/837902622\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"5026\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"837902622\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/837902622\",\"internationalRegistry\":null,\"name\":\"HALTDALEN SPAREBANK\",\"orgType\":\"SPA\",\"orgPath\":\"/PRIVAT/837902622\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"5026\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

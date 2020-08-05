@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"970018131\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/970018131\",\"internationalRegistry\":null,\"name\":\"UTDANNINGSDIREKTORATET\",\"orgType\":\"ORGL\",\"orgPath\":\"STAT/872417842/970018131\",\"subOrganizationOf\":\"872417842\",\"issued\":\"1995-03-12\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"970018131\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/970018131\",\"internationalRegistry\":null,\"name\":\"UTDANNINGSDIREKTORATET\",\"orgType\":\"ORGL\",\"orgPath\":\"/STAT/872417842/970018131\",\"subOrganizationOf\":\"872417842\",\"issued\":\"1995-03-12\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

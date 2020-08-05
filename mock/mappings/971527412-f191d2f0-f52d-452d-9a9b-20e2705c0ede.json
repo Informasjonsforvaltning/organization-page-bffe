@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"971527412\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971527412\",\"internationalRegistry\":null,\"name\":\"NORSK KULTURRÅD\",\"orgType\":\"ORGL\",\"orgPath\":\"STAT/972417866/971527412\",\"subOrganizationOf\":\"972417866\",\"issued\":\"1995-08-09\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"971527412\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971527412\",\"internationalRegistry\":null,\"name\":\"NORSK KULTURRÅD\",\"orgType\":\"ORGL\",\"orgPath\":\"/STAT/972417866/971527412\",\"subOrganizationOf\":\"972417866\",\"issued\":\"1995-08-09\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.120\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

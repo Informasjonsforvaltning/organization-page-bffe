@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"916573154\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/916573154\",\"internationalRegistry\":null,\"name\":\"NORDAX BANK AB (PUBL)\",\"orgType\":\"NUF\",\"orgPath\":\"PRIVAT/916573154\",\"subOrganizationOf\":null,\"issued\":\"2016-01-18\",\"municipalityNumber\":null,\"industryCode\":\"00.000\",\"sectorCode\":null,\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"916573154\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/916573154\",\"internationalRegistry\":null,\"name\":\"NORDAX BANK AB (PUBL)\",\"orgType\":\"NUF\",\"orgPath\":\"/PRIVAT/916573154\",\"subOrganizationOf\":null,\"issued\":\"2016-01-18\",\"municipalityNumber\":null,\"industryCode\":\"00.000\",\"sectorCode\":null,\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",

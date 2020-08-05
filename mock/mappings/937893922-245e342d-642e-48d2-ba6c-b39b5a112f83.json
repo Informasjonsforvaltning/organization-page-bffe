@@ -7,7 +7,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"organizationId\":\"937893922\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937893922\",\"internationalRegistry\":null,\"name\":\"Valle Sparebank\",\"orgType\":\"SPA\",\"orgPath\":\"PRIVAT/937893922\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"4221\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "body" : "{\"organizationId\":\"937893922\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/937893922\",\"internationalRegistry\":null,\"name\":\"Valle Sparebank\",\"orgType\":\"SPA\",\"orgPath\":\"/PRIVAT/937893922\",\"subOrganizationOf\":null,\"issued\":\"1995-02-19\",\"municipalityNumber\":\"4221\",\"industryCode\":\"64.190\",\"sectorCode\":\"3200\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "X-Content-Type-Options" : "nosniff",
