@@ -189,26 +189,19 @@ async def get_datasets():
 async def get_dataservices():
     async with httpx.AsyncClient() as client:
         try:
-            es_result_list = []
-            while True:
-                i = 0
-                result = await client.get(url=f"{service_urls[ServiceKey.DATA_SERVICES]}",
-                                          params={"size": "100000", "page": i},
-                                          timeout=5)
-                result.raise_for_status()
-                es_result_list.extend(result.json()["hits"])
-                if es_result_list.__len__() >= result.json()["total"]:
-                    break
-                else:
-                    i += 0
-            return parse_es_results(es_results=es_result_list, with_uri=False)
+            sparql_select_endpoint = f"{service_urls[ServiceKey.DATA_SERVICES]}/sparql/select"
+            encoded_query = encode_for_sparql(sparql_queries[ServiceKey.DATA_SERVICES])
+            print(encoded_query)
+            url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
+            result = await client.get(url=url_with_query, timeout=5)
+            result.raise_for_status()
+            return read_sparql_table(result.text)
         except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[dataservices]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
                 execution_point=ServiceKey.DATA_SERVICES,
-                url=service_urls[ServiceKey.DATA_SERVICES]
+                url=sparql_select_endpoint
             )
-        except JSONDecodeError:
-            return []
 
 
 async def get_informationmodels():
