@@ -11,14 +11,22 @@ class ServiceKey:
 
 
 class FetchFromServiceException(Exception):
-    def __init__(self, execution_point: ServiceKey, url: str = None):
+    def __init__(self, execution_point: ServiceKey, url: str = None, additional_info: str = None):
         self.status = "error"
         self.reason = f"Connection error when attempting to fetch {execution_point} from {url}"
+        if additional_info:
+            self.reason += additional_info
 
 
 class BadUriException(Exception):
     def __init__(self, execution_point: ServiceKey, url: str = None):
         self.reason = f"Attempt to fetch {execution_point} from {url}"
+
+
+class BadRdfXmlException(Exception):
+    def __init__(self, rdf_str):
+        self.reason = f"Attempt to parse rdf failed"
+        self.source = rdf_str
 
 
 def build_dataset_sparql_query():
@@ -78,10 +86,10 @@ def aggregation_cache(function):
         if content_hash in memo:
             return memo[content_hash]
         else:
-            print("new aggregation")
             rv = function(organizations_from_service, concepts, datasets, dataservices, informationmodels)
             memo[content_hash] = rv
             return rv
+
     return wrapper
 
 

@@ -1,7 +1,11 @@
 import logging
 import re
 from itertools import groupby
+from xml.sax import SAXParseException
+
 from rdflib import Graph, URIRef, SKOS
+
+from src.utils import BadRdfXmlException
 
 
 class RegistryUrls:
@@ -38,7 +42,7 @@ class ParsedContent:
             uri_split = other.split(sep="/")
             if hasattr(self, 'org_id') and len(uri_split) > 1 and self.org_id == uri_split[len(uri_split) - 1]:
                 return True
-            elif hasattr(self,'org_id') and other == self.org_id:
+            elif hasattr(self, 'org_id') and other == self.org_id:
                 return True
             elif hasattr(self, 'alternativeRegistry_iri') and self.alternativeRegistry_iri == other:
                 return True
@@ -76,16 +80,18 @@ class ParsedContent:
 def read_sparql_table(table: str) -> list:
     content = []
     for row in table.splitlines():
-        if row.startswith('-') or row.startswith("=") or row.startswith('| uri'):
-            continue
-        else:
-            content.append(read_sparql_row(row))
+        parsed_row = read_sparql_row(row)
+        if parsed_row:
+            content.append(parsed_row)
     return content
 
 
 def read_sparql_row(row: str) -> ParsedContent:
-    iri, name, count = row.replace('"', '').split(sep='|')[1:4]
-    return ParsedContent(count=int(count.strip()), org_id=iri.strip(), name=name.strip())
+    try:
+        iri, name, count = row.replace('"', '').split(sep='|')[1:4]
+        return ParsedContent(count=int(count.strip()), org_id=iri.strip(), name=name.strip())
+    except ValueError:
+        return None
 
 
 def parse_es_results(es_results: list, with_uri: bool):
@@ -130,18 +136,21 @@ def group_by_org_id(es_results):
 
 
 def read_alt_organization_rdf_xml(organization):
-    graph = Graph()
-    graph.parse(data=organization, format="application/rdf+xml")
-    pref_label_pred = URIRef("http://www.w3.org/2004/02/skos/core#prefLabel")
-    pref_labels = {}
-    for pref_label in graph.objects(predicate=pref_label_pred):
-        pref_labels[pref_label.language] = pref_label.value
+    try:
+        graph = Graph()
+        graph.parse(data=organization, format="application/rdf+xml")
+        pref_label_pred = URIRef("http://www.w3.org/2004/02/skos/core#prefLabel")
+        pref_labels = {}
+        for pref_label in graph.objects(predicate=pref_label_pred):
+            pref_labels[pref_label.language] = pref_label.value
 
-    return {
-        "prefLabel": pref_labels,
-        "name": org_path_label(pref_labels),
-        "orgPath": f"/ANNET/{org_path_label(pref_labels)}"
-    }
+        return {
+            "prefLabel": pref_labels,
+            "name": org_path_label(pref_labels),
+            "orgPath": f"/ANNET/{org_path_label(pref_labels)}"
+        }
+    except SAXParseException:
+        raise BadRdfXmlException(rdf_str=organization)
 
 
 def org_path_label(pref_labels: dict) -> str:

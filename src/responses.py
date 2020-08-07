@@ -43,7 +43,7 @@ class OrganizationCatalogListResponse:
         }
 
     def count(self):
-        return self.org_list.__len__()
+        return len(self.org_list)
 
     def keys(self):
         return {

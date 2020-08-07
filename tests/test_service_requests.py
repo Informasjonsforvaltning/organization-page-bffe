@@ -5,7 +5,7 @@ from src.service_requests import ServiceKey, get_organizations, get_concepts, ge
     get_informationmodels, get_organization_from_organization_catalogue, get_organization_from_alternative_registry, \
     get_organization
 from src.result_readers import ParsedContent
-from src.utils import FetchFromServiceException, BadUriException
+from src.utils import FetchFromServiceException, BadUriException, BadRdfXmlException
 from tests.conftest import get_xhttp_mock
 from tests.test_data import org_1, geonorge_rdf_organization, parsed_org_from_geonorge
 
@@ -150,7 +150,7 @@ def test_get_organization_from_alternative_registry_should_throw_bad_uri_excepti
 @pytest.mark.unit
 def test_get_organization_from_alternative_registry_should_throw_bad_uri_exception_for_html(event_loop, mocker):
     mocker.patch(get_request, return_value=get_xhttp_mock(status_code=200, text="""<!DOCTYPE html>"""))
-    with pytest.raises(BadUriException):
+    with pytest.raises(BadRdfXmlException):
         event_loop.run_until_complete(
             get_organization_from_alternative_registry(organization_iri="http://oneofthebadones/56725740"))
 

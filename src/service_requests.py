@@ -10,7 +10,7 @@ from httpx import HTTPError
 
 from src.result_readers import read_sparql_table, read_alt_organization_rdf_xml, ParsedContent, parse_es_results
 from src.utils import ServiceKey, FetchFromServiceException, sparql_queries, BadUriException, encode_for_sparql, \
-    service_ready_urls, service_urls
+    service_ready_urls, service_urls, BadRdfXmlException
 
 
 def error_msg(reason: str, serviceKey: ServiceKey):
@@ -53,12 +53,14 @@ async def get_orgpath_from_organization_catalog(name: str):
     async with httpx.AsyncClient() as client:
         try:
             orgpath = await client.get(url=catalog_url,
-                                       timeout=1)
+                                       timeout=5)
             orgpath.raise_for_status()
             return orgpath.text
-        except (HTTPError, ConnectError):
+        except (HTTPError, ConnectError, TimeoutError, ConnectTimeout):
             raise FetchFromServiceException(execution_point=ServiceKey.ORGANIZATIONS,
-                                            url=catalog_url)
+                                            url=catalog_url,
+                                            additional_info=" could not get generated orgpath"
+                                            )
 
 
 async def check_available(service: ServiceKey, header=None):
@@ -132,7 +134,7 @@ async def get_organization(missing_organization: ParsedContent):
             return await get_organization_from_organization_catalogue(organization_id=norwegian_id)
         else:
             return await get_organization_from_alternative_registry(missing_organization.alternativeRegistry_iri)
-    except (FetchFromServiceException, BadUriException):
+    except (FetchFromServiceException, BadUriException,BadRdfXmlException):
         org_id = norwegian_id if norwegian_id else missing_organization.alternativeRegistry_iri if missing_organization.alternativeRegistry_iri else None
         return await get_default_org(name=missing_organization.name, org_id=org_id)
 
@@ -171,6 +173,7 @@ async def get_datasets():
         try:
             sparql_select_endpoint = f"{service_urls[ServiceKey.DATA_SETS]}/sparql/select"
             encoded_query = encode_for_sparql(sparql_queries[ServiceKey.DATA_SETS])
+            print(encoded_query)
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, timeout=5)
             result.raise_for_status()

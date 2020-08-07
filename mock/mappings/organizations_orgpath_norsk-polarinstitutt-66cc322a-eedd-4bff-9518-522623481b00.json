@@ -1,0 +1,29 @@
+{
+  "id" : "66cc322a-eedd-4bff-9518-522623481b00",
+  "name" : "organizations_orgpath_norsk-polarinstitutt",
+  "request" : {
+    "url" : "/organizations/orgpath/Norsk%20Polarinstitutt",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "/ANNET/Norsk Polarinstitutt",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "text/plain;charset=UTF-8",
+      "Date" : "Fri, 07 Aug 2020 06:22:48 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "66cc322a-eedd-4bff-9518-522623481b00",
+  "persistent" : true,
+  "insertionIndex" : 15
+}

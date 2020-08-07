@@ -1,0 +1,29 @@
+{
+  "id" : "7321e3a4-173b-4b10-a042-ef6eed2b318f",
+  "name" : "organizations_985399077",
+  "request" : {
+    "url" : "/organizations/985399077",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"985399077\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/985399077\",\"internationalRegistry\":null,\"name\":\"MATTILSYNET\",\"orgType\":\"ORGL\",\"orgPath\":\"/STAT/972417874/985399077\",\"subOrganizationOf\":\"972417874\",\"issued\":\"2003-02-12\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.130\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 07 Aug 2020 06:28:41 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "7321e3a4-173b-4b10-a042-ef6eed2b318f",
+  "persistent" : true,
+  "insertionIndex" : 25
+}

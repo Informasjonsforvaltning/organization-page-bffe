@@ -1,5 +1,5 @@
 {
-  "name" : "organizationsReady",
+  "name" : "ready",
   "request" : {
     "url" : "/ready",
     "method" : "GET"
