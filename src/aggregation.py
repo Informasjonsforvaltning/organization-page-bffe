@@ -4,8 +4,8 @@ import time
 from asyncio import get_event_loop
 
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
-from src.service_requests import get_organizations, get_concepts, get_datasets, get_dataservices, \
-    get_informationmodels, get_organization
+from src.service_requests import get_organizations_from_catalog, get_concepts, get_datasets, get_dataservices, \
+    get_informationmodels, fetch_organization_from_catalog
 from src.utils import FetchFromServiceException, aggregation_cache
 
 
@@ -14,7 +14,7 @@ def get_organization_catalog_list():
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        content_requests = asyncio.gather(get_organizations(),
+        content_requests = asyncio.gather(get_organizations_from_catalog(),
                                           get_concepts(),
                                           get_datasets(),
                                           get_dataservices(),
@@ -111,7 +111,7 @@ class ResultIterator:
         reduced_org_content = [org for org in set(self.datasets).union(set(self.concepts)).union(
             set(self.informationmodels).union(self.dataservices))]
         loop = get_event_loop()
-        organization_tasks = asyncio.gather(*(get_organization(org) for org in reduced_org_content))
+        organization_tasks = asyncio.gather(*(fetch_organization_from_catalog(org) for org in reduced_org_content))
         result = loop.run_until_complete(organization_tasks)
         self.organizations.extend(result)
 

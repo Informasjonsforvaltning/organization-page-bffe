@@ -1,6 +1,12 @@
 import os
 
 
+class OrgCatalogKeys:
+    NAME = "name"
+    URI = "norwegianRegistry"
+    ORG_PATH = "orgPath"
+
+
 class ServiceKey:
     ORGANIZATIONS = "organizations"
     INFO_MODELS = "informationmodels"
@@ -23,74 +29,6 @@ class BadUriException(Exception):
         self.reason = f"Attempt to fetch {execution_point} from {url}"
 
 
-class BadRdfXmlException(Exception):
-    def __init__(self, rdf_str):
-        self.reason = f"Attempt to parse rdf failed"
-        self.source = rdf_str
-
-
-def build_dataset_sparql_query():
-    prefixes = f"{DCT_PREFIX}{FOAF_PREFIX} {OWL_PREFIX} "
-    select_fields = "?uri ?name (COUNT(?item) AS ?count)"
-    nested_select_fields = "?publisher ?uri ?name"
-    publisher_a_agent = "?publisher a foaf:Agent ."
-    item_a_publisher = "?item dct:publisher ?publisher ."
-    publisher_name = "{ ?publisher foaf:name ?name . }"
-    publisher_same_as = "{ ?publisher owl:sameAs ?sameAs . }"
-    bind_sameAs_as_uri = "(COALESCE(?sameAs, STR(?publisher)) AS ?uri)"
-    start_nested = "{"
-    end_nested = "}"
-    start_where = "{"
-    end_where = "}"
-    group_by = "?uri ?name"
-    order_by = "DESC(?count)"
-
-    return f"{prefixes}" \
-           f"SELECT {select_fields} " \
-           f"WHERE {start_where} {publisher_a_agent} {item_a_publisher} " \
-           f"{start_nested} SELECT {nested_select_fields}" \
-           f" WHERE {start_where} {publisher_a_agent} " \
-           f"OPTIONAL {publisher_name} " \
-           f"OPTIONAL {publisher_same_as} " \
-           f"BIND{bind_sameAs_as_uri}" \
-           f" {end_where}" \
-           f" {end_nested}" \
-           f" {end_where} " \
-           f"GROUP BY {group_by} " \
-           f"ORDER BY {order_by}"
-
-
-def build_data_service_sparql_query():
-    prefixes = f"{DCT_PREFIX}{FOAF_PREFIX} {OWL_PREFIX} "
-    select_fields = "?uri ?name (COUNT(?item) AS ?count)"
-    nested_select_fields = "?publisher ?uri ?name"
-    publisher_a_agent = "?publisher a foaf:Agent ."
-    item_a_publisher = "?item dct:publisher ?publisher ."
-    publisher_name = "{ ?publisher foaf:name ?name . }"
-    publisher_same_as = "{ ?publisher owl:sameAs ?sameAs . }"
-    bind_sameAs_as_uri = "(COALESCE(?sameAs, STR(?publisher)) AS ?uri)"
-    start_nested = "{"
-    end_nested = "}"
-    start_where = "{"
-    end_where = "}"
-    group_by = "?uri ?name"
-    order_by = "DESC(?count)"
-
-    return f"{prefixes}" \
-           f"SELECT {select_fields} " \
-           f"WHERE {start_where} {publisher_a_agent} {item_a_publisher} " \
-           f"{start_nested} SELECT {nested_select_fields}" \
-           f" WHERE {start_where} {publisher_a_agent} " \
-           f"OPTIONAL {publisher_name} " \
-           f"OPTIONAL {publisher_same_as} " \
-           f"BIND{bind_sameAs_as_uri}" \
-           f" {end_where}" \
-           f" {end_nested}" \
-           f" {end_where} " \
-           f"GROUP BY {group_by} " \
-           f"ORDER BY {order_by}"
-
-
 def encode_for_sparql(string: str):
     return string \
         .replace(" ", "%20") \
@@ -103,10 +41,6 @@ def encode_for_sparql(string: str):
 DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
 FOAF_PREFIX = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
 OWL_PREFIX = "PREFIX owl: <http://www.w3.org/2002/07/owl%23>"
-sparql_queries = {
-    ServiceKey.DATA_SETS: build_dataset_sparql_query(),
-    ServiceKey.DATA_SERVICES: build_data_service_sparql_query()
-}
 
 
 def aggregation_cache(function):
@@ -134,7 +68,7 @@ env_variables = {
 }
 
 
-def get_service_urls(service: ServiceKey):
+def get_service_url(service: ServiceKey):
     base_url = os.getenv(env_variables[service]) or "http://localhost:8080"
     if service == ServiceKey.DATA_SETS or service == ServiceKey.DATA_SERVICES:
         return base_url
@@ -142,19 +76,33 @@ def get_service_urls(service: ServiceKey):
         return f"{base_url}/{service}"
 
 
-service_urls = {
-    ServiceKey.ORGANIZATIONS: get_service_urls(ServiceKey.ORGANIZATIONS),
-    ServiceKey.INFO_MODELS: get_service_urls(ServiceKey.INFO_MODELS),
-    ServiceKey.DATA_SERVICES: get_service_urls(ServiceKey.DATA_SERVICES),
-    ServiceKey.DATA_SETS: get_service_urls(ServiceKey.DATA_SETS),
-    ServiceKey.CONCEPTS: get_service_urls(ServiceKey.CONCEPTS)
+class ContentKeys:
+    KEY = "key"
+    SAME_AS = "sameAs"
+    PUBLISHER = "publisher"
+    SRC_ORGANIZATION = "publisher"
+    FORMAT = "format"
+    WITH_SUBJECT = "withSubject"
+    OPEN_DATA = "opendata"
+    TOTAL = "total"
+    NEW_LAST_WEEK = "new_last_week"
+    NATIONAL_COMPONENT = "nationalComponent"
+    ORGANIZATION = "organization"
+    COUNT = "count"
+    VALUE = "value"
+    ACCESS_RIGHTS_CODE = "code"
+    TIME_SERIES_MONTH = "month"
+    TIME_SERIES_YEAR = "year"
+    TIME_SERIES_Y_AXIS = "yAxis"
+    TIME_SERIES_X_AXIS = "xAxis"
+    THEME = "theme"
+    ORG_NAME = "name"
+    ORGANIZATION_URI = "organization"
+    LOS_PATH = "losPath"
+    CATALOGS = "catalogs"
+    ORGANIZATION_COUNT = "organizationCount"
 
-}
 
-service_ready_urls = {
-    ServiceKey.ORGANIZATIONS: f"{os.getenv('ORGANIZATION_CATALOG_URL')}/ready" or "http://localhost:8080/ready",
-    ServiceKey.INFO_MODELS: get_service_urls(ServiceKey.INFO_MODELS),
-    ServiceKey.DATA_SERVICES: get_service_urls(ServiceKey.DATA_SERVICES),
-    ServiceKey.DATA_SETS: get_service_urls(ServiceKey.DATA_SETS),
-    ServiceKey.CONCEPTS: get_service_urls(ServiceKey.CONCEPTS)
-}
+class NotInNationalRegistryException(Exception):
+    def __init__(self, uri):
+        self.reason = f"{uri} was not found in the nationalRegistry"

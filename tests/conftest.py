@@ -1,13 +1,11 @@
-import asyncio
-import re
 import time
 import pytest
 import requests
 from urllib3.exceptions import MaxRetryError, NewConnectionError
 
 from src.utils import ServiceKey
-from tests.test_data import org_1, org_3, org_2, mock_dataset_sparql_result, \
-    concept_es_response_size_2_total_10, info_es_response_size_1_total_7, dataservice_es_response_size_1_total_21
+from tests.test_data import org_brreg, org_digdir, concept_es_response, info_es_response_size_1_total_7, \
+    org_politi
 
 
 @pytest.fixture(scope="session")
@@ -32,13 +30,13 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
     class MockResponse:
         def __init__(self, status):
             if service_key == ServiceKey.ORGANIZATIONS:
-                self.json_data = [org_1, org_2, org_3]
+                self.json_data = [org_brreg, org_digdir, org_politi]
             elif service_key == ServiceKey.CONCEPTS:
-                self.json_data = concept_es_response_size_2_total_10
+                self.json_data = concept_es_response
             elif service_key == ServiceKey.DATA_SETS:
-                self.text = mock_dataset_sparql_result(organizations)
+                self.text = None
             elif service_key == ServiceKey.DATA_SERVICES:
-                self.json_data = dataservice_es_response_size_1_total_21
+                self.json_data = None
             elif service_key == ServiceKey.INFO_MODELS:
                 self.json_data = info_es_response_size_1_total_7
             elif json:

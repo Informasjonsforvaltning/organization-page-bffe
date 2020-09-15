@@ -1,160 +1,252 @@
-import logging
-import re
-from itertools import groupby
-from xml.sax import SAXParseException
+from typing import List
+from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey
 
-from rdflib import Graph, URIRef, SKOS
-
-from src.utils import BadRdfXmlException
+NATIONAL_REGISTRY_PATTERN = "data.brreg.no/enhetsregisteret"
 
 
-class RegistryUrls:
-    NATIONAL = "data.brreg.no"
-    GEO_NORGE = "register.geonorge.no"
+class OrganizationReferencesObject:
 
+    def __init__(self,
+                 for_service: ServiceKey,
+                 org_uri: str = None,
+                 org_path: str = None,
+                 same_as_entry: str = None,
+                 name: str = None,
+                 count: int = 0):
+        self.org_uri: str = org_uri
+        self.org_path: str = org_path
+        self.same_as: List[str] = []
+        if same_as_entry:
+            self.same_as.append(same_as_entry)
+        self.name: str = name
+        self.dataset_count = count if for_service == ServiceKey.DATA_SETS else 0
+        self.dataservice_count = count if for_service == ServiceKey.DATA_SERVICES else 0
+        self.concept_count = count if for_service == ServiceKey.CONCEPTS else 0
+        self.informationmodel_count = count if for_service == ServiceKey.INFO_MODELS else 0
+        self.services = []
 
-class ParsedContent:
-    def __init__(self, count: int, org_id: str, name: str):
-        self.count = count
-        self.name = name
-        if not org_id.startswith("http"):
-            self.org_id = org_id
+    def set_count_value(self, for_service: ServiceKey, count):
+        if for_service == ServiceKey.DATA_SETS:
+            self.dataset_count = int(count)
+        elif for_service == ServiceKey.DATA_SERVICES:
+            self.dataservice_count = int(count)
+        elif for_service == ServiceKey.INFO_MODELS:
+            self.informationmodel_count = count
+        elif for_service == ServiceKey.CONCEPTS:
+            self.concept_count = count
 
-        elif re.findall(RegistryUrls.NATIONAL, org_id):
-            self.norwegianRegistry_iri = org_id
-            self.org_id = self.get_norwegian_registry_id()
+    def get_count_value(self, for_service: ServiceKey) -> int:
+        if for_service == ServiceKey.DATA_SETS:
+            return self.dataset_count
+        elif for_service == ServiceKey.DATA_SERVICES:
+            return self.dataservice_count
+        elif for_service == ServiceKey.INFO_MODELS:
+            return self.informationmodel_count
+        elif for_service == ServiceKey.CONCEPTS:
+            return self.concept_count
+
+    def __eq__(self, other):
+        if type(other) == OrganizationReferencesObject:
+            if self.org_uri:
+                if self.__eq_on_org_uri(other):
+                    return True
+                elif self.__eq_on_same_as(other):
+                    return True
+                elif self.org_path and other.org_path:
+                    return self.org_path == other.org_path
+
+            elif self.same_as and other.same_as:
+                return self.__eq_on_same_as(other)
+            elif self.org_path and other.org_path:
+                return self.org_path == other.org_path
+        elif type(other) == str:
+            if not self.org_path:
+                return False
+            else:
+                return self.org_path == other
         else:
-            if re.findall(RegistryUrls.GEO_NORGE, org_id).__len__() < 1:
-                logging.error(f"organization IRI {org_id} does not belong to any known registry")
-            self.alternativeRegistry_iri = org_id
+            return False
 
-    def get_norwegian_registry_id(self):
-        if hasattr(self, 'norwegianRegistry_iri'):
-            org_id = self.norwegianRegistry_iri.split(sep='/')
-            return org_id[len(org_id) - 1]
-        elif hasattr(self, 'org_id') and self.org_id[0].isdigit():
-            return self.org_id
+    def __eq_on_org_uri(self, other: 'OrganizationReferencesObject'):
+        if not other.org_uri:
+            return False
+        return OrganizationReferencesObject.__eq_on_national_registry(
+            self.org_uri,
+            other.org_uri)
+
+    def __eq_on_same_as(self, other: 'OrganizationReferencesObject'):
+        if not self.same_as:
+            return False
+        if not other.same_as:
+            return False
+        else:
+            matches = [org for org in self.same_as if org in other.same_as]
+            return len(matches) > 0
+
+    @staticmethod
+    def __eq_on_http(uri_1: str, uri_2: str) -> bool:
+        if NATIONAL_REGISTRY_PATTERN in uri_1 and NATIONAL_REGISTRY_PATTERN in uri_2:
+            return OrganizationReferencesObject.__eq_on_national_registry(uri_1, uri_2)
+        suffix_1 = uri_1.split("//")[1]
+        suffix_2 = uri_2.split("//")[1]
+        return suffix_1 == suffix_2
+
+    @staticmethod
+    def __eq_on_national_registry(uri_1: str, uri_2: str) -> bool:
+        suffix_1 = uri_1.split("/")
+        suffix_2 = uri_2.split("/")
+        return suffix_1[- 1] == suffix_2[- 1]
+
+    @staticmethod
+    def from_organization_catalog_single_response(organization: dict):
+        return OrganizationReferencesObject(
+            for_service=ServiceKey.ORGANIZATIONS,
+            org_uri=organization[OrgCatalogKeys.URI],
+            org_path=organization[OrgCatalogKeys.ORG_PATH],
+            name=organization[OrgCatalogKeys.NAME]
+        )
+
+    @staticmethod
+    def from_organization_catalog_list_response(organizations: List[dict]):
+        return [OrganizationReferencesObject.from_organization_catalog_single_response(org) for org in organizations]
+
+    @staticmethod
+    def from_sparql_query_result(for_service: ServiceKey, organization: dict) -> 'OrganizationReferencesObject':
+        keys = organization.keys()
+        try:
+            name = organization.get(ContentKeys.ORG_NAME).get(ContentKeys.VALUE)
+        except AttributeError:
+            name = None
+        count = organization.get(ContentKeys.COUNT).get(ContentKeys.VALUE)
+        reference_object = OrganizationReferencesObject(for_service=for_service, name=name, count=int(count))
+        if ContentKeys.PUBLISHER in keys:
+            publisher_uri = organization.get(ContentKeys.PUBLISHER).get(ContentKeys.VALUE)
+            if OrganizationReferencesObject.is_national_registry_uri(publisher_uri):
+                reference_object.org_uri = publisher_uri
+            else:
+                reference_object.same_as.append(publisher_uri)
+        if ContentKeys.SAME_AS in keys:
+            same_as_uri = organization.get(ContentKeys.SAME_AS).get(ContentKeys.VALUE)
+            if OrganizationReferencesObject.is_national_registry_uri(same_as_uri):
+                reference_object.org_uri = same_as_uri
+            else:
+                reference_object.same_as.append(reference_object)
+        return reference_object
+
+    @staticmethod
+    def from_es_response(for_service: ServiceKey, es_response: dict):
+        return OrganizationReferencesObject(
+            for_service=for_service,
+            org_path=es_response[ContentKeys.KEY],
+            count=es_response[ContentKeys.COUNT]
+        )
+
+    @staticmethod
+    def is_national_registry_uri(uri):
+        if uri is None:
+            return False
+        prefix = uri.split(":")[1]
+        return NATIONAL_REGISTRY_PATTERN in prefix
+
+    @staticmethod
+    def resolve_id(uri: str):
+        if uri:
+            uri_parts = uri.split("/")
+            return uri_parts[-1]
         else:
             return None
 
-    def __eq__(self, other):
-        if isinstance(other, str):
-            uri_split = other.split(sep="/")
-            if hasattr(self, 'org_id') and len(uri_split) > 1 and self.org_id == uri_split[len(uri_split) - 1]:
-                return True
-            elif hasattr(self, 'org_id') and other == self.org_id:
-                return True
-            elif hasattr(self, 'alternativeRegistry_iri') and self.alternativeRegistry_iri == other:
-                return True
-            else:
-                return self.name == other
-        else:
-            if hasattr(self, 'org_id'):
-                if hasattr(other, 'org_id'):
-                    return other.org_id == self.org_id
-                else:
+
+class OrgPathParent:
+    def __init__(self, org_path: str):
+        self.org_path_joints = org_path.split("/")
+
+    def __eq__(self, other: 'OrgPathParent'):
+        if len(other.org_path_joints) > len(self.org_path_joints):
+            for idx, joint in enumerate(self.org_path_joints):
+                if other.org_path_joints[idx] != joint:
                     return False
-            elif hasattr(self, 'alternativeRegistry_iri'):
-                if hasattr(other, 'alternativeRegistry_iri'):
-                    other_split_uri = other.alternativeRegistry_iri.split("//")
-                    self_split_uri = self.alternativeRegistry_iri.split("//")
-                    return other_split_uri[len(other_split_uri) - 1] == self_split_uri[len(self_split_uri) - 1]
-                else:
-                    return False
-            elif hasattr(self, 'name'):
-                if hasattr(self, 'name'):
-                    return self.name == other.name
-            else:
-                return False
+            return True
+        return False
 
-    def __hash__(self):
-        if hasattr(self, 'norwegianRegistry_iri'):
-            org_id = self.norwegianRegistry_iri.split(sep='/')
-            return hash(org_id[org_id.__len__() - 1])
-        elif hasattr(self, 'org_id'):
-            return hash(self.org_id)
+
+class OrganizationStore:
+    __instance__: 'OrganizationStore' = None
+
+    def __init__(self):
+        if OrganizationStore.__instance__ is None:
+            self.organizations: List[OrganizationReferencesObject] = None
+            self.org_path_parents: List[OrgPathParent] = None
+            OrganizationStore.__instance__ = self
         else:
-            return hash(self.name)
+            raise OrganizationStoreExistsException()
+
+    def update(self, organizations: List[OrganizationReferencesObject] = None):
+        if not self.organizations:
+            self.organizations = organizations
+            self.org_path_parents = [OrgPathParent(org.org_path) for org in self.organizations]
+
+    def add_organization(self, organization: OrganizationReferencesObject,
+                         for_service: ServiceKey = ServiceKey.ORGANIZATIONS):
+        if self.organizations is None:
+            self.organizations = list()
+        if organization.org_path:
+            if OrgPathParent(organization.org_path) in self.org_path_parents:
+                return None
+        try:
+            org_idx = self.organizations.index(organization)
+            stored_org: OrganizationReferencesObject = self.organizations[org_idx]
+            stored_org.set_count_value(for_service=for_service,
+                                       count=organization.get_count_value(for_service=for_service))
+        except ValueError:
+            self.organizations.append(organization)
+            if organization.org_path:
+                self.org_path_parents.append(OrgPathParent(organization.org_path))
+            org_idx = self.organizations.index(organization)
+        if len(organization.same_as) > 0:
+            self.organizations[org_idx].same_as.extend(organization.same_as)
+
+    def get_orgpath(self, uri: str) -> str:
+        try:
+            org_idx = self.organizations.index(uri)
+            return self.organizations[org_idx].org_path
+        except ValueError:
+            return None
+        except AttributeError:
+            raise OrganizationStoreNotInitiatedException()
+
+    def remove_parent_organizations(self):
+        """
+        TODO: remove parents from list
+        1. find parents
+        2. remove
+        :return:
+        """
+
+    def get_organization(self, org) -> OrganizationReferencesObject:
+        try:
+            return self.organizations[self.organizations.index(org)]
+        except ValueError:
+            return None
+
+    def add_all_publishers(self, publishers: List[dict]):
+        for reference in publishers["results"]["bindings"]:
+            self.add_organization(
+                OrganizationReferencesObject.from_sparql_query_result(reference))
+
+    @staticmethod
+    def get_instance() -> 'OrganizationStore':
+        if OrganizationStore.__instance__:
+            return OrganizationStore.__instance__
+        else:
+            return OrganizationStore()
 
 
-def read_sparql_table(table: str) -> list:
-    content = []
-    for row in table.splitlines():
-        parsed_row = read_sparql_row(row)
-        if parsed_row:
-            content.append(parsed_row)
-    return content
+class OrganizationStoreExistsException(Exception):
+    def __init__(self):
+        self.message = "organization store is already created"
 
 
-def read_sparql_row(row: str) -> ParsedContent:
-    try:
-        iri, name, count = row.replace('"', '').split(sep='|')[1:4]
-        return ParsedContent(count=int(count.strip()), org_id=iri.strip(), name=name.strip())
-    except ValueError:
-        return None
-
-
-def parse_es_results(es_results: list, with_uri: bool):
-    parsed_result = []
-    if with_uri:
-        results_by_uri = group_by_org_uri(es_results)
-        for organization in results_by_uri:
-            parsed_result.append(ParsedContent(count=organization["name"].__len__(),
-                                               org_id=organization["uri"],
-                                               name=organization["name"][0]))
-    else:
-        results_by_uri = group_by_org_id(es_results)
-        for organization in results_by_uri:
-            parsed_result.append(ParsedContent(count=organization["name"].__len__(),
-                                               org_id=organization["id"],
-                                               name=organization["name"][0]))
-
-    return parsed_result
-
-
-def group_by_org_uri(es_results):
-    sanitized_result = []
-    while es_results.__len__() > 0:
-        es_entry = es_results.pop()
-        if "publisher" in es_entry.keys() and len(es_entry["publisher"]):
-            sanitized_result.append(es_entry)
-
-    sorted_input = sorted(sanitized_result, key=lambda item: item["publisher"]["uri"])
-    groups = groupby(sorted_input, key=lambda item: item["publisher"]["uri"])
-    return [{'uri': k, 'name': [x["publisher"]["name"] for x in v]} for k, v in groups]
-
-
-def group_by_org_id(es_results):
-    sanitized_result = []
-    while es_results.__len__() > 0:
-        es_entry = es_results.pop()
-        if "publisher" in es_entry.keys() and len(es_entry["publisher"]):
-            sanitized_result.append(es_entry)
-    sorted_input = sorted(sanitized_result, key=lambda item: item["publisher"]["id"])
-    groups = groupby(sorted_input, key=lambda item: item["publisher"]["id"])
-    return [{'id': k, 'name': [x["publisher"]["name"] for x in v]} for k, v in groups]
-
-
-def read_alt_organization_rdf_xml(organization):
-    try:
-        graph = Graph()
-        graph.parse(data=organization, format="application/rdf+xml")
-        pref_label_pred = URIRef("http://www.w3.org/2004/02/skos/core#prefLabel")
-        pref_labels = {}
-        for pref_label in graph.objects(predicate=pref_label_pred):
-            pref_labels[pref_label.language] = pref_label.value
-
-        return {
-            "prefLabel": pref_labels,
-            "name": org_path_label(pref_labels),
-            "orgPath": f"/ANNET/{org_path_label(pref_labels)}"
-        }
-    except SAXParseException:
-        raise BadRdfXmlException(rdf_str=organization)
-
-
-def org_path_label(pref_labels: dict) -> str:
-    if "no" in pref_labels.keys():
-        return pref_labels["no"]
-    else:
-        return pref_labels.values()[0]
+class OrganizationStoreNotInitiatedException(Exception):
+    def __init__(self):
+        self.message = "no content in OrganizationStore"

@@ -1,4 +1,4 @@
-from src.result_readers import ParsedContent
+from src.result_readers import OrganizationReferencesObject
 
 
 def get_name(organization):
@@ -12,8 +12,8 @@ def get_name(organization):
 
 
 class OrganizationCatalogResponse:
-    def __init__(self, organization: dict, datasets: ParsedContent, dataservices: ParsedContent,
-                 concepts: ParsedContent, informationmodels: ParsedContent):
+    def __init__(self, organization: dict, datasets: OrganizationReferencesObject, dataservices: OrganizationReferencesObject,
+                 concepts: OrganizationReferencesObject, informationmodels: OrganizationReferencesObject):
         if "organizationId" in organization.keys():
             self.id = organization["organizationId"]
         self.organization = {

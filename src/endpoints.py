@@ -1,7 +1,6 @@
 from flask_restful import Resource, abort
 
 from src.aggregation import get_organization_catalog_list
-from src.service_requests import is_ready, get_organizations
 
 
 class OrganizationCatalogs(Resource):
@@ -26,8 +25,4 @@ class Ping(Resource):
 
 class Ready(Resource):
     def get(self):
-        result = is_ready()
-        http_code = result["status"]
-        del result["status"]
-
-        return result, http_code
+        return "service is running"
