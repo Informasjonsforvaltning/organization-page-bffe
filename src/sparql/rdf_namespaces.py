@@ -123,6 +123,7 @@ class DCAT(NamespaceProperty):
         self.distribution_type = self.get_property("Distribution")
         self.CatalogRecord = self.get_property("CatalogRecord")
         self.type_catalog = self.get_property("Catalog")
+        self.service = self.get_property("service")
 
     def get_prefix(self):
         if self.syntax == NamespaceProperty.JSON_RDF:

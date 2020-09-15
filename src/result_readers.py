@@ -1,7 +1,10 @@
+import re
 from typing import List
 from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey
 
 NATIONAL_REGISTRY_PATTERN = "data.brreg.no/enhetsregisteret"
+NATIONAL_REGISTRY_URL = "https://data.brreg.no/enhetsregisteret/api/enheter"
+ORGANIZATION_CATALOG_IDENTIFIER_PATTERN = "organization-catalog.[a-z.]*fellesdatakatalog"
 
 
 class OrganizationReferencesObject:
@@ -23,7 +26,7 @@ class OrganizationReferencesObject:
         self.dataservice_count = count if for_service == ServiceKey.DATA_SERVICES else 0
         self.concept_count = count if for_service == ServiceKey.CONCEPTS else 0
         self.informationmodel_count = count if for_service == ServiceKey.INFO_MODELS else 0
-        self.services = []
+        self.id = OrganizationReferencesObject.resolve_id(org_uri)
 
     def set_count_value(self, for_service: ServiceKey, count):
         if for_service == ServiceKey.DATA_SETS:
@@ -121,14 +124,16 @@ class OrganizationReferencesObject:
         reference_object = OrganizationReferencesObject(for_service=for_service, name=name, count=int(count))
         if ContentKeys.PUBLISHER in keys:
             publisher_uri = organization.get(ContentKeys.PUBLISHER).get(ContentKeys.VALUE)
-            if OrganizationReferencesObject.is_national_registry_uri(publisher_uri):
-                reference_object.org_uri = publisher_uri
+            national_registry_uri = OrganizationReferencesObject.resolve_national_registry_uri(publisher_uri)
+            if national_registry_uri:
+                reference_object.org_uri = national_registry_uri
             else:
                 reference_object.same_as.append(publisher_uri)
         if ContentKeys.SAME_AS in keys:
             same_as_uri = organization.get(ContentKeys.SAME_AS).get(ContentKeys.VALUE)
-            if OrganizationReferencesObject.is_national_registry_uri(same_as_uri):
-                reference_object.org_uri = same_as_uri
+            national_registry_uri = OrganizationReferencesObject.resolve_national_registry_uri(same_as_uri)
+            if national_registry_uri:
+                reference_object.org_uri = national_registry_uri
             else:
                 reference_object.same_as.append(reference_object)
         return reference_object
@@ -142,11 +147,22 @@ class OrganizationReferencesObject:
         )
 
     @staticmethod
-    def is_national_registry_uri(uri):
+    def resolve_national_registry_uri(uri):
         if uri is None:
             return False
         prefix = uri.split(":")[1]
-        return NATIONAL_REGISTRY_PATTERN in prefix
+        if NATIONAL_REGISTRY_PATTERN in prefix:
+            return uri
+        else:
+            return OrganizationReferencesObject.resolve_organization_catalog_uri(uri)
+
+    @staticmethod
+    def resolve_organization_catalog_uri(uri):
+        if re.search(ORGANIZATION_CATALOG_IDENTIFIER_PATTERN, uri):
+            org_id = uri.split("/")[-1]
+            return f"{NATIONAL_REGISTRY_URL}/{org_id}"
+        else:
+            return False
 
     @staticmethod
     def resolve_id(uri: str):
@@ -181,6 +197,9 @@ class OrganizationStore:
         else:
             raise OrganizationStoreExistsException()
 
+    def get_organization_list(self) -> List[OrganizationReferencesObject]:
+        return [org for org in self.organizations if OrgPathParent(org.org_path) not in self.org_path_parents]
+
     def update(self, organizations: List[OrganizationReferencesObject] = None):
         if not self.organizations:
             self.organizations = organizations
@@ -190,6 +209,8 @@ class OrganizationStore:
                          for_service: ServiceKey = ServiceKey.ORGANIZATIONS):
         if self.organizations is None:
             self.organizations = list()
+        if self.org_path_parents is None:
+            self.org_path_parents = list()
         if organization.org_path:
             if OrgPathParent(organization.org_path) in self.org_path_parents:
                 return None
@@ -214,14 +235,6 @@ class OrganizationStore:
             return None
         except AttributeError:
             raise OrganizationStoreNotInitiatedException()
-
-    def remove_parent_organizations(self):
-        """
-        TODO: remove parents from list
-        1. find parents
-        2. remove
-        :return:
-        """
 
     def get_organization(self, org) -> OrganizationReferencesObject:
         try:

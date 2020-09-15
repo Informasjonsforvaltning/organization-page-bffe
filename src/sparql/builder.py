@@ -1,6 +1,19 @@
 from typing import List
 
-from src.sparql.rdf_namespaces import NamespaceProperty
+from src.sparql.rdf_namespaces import NamespaceProperty, SparqlFunctionString
+
+
+class SparqlFunction:
+    def __init__(self, function: SparqlFunctionString, var: str, as_var):
+        self.var = SparqlBuilder.make_var(var)
+        self.function = function
+        self.as_var = SparqlBuilder.make_var(as_var)
+
+    def __str__(self):
+        fun_str = f"{self.function}({self.var})"
+        if self.as_var:
+            fun_str += f" AS {self.as_var}"
+        return fun_str
 
 
 class SparqlGraphTerm:
@@ -23,11 +36,16 @@ class SparqlGraphTerm:
 
 class SparqlSelect:
 
-    def __init__(self, variable_names: List[str] = None):
+    def __init__(self, variable_names: List[str] = None, functions=None):
         self.variable_names = variable_names
+        self.functions = functions
 
     def __str__(self):
-        return SparqlSelect.select(self.variable_names)
+        select_str = SparqlSelect.select(self.variable_names)
+        if self.functions:
+            for fun in self.functions:
+                select_str += f" ({str(fun)})"
+        return select_str
 
     @staticmethod
     def select(variable_names: List[str] = None) -> str:
@@ -75,7 +93,7 @@ class SparqlWhere:
             where_str += "} "
         if build_as_optional:
             where_str += "} "
-        return where_str
+        return where_str.strip()
 
 
 class SparqlOptional(SparqlWhere):
@@ -89,12 +107,12 @@ class SparqlOptional(SparqlWhere):
 class SparqlBuilder:
 
     def __init__(self, prefix: List[NamespaceProperty] = None, select: SparqlSelect = None, where: SparqlWhere = None,
-                 group_by_var: str = None, group_by_str: str = None, order_by_str=None):
+                 group_by_vars: str = None, group_by_str: List[str] = None, order_by_str=None):
         self.prefix = prefix
         self.select = select
         self.where = where
-        if group_by_var:
-            self.group_by = SparqlBuilder.make_var(group_by_var)
+        if group_by_vars:
+            self.group_by = " ".join([SparqlBuilder.make_var(v) for v in group_by_vars])
         elif group_by_str:
             self.group_by = group_by_str
         else:
@@ -123,11 +141,12 @@ class SparqlBuilder:
             query_str += " } "
         if self.group_by:
             query_str += f"GROUP BY {self.group_by} "
-        return query_str
+        return query_str.strip()
 
 
 def encode_for_sparql(string: str):
-    return string \
+    trim_str = string.strip()
+    return trim_str \
         .replace(" ", "%20") \
         .replace("<", "%3C") \
         .replace(">", "%3E") \

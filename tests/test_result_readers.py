@@ -700,3 +700,121 @@ def test_eq_on_both_with_same_as_and_no_org_uri():
     assert same_as_without_name_https == same_as_with_name
     assert same_as_without_name_no_match != same_as_with_name
     assert same_as_without_name_http == same_as_without_name_https
+
+
+@pytest.mark.unit
+def test_organization_from_dataservice_without_same_as_entry():
+    entry = {
+        "publisher": {
+            "type": "uri",
+            "value": "https://organization-catalogue.fellesdatakatalog.brreg.no/organizations/991825827"
+        },
+        "count": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+            "value": "7"
+        }
+    }
+    expected_org_uri = "https://data.brreg.no/enhetsregisteret/api/enheter/991825827"
+
+    result = OrganizationReferencesObject.from_sparql_query_result(
+        for_service=ServiceKey.DATA_SERVICES,
+        organization=entry
+    )
+
+    assert result.dataservice_count == 7
+    assert result.org_uri == expected_org_uri
+
+    test_eq_object = OrganizationReferencesObject(
+        name="Test Name",
+        org_uri=expected_org_uri,
+        for_service=ServiceKey.CONCEPTS,
+        count=2354
+    )
+
+    assert result == test_eq_object
+
+
+@pytest.mark.unit
+def test_add_organization_from_dataservice_without_same_as_entry():
+    entry = {
+        "publisher": {
+            "type": "uri",
+            "value": "https://organization-catalogue.fellesdatakatalog.brreg.no/organizations/991825827"
+        },
+        "count": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+            "value": "7"
+        }
+    }
+    expected_org_uri = "https://data.brreg.no/enhetsregisteret/api/enheter/991825827"
+
+    no_same_as_object = OrganizationReferencesObject.from_sparql_query_result(
+        for_service=ServiceKey.DATA_SERVICES,
+        organization=entry
+    )
+
+    test_eq_object = OrganizationReferencesObject(
+        name="Test Name",
+        org_uri=expected_org_uri,
+        for_service=ServiceKey.CONCEPTS,
+        count=2354
+    )
+
+    store = OrganizationStore.get_instance()
+    store.add_organization(test_eq_object, for_service=ServiceKey.CONCEPTS)
+    store.add_organization(no_same_as_object, for_service=ServiceKey.DATA_SERVICES)
+    assert no_same_as_object in store.organizations
+    result = store.get_organization(no_same_as_object)
+    assert result.dataservice_count == 7
+    assert result.concept_count == 2354
+
+
+@pytest.mark.unit
+def test_reduce_for_response():
+    politi_ref = OrganizationReferencesObject(
+        name="POLITI- OG LENSMANNSETATEN",
+        org_path="/STAT/972417831/915429785",
+        org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/915429785",
+        count=3,
+        for_service=ServiceKey.DATA_SETS)
+    some_other_ref = OrganizationReferencesObject(
+        name="STRANDA SAG- OG HØVLERI",
+        org_path="/PRIVAT/1256847",
+        org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/1256847",
+        count=88,
+        for_service=ServiceKey.CONCEPTS)
+    one_empty_ref = OrganizationReferencesObject(
+        name="EMPTY NONSENSE",
+        org_path="/ANNET/1256847",
+        for_service=ServiceKey.ORGANIZATIONS)
+    politi_parent_ref = OrganizationReferencesObject(
+        name="LOVER OG SÅNNE TING",
+        org_path="/STAT/972417831",
+        org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/972417831",
+        count=99,
+        for_service=ServiceKey.DATA_SETS)
+    politi_root_orgpath_ref = OrganizationReferencesObject(
+        name="Stat",
+        org_path="/STAT",
+        count=99,
+        for_service=ServiceKey.DATA_SETS)
+
+    store = OrganizationStore.get_instance()
+    store.organizations = []
+    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATA_SETS)
+    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATA_SETS)
+    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATA_SETS)
+    store.add_organization(organization=one_empty_ref)
+    store.add_organization(some_other_ref)
+
+    result = store.get_organization_list()
+    assert len(result) == 3
+    result_names = [org.name for org in result]
+    assert "POLITI- OG LENSMANNSETATEN" in result_names
+    assert "STRANDA SAG- OG HØVLERI" in result_names
+    assert "EMPTY NONSENSE" in result_names
+    assert "LOVER OG SÅNNE TING" not in result_names
+    assert "Stat" not in result_names
+

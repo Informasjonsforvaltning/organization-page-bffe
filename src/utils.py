@@ -77,6 +77,8 @@ def get_service_url(service: ServiceKey):
 
 
 class ContentKeys:
+    AGGREGATIONS = "aggregations"
+    ORG_PATH = "orgPath"
     KEY = "key"
     SAME_AS = "sameAs"
     PUBLISHER = "publisher"

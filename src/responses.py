@@ -1,29 +1,27 @@
-from src.result_readers import OrganizationReferencesObject
+from src.result_readers import OrganizationReferencesObject, OrganizationStore
+from src.utils import ContentKeys
 
 
-def get_name(organization):
-    org_keys = organization.keys()
-    if "prefLabel" in org_keys and organization["prefLabel"] is not None:
-        return organization["prefLabel"]
-    else:
-        return {
-            "no": organization["name"]
-        }
+def get_name(organization: OrganizationReferencesObject) -> dict:
+    # TODO: add support for several languages
+
+    return {
+        "no": organization.name
+    }
 
 
 class OrganizationCatalogResponse:
-    def __init__(self, organization: dict, datasets: OrganizationReferencesObject, dataservices: OrganizationReferencesObject,
-                 concepts: OrganizationReferencesObject, informationmodels: OrganizationReferencesObject):
-        if "organizationId" in organization.keys():
-            self.id = organization["organizationId"]
+    def __init__(self, organization: OrganizationReferencesObject):
+        if organization.id:
+            self.id = organization.id
         self.organization = {
-            "orgPath": organization["orgPath"],
-            "name": get_name(organization),
+            ContentKeys.ORG_PATH: organization.org_path,
+            ContentKeys.ORG_NAME: get_name(organization),
         }
-        self.dataset_count = datasets.count if datasets else 0
-        self.dataservice_count = dataservices.count if dataservices else 0
-        self.informationmodel_count = informationmodels.count if informationmodels else 0
-        self.concept_count = concepts.count if concepts else 0
+        self.dataset_count = organization.dataset_count
+        self.dataservice_count = organization.dataservice_count
+        self.informationmodel_count = organization.informationmodel_count
+        self.concept_count = organization.concept_count
 
     def has_content(self):
         return self.dataservice_count + self.informationmodel_count + self.dataset_count + self.concept_count > 0
@@ -49,3 +47,13 @@ class OrganizationCatalogListResponse:
         return {
             "status": "OK"
         }
+
+    @staticmethod
+    def from_organization_store(organization_store: OrganizationStore) -> 'OrganizationCatalogListResponse':
+        list_response = OrganizationCatalogListResponse()
+        for org_ref in organization_store.get_organization_list():
+            list_response.add_organization_catalog(
+                OrganizationCatalogResponse(org_ref)
+            )
+        return list_response
+

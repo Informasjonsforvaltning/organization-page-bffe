@@ -4,10 +4,10 @@ import httpx
 from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError, AsyncClient
 
-from src.result_readers import read_sparql_result, parse_es_results, OrganizationReferencesObject
-from src.sparql.queries import build_publisher_query
+from src.result_readers import OrganizationReferencesObject
+from src.sparql.queries import build_dataset_publisher_query, build_dataservices_publisher_query
 from src.utils import ServiceKey, FetchFromServiceException, encode_for_sparql, \
-    get_service_url, NotInNationalRegistryException
+    get_service_url, NotInNationalRegistryException, ContentKeys
 
 ORGANIZATION_CATALOG_URL = get_service_url(ServiceKey.ORGANIZATIONS)
 DATASET_HARVESTER_URL = get_service_url(ServiceKey.DATA_SETS)
@@ -128,19 +128,12 @@ async def fetch_generated_org_path_from_organization_catalog(name: str):
 async def get_concepts():
     async with httpx.AsyncClient() as client:
         try:
-            es_result_list = []
-            i = 0
-            while True:
-                result = await client.get(url=CONCEPT_HARVESTER_URL,
-                                          params={"returnfields": "publisher", "size": "1000", "page": i},
-                                          timeout=5)
-                result.raise_for_status()
-                es_result_list.extend(result.json()["_embedded"]["concepts"])
-                if es_result_list.__len__() >= result.json()["page"]["totalElements"]:
-                    break
-                else:
-                    i += 1
-            return parse_es_results(es_result_list, with_uri=True)
+            result = await client.get(url=CONCEPT_HARVESTER_URL,
+                                      params={"aggregations": ContentKeys.ORG_PATH, "size": "0"},
+                                      timeout=5)
+            result.raise_for_status()
+            return result.json()[ContentKeys.AGGREGATIONS]
+
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.CONCEPTS,
@@ -158,12 +151,11 @@ async def get_datasets():
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASET_HARVESTER_URL}/sparql/select"
-            encoded_query = encode_for_sparql(build_publisher_query())
-            print(encoded_query)
+            encoded_query = encode_for_sparql(build_dataset_publisher_query())
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
-            result = await client.get(url=url_with_query, timeout=5)
+            result = await client.get(url=url_with_query, timeout=5, headers=default_headers)
             result.raise_for_status()
-            return read_sparql_result(result.text)
+            return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -176,12 +168,11 @@ async def get_dataservices():
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASERVICE_HARVESTER_URL}/sparql/select"
-            encoded_query = encode_for_sparql(build_publisher_query())
-            print(encoded_query)
+            encoded_query = encode_for_sparql(build_dataservices_publisher_query())
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
-            result = await client.get(url=url_with_query, timeout=5)
+            result = await client.get(url=url_with_query, headers=default_headers, timeout=5)
             result.raise_for_status()
-            return read_sparql_result(result.text)
+            return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[dataservices]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -193,17 +184,11 @@ async def get_dataservices():
 async def get_informationmodels():
     async with httpx.AsyncClient() as client:
         try:
-            es_result_list = []
-            while True:
-                result = await client.get(url=f"{INFORMATION_MODEL_HARVESTER_URL}",
-                                          params={"returnfields": "publisher", "size": "10000", "page": 0},
-                                          timeout=5)
-                result.raise_for_status()
-                es_result_list.extend(result.json()["_embedded"]["informationmodels"])
-                if es_result_list.__len__() >= result.json()["page"]["totalElements"]:
-                    break
-
-            return parse_es_results(es_result_list, with_uri=True)
+            result = await client.get(url=f"{INFORMATION_MODEL_HARVESTER_URL}",
+                                      params={"aggregations": "orgPath", "size": 0},
+                                      timeout=5)
+            result.raise_for_status()
+            return result.json()[ContentKeys.AGGREGATIONS]
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.INFO_MODELS,

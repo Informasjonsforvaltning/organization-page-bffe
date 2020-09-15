@@ -8,6 +8,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-mock = "*"
 mock = "*"
+pytest-env = "*"
 
 [packages]
 flask = "*"
@@ -18,7 +19,6 @@ gunicorn = "*"
 requests = "*"
 httpx = "*"
 pytest-asyncio = "*"
-rdflib = "*"
 
 [requires]
 python_version = "3.8"

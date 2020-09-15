@@ -34,9 +34,9 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
             elif service_key == ServiceKey.CONCEPTS:
                 self.json_data = concept_es_response
             elif service_key == ServiceKey.DATA_SETS:
-                self.text = None
+                self.json_data = []
             elif service_key == ServiceKey.DATA_SERVICES:
-                self.json_data = None
+                self.json_data = []
             elif service_key == ServiceKey.INFO_MODELS:
                 self.json_data = info_es_response_size_1_total_7
             elif json:
@@ -51,7 +51,7 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
             return self.json_data
 
         def raise_for_status(self):
-            print("status check")
+            pass
 
     return MockResponse(status_code)
 
