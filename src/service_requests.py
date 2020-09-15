@@ -1,5 +1,7 @@
 import asyncio
 from json.decoder import JSONDecodeError
+from os import environ as env
+from typing import List
 
 import logging
 from xml.sax import SAXParseException
@@ -11,6 +13,9 @@ from httpx import HTTPError
 from src.result_readers import read_sparql_table, read_alt_organization_rdf_xml, ParsedContent, parse_es_results
 from src.utils import ServiceKey, FetchFromServiceException, sparql_queries, BadUriException, encode_for_sparql, \
     service_ready_urls, service_urls, BadRdfXmlException
+
+SEARCH_FULLTEXT_HOST = env.get("SEARCH_FULLTEXT_HOST")
+METADATA_QUALITY_ASSESSMENT_SERVICE_HOST = env.get("METADATA_QUALITY_ASSESSMENT_SERVICE_HOST")
 
 
 def error_msg(reason: str, serviceKey: ServiceKey):
@@ -272,3 +277,85 @@ async def get_organization_from_alternative_registry(organization_iri):
         except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(execution_point=ServiceKey.ORGANIZATIONS,
                                             url=organization_iri)
+
+
+async def search_datasets(data):
+    async with httpx.AsyncClient() as client:
+        url = f"{SEARCH_FULLTEXT_HOST}/datasets"
+
+        try:
+            result = await client.post(
+                url=url,
+                json=data,
+                timeout=5
+            )
+            result.raise_for_status()
+
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[datasets]: search request failed")
+            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+
+
+async def get_assessments_for_entities(entity_uris: List[str]):
+    async with httpx.AsyncClient() as client:
+        url = f"{METADATA_QUALITY_ASSESSMENT_SERVICE_HOST}/assessment/entities"
+        params = {
+            "entityUris": entity_uris
+        }
+
+        try:
+            result = await client.get(
+                url=url,
+                params=params,
+                timeout=5
+            )
+            result.raise_for_status()
+
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[assessments]: assessments for entities request failed")
+            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+
+
+async def get_assessment_for_entity(entity_uri: str):
+    async with httpx.AsyncClient() as client:
+        url = f"{METADATA_QUALITY_ASSESSMENT_SERVICE_HOST}/assessment/entity"
+        params = {
+            "entityUri": entity_uri
+        }
+
+        try:
+            result = await client.get(
+                url=url,
+                params=params,
+                timeout=5
+            )
+            result.raise_for_status()
+
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[assessments]: assessment for entity request failed")
+            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+
+
+async def get_catalog_assessment_rating_for_entity_type(catalog_uri: str, entity_type: str):
+    async with httpx.AsyncClient() as client:
+        url = f"{METADATA_QUALITY_ASSESSMENT_SERVICE_HOST}/assessment/catalog/rating"
+        params = {
+            "catalogUri": catalog_uri,
+            "entityType": entity_type
+        }
+
+        try:
+            result = await client.get(
+                url=url,
+                params=params,
+                timeout=5
+            )
+            result.raise_for_status()
+
+            return result.json()
+        except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[assessments]: catalog assessment rating for entity type request failed")
+            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
