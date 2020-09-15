@@ -15,7 +15,7 @@ service_urls = {
     ServiceKey.ORGANIZATIONS: "http://localhost:8080/organizations",
     ServiceKey.INFO_MODELS: "http://localhost:8080/informationmodels",
     ServiceKey.DATA_SERVICES: "http://localhost:8080/apis",
-    ServiceKey.DATA_SETS: "http://localhost:8080/datasets",
+    ServiceKey.DATASETS: "http://localhost:8080/datasets",
     ServiceKey.CONCEPTS: "http://localhost:8080/concepts"
 
 }
@@ -55,7 +55,7 @@ def test_get_concepts_should_throw_error(event_loop, mocker):
 
 @pytest.mark.unit
 def test_get_datasets_should_return_parsed_table(event_loop, mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATA_SETS, organizations=[org_1])
+    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATASETS, organizations=[org_1])
     mocker.patch('httpx.AsyncClient.get', return_value=mock_values)
     result = event_loop.run_until_complete(get_datasets())
     first_result = result[0]

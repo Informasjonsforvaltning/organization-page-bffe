@@ -6,7 +6,7 @@ class ServiceKey:
     INFO_MODELS = "informationmodels"
     DATA_SERVICES = "dataservices"
     OLD_DATA_SERVICES = "apis"
-    DATA_SETS = "datasets"
+    DATASETS = "datasets"
     CONCEPTS = "concepts"
 
 
@@ -104,7 +104,7 @@ DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
 FOAF_PREFIX = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
 OWL_PREFIX = "PREFIX owl: <http://www.w3.org/2002/07/owl%23>"
 sparql_queries = {
-    ServiceKey.DATA_SETS: build_dataset_sparql_query(),
+    ServiceKey.DATASETS: build_dataset_sparql_query(),
     ServiceKey.DATA_SERVICES: build_data_service_sparql_query()
 }
 
@@ -129,14 +129,14 @@ env_variables = {
     ServiceKey.ORGANIZATIONS: 'ORGANIZATION_CATALOG_URL',
     ServiceKey.INFO_MODELS: 'INFORMATIONMODELS_HARVESTER_URL',
     ServiceKey.DATA_SERVICES: 'DATASERVICE_HARVESTER_URL',
-    ServiceKey.DATA_SETS: 'DATASET_HARVESTER_URL',
+    ServiceKey.DATASETS: 'DATASET_HARVESTER_URL',
     ServiceKey.CONCEPTS: 'CONCEPT_HARVESTER_URL'
 }
 
 
 def get_service_urls(service: ServiceKey):
     base_url = os.getenv(env_variables[service]) or "http://localhost:8080"
-    if service == ServiceKey.DATA_SETS or service == ServiceKey.DATA_SERVICES:
+    if service == ServiceKey.DATASETS or service == ServiceKey.DATA_SERVICES:
         return base_url
     else:
         return f"{base_url}/{service}"
@@ -146,7 +146,7 @@ service_urls = {
     ServiceKey.ORGANIZATIONS: get_service_urls(ServiceKey.ORGANIZATIONS),
     ServiceKey.INFO_MODELS: get_service_urls(ServiceKey.INFO_MODELS),
     ServiceKey.DATA_SERVICES: get_service_urls(ServiceKey.DATA_SERVICES),
-    ServiceKey.DATA_SETS: get_service_urls(ServiceKey.DATA_SETS),
+    ServiceKey.DATASETS: get_service_urls(ServiceKey.DATASETS),
     ServiceKey.CONCEPTS: get_service_urls(ServiceKey.CONCEPTS)
 
 }
@@ -155,6 +155,6 @@ service_ready_urls = {
     ServiceKey.ORGANIZATIONS: f"{os.getenv('ORGANIZATION_CATALOG_URL')}/ready" or "http://localhost:8080/ready",
     ServiceKey.INFO_MODELS: get_service_urls(ServiceKey.INFO_MODELS),
     ServiceKey.DATA_SERVICES: get_service_urls(ServiceKey.DATA_SERVICES),
-    ServiceKey.DATA_SETS: get_service_urls(ServiceKey.DATA_SETS),
+    ServiceKey.DATASETS: get_service_urls(ServiceKey.DATASETS),
     ServiceKey.CONCEPTS: get_service_urls(ServiceKey.CONCEPTS)
 }

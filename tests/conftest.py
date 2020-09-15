@@ -35,7 +35,7 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
                 self.json_data = [org_1, org_2, org_3]
             elif service_key == ServiceKey.CONCEPTS:
                 self.json_data = concept_es_response_size_2_total_10
-            elif service_key == ServiceKey.DATA_SETS:
+            elif service_key == ServiceKey.DATASETS:
                 self.text = mock_dataset_sparql_result(organizations)
             elif service_key == ServiceKey.DATA_SERVICES:
                 self.json_data = dataservice_es_response_size_1_total_21
@@ -84,7 +84,7 @@ def mock_get_xhttp_dataservices(mocker):
 
 @pytest.fixture
 def mock_get_xhttp_datasets(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATA_SETS)
+    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATASETS)
     return mocker.patch('httpx.AsyncClient.get',
                         return_value=mock_values
                         )

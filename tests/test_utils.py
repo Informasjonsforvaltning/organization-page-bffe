@@ -5,7 +5,7 @@ from src.utils import encode_for_sparql, sparql_queries, ServiceKey, \
 
 
 def test_encode_for_sparql():
-    assert encode_for_sparql(string=sparql_queries[ServiceKey.DATA_SETS]) == expected_encoded_query
+    assert encode_for_sparql(string=sparql_queries[ServiceKey.DATASETS]) == expected_encoded_query
 
 
 expected_encoded_query = "PREFIX%20dct:%20%3Chttp://purl.org/dc/terms/%3EPREFIX%20foaf:%20%3Chttp://xmlns.com/foaf/0.1/%3E" \
@@ -28,9 +28,9 @@ def test_get_service_urls(monkeypatch):
     monkeypatch.setenv("INFORMATIONMODELS_HARVESTER_URL", "http://othertestenv:8080")
     assert get_service_urls(ServiceKey.INFO_MODELS) == "http://othertestenv:8080/informationmodels"
 
-    assert service_urls[ServiceKey.DATA_SETS] == "http://localhost:8080"
+    assert service_urls[ServiceKey.DATASETS] == "http://localhost:8080"
     monkeypatch.setenv("DATASET_HARVESTER_URL", "http://othertestenv:8080")
-    assert get_service_urls(ServiceKey.DATA_SETS) == "http://othertestenv:8080"
+    assert get_service_urls(ServiceKey.DATASETS) == "http://othertestenv:8080"
 
     assert service_urls[ServiceKey.CONCEPTS] == "http://localhost:8080/concepts"
     monkeypatch.setenv("CONCEPT_HARVESTER_URL", "http://something.yes")

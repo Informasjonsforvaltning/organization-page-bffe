@@ -86,7 +86,7 @@ def is_ready():
     asyncio.set_event_loop(loop)
     availability_requests = asyncio.gather(
         check_available(ServiceKey.ORGANIZATIONS, header={"Accept": "application/json"}),
-        check_available(ServiceKey.DATA_SETS),
+        check_available(ServiceKey.DATASETS),
         check_available(ServiceKey.DATA_SERVICES, header={"Accept": "application/json"}),
         check_available(ServiceKey.CONCEPTS),
         check_available(ServiceKey.INFO_MODELS)
@@ -97,7 +97,7 @@ def is_ready():
     if not org:
         return connection_error_msg(serviceKey=ServiceKey.ORGANIZATIONS)
     if not dataset:
-        service_errors.append(service_error_msg(serviceKey=ServiceKey.DATA_SETS))
+        service_errors.append(service_error_msg(serviceKey=ServiceKey.DATASETS))
     if not dataservice:
         service_errors.append(service_error_msg(serviceKey=ServiceKey.DATA_SERVICES))
     if not info_models:
@@ -171,8 +171,8 @@ async def get_concepts():
 async def get_datasets():
     async with httpx.AsyncClient() as client:
         try:
-            sparql_select_endpoint = f"{service_urls[ServiceKey.DATA_SETS]}/sparql/select"
-            encoded_query = encode_for_sparql(sparql_queries[ServiceKey.DATA_SETS])
+            sparql_select_endpoint = f"{service_urls[ServiceKey.DATASETS]}/sparql/select"
+            encoded_query = encode_for_sparql(sparql_queries[ServiceKey.DATASETS])
             print(encoded_query)
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, timeout=5)
@@ -181,7 +181,7 @@ async def get_datasets():
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
-                execution_point=ServiceKey.DATA_SETS,
+                execution_point=ServiceKey.DATASETS,
                 url=sparql_select_endpoint
             )
 
