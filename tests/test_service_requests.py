@@ -11,7 +11,7 @@ service_urls = {
     ServiceKey.ORGANIZATIONS: "http://localhost:8080/organizations",
     ServiceKey.INFO_MODELS: "http://localhost:8080/informationmodels",
     ServiceKey.DATA_SERVICES: "http://localhost:8080/apis",
-    ServiceKey.DATA_SETS: "http://localhost:8080/datasets",
+    ServiceKey.DATASETS: "http://localhost:8080/datasets",
     ServiceKey.CONCEPTS: "http://localhost:8080/concepts"
 
 }

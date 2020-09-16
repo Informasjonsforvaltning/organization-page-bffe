@@ -12,7 +12,7 @@ class ServiceKey:
     INFO_MODELS = "informationmodels"
     DATA_SERVICES = "dataservices"
     OLD_DATA_SERVICES = "apis"
-    DATA_SETS = "datasets"
+    DATASETS = "datasets"
     CONCEPTS = "concepts"
 
 
@@ -63,18 +63,17 @@ env_variables = {
     ServiceKey.ORGANIZATIONS: 'ORGANIZATION_CATALOG_URL',
     ServiceKey.INFO_MODELS: 'INFORMATIONMODELS_HARVESTER_URL',
     ServiceKey.DATA_SERVICES: 'DATASERVICE_HARVESTER_URL',
-    ServiceKey.DATA_SETS: 'DATASET_HARVESTER_URL',
+    ServiceKey.DATASETS: 'DATASET_HARVESTER_URL',
     ServiceKey.CONCEPTS: 'CONCEPT_HARVESTER_URL'
 }
 
 
 def get_service_url(service: ServiceKey):
     base_url = os.getenv(env_variables[service]) or "http://localhost:8080"
-    if service == ServiceKey.DATA_SETS or service == ServiceKey.DATA_SERVICES:
+    if service == ServiceKey.DATASETS or service == ServiceKey.DATA_SERVICES:
         return base_url
     else:
         return f"{base_url}/{service}"
-
 
 class ContentKeys:
     SPARQL_RESULTS = "results"

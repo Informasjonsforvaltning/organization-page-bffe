@@ -5,7 +5,14 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-from src.endpoints import OrganizationCatalogs, OrganizationCatalogWithId, Ping, Ready
+from src.endpoints import (
+    DatasetCatalogForOrganization,
+    DatasetForOrganization,
+    OrganizationCatalogs,
+    OrganizationCatalogWithId,
+    Ping,
+    Ready
+)
 
 
 def create_app(test_config=None):
@@ -31,6 +38,8 @@ def create_app(test_config=None):
     api.add_resource(Ready, "/ready")
     api.add_resource(OrganizationCatalogs, '/organizationcatalogs')
     api.add_resource(OrganizationCatalogWithId, '/organizationcatalogs/<string:organization_id>')
+    api.add_resource(DatasetCatalogForOrganization, '/organizationcatalogs/<string:organization_id>/datasets')
+    api.add_resource(DatasetForOrganization, '/organizationcatalogs/<string:organization_id>/datasets/<string:dataset_id>')
     api.add_resource(Ping, '/ping')
 
     return app

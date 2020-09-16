@@ -75,7 +75,7 @@ def test_combine_results_should_update_organization_store_with_one_organization(
 
     dataset_result = [
         OrganizationReferencesObject.from_sparql_query_result(
-            for_service=ServiceKey.DATA_SETS,
+            for_service=ServiceKey.DATASETS,
             organization={
                 "sameAs": {
                     "type": "uri",
@@ -93,7 +93,7 @@ def test_combine_results_should_update_organization_store_with_one_organization(
             }
         ),
         OrganizationReferencesObject.from_sparql_query_result(
-            for_service=ServiceKey.DATA_SETS,
+            for_service=ServiceKey.DATASETS,
             organization={
                 "publisher": {
                     "type": "uri",
@@ -149,13 +149,3 @@ def test_combine_results_should_update_organization_store_with_one_organization(
     assert test_org.concept_count == 23
     assert test_org.dataset_count == 2
     assert test_org.dataservice_count == 18
-
-
-@pytest.mark.unit
-def test_aggregate_result_should_return_catalog_list_response_with_organization_from_catalog(mocker):
-    pytest.xfail()
-
-
-@pytest.mark.unit
-def test_aggregation_all_results_should_have_names(mocker):
-    pytest.xfail()

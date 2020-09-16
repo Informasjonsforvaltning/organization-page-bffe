@@ -33,7 +33,7 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
                 self.json_data = [org_brreg, org_digdir, org_politi]
             elif service_key == ServiceKey.CONCEPTS:
                 self.json_data = concept_es_response
-            elif service_key == ServiceKey.DATA_SETS:
+            elif service_key == ServiceKey.DATASETS:
                 self.json_data = {"results": {"bindings": []}}
             elif service_key == ServiceKey.DATA_SERVICES:
                 self.json_data = {"results": {"bindings": []}}
@@ -82,7 +82,7 @@ def mock_get_xhttp_dataservices(mocker):
 
 @pytest.fixture
 def mock_get_xhttp_datasets(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATA_SETS)
+    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATASETS)
     return mocker.patch('httpx.AsyncClient.get',
                         return_value=mock_values
                         )

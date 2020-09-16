@@ -42,7 +42,7 @@ def combine_results(organizations_from_service: List[OrganizationReferencesObjec
     store.add_all(organizations=concepts,
                   for_service=ServiceKey.CONCEPTS)
     store.add_all(organizations=datasets,
-                  for_service=ServiceKey.DATA_SETS)
+                  for_service=ServiceKey.DATASETS)
     store.add_all(organizations=dataservices,
                   for_service=ServiceKey.DATA_SERVICES)
 

@@ -277,7 +277,7 @@ def test_organization_store_add_sparql_result_org():
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
     store_instance.update(organizations=parsed_org_catalog_mock())
-    aas_kommune = OrganizationReferencesObject.from_sparql_query_result(for_service=ServiceKey.DATA_SETS,
+    aas_kommune = OrganizationReferencesObject.from_sparql_query_result(for_service=ServiceKey.DATASETS,
                                                                         organization=aas_kommune_sparql)
     store_instance.add_organization(for_service=ServiceKey.DATA_SERVICES, organization=aas_kommune)
     assert len(store_instance.organizations) == 4
@@ -290,7 +290,7 @@ def test_organization_store_add_sparql_dataset_result_org_with_existing_from_cat
     store_instance.organizations = []
     store_instance.update(organizations=parsed_org_catalog_mock())
     sparql_digitaliserings_direktoratet = OrganizationReferencesObject.from_sparql_query_result(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         organization=
         {
             "name": {
@@ -305,7 +305,7 @@ def test_organization_store_add_sparql_dataset_result_org_with_existing_from_cat
                 "value": 99
             }
         })
-    store_instance.add_organization(organization=sparql_digitaliserings_direktoratet, for_service=ServiceKey.DATA_SETS)
+    store_instance.add_organization(organization=sparql_digitaliserings_direktoratet, for_service=ServiceKey.DATASETS)
     assert len(store_instance.organizations) == 3
     assert sparql_digitaliserings_direktoratet in store_instance.organizations
     assert store_instance.get_organization(sparql_digitaliserings_direktoratet).dataset_count == 99
@@ -345,7 +345,7 @@ def test_organization_store_add_sparql_result_org_with_same_as_in_existing_from_
     store_instance.organizations = []
     store_instance.update(organizations=parsed_org_catalog_mock())
     sparql_digitaliserings_direktoratet = OrganizationReferencesObject.from_sparql_query_result(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         organization={
             "name": {
                 "type": "literal",
@@ -363,7 +363,7 @@ def test_organization_store_add_sparql_result_org_with_same_as_in_existing_from_
                 "value": "209"
             }
         })
-    store_instance.add_organization(for_service=ServiceKey.DATA_SETS,
+    store_instance.add_organization(for_service=ServiceKey.DATASETS,
                                     organization=sparql_digitaliserings_direktoratet)
     assert len(store_instance.organizations) == 3
     assert sparql_digitaliserings_direktoratet in store_instance.organizations
@@ -384,7 +384,7 @@ def test_organization_store_add_concept_to_existing_org():
     store_instance.organizations = []
     store_instance.update(organizations=parsed_org_catalog_mock())
     sparql_digitaliserings_direktoratet = OrganizationReferencesObject.from_sparql_query_result(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         organization={
             "name": {
                 "type": "literal",
@@ -402,7 +402,7 @@ def test_organization_store_add_concept_to_existing_org():
                 "value": "358"
             }
         })
-    store_instance.add_organization(for_service=ServiceKey.DATA_SETS,
+    store_instance.add_organization(for_service=ServiceKey.DATASETS,
                                     organization=sparql_digitaliserings_direktoratet)
     brreg_concepts = {
         "key": "/STAT/972417858/991825827",
@@ -432,7 +432,7 @@ def test_content_from_all_content_types():
     store_instance.organizations = []
     store_instance.update(organizations=parsed_org_catalog_mock())
     sparql_digir_datasets = OrganizationReferencesObject.from_sparql_query_result(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         organization={
             "name": {
                 "type": "literal",
@@ -461,7 +461,7 @@ def test_content_from_all_content_types():
                 "value": "206"
             }
         })
-    store_instance.add_organization(for_service=ServiceKey.DATA_SETS,
+    store_instance.add_organization(for_service=ServiceKey.DATASETS,
                                     organization=sparql_digir_datasets)
     store_instance.add_organization(for_service=ServiceKey.DATA_SERVICES,
                                     organization=sparql_digir_dataservices)
@@ -500,7 +500,7 @@ def test_content_from_all_content_types():
 
 @pytest.mark.unit
 def test_sparql_references_parser():
-    result = OrganizationReferencesObject.from_sparql_query_result(ServiceKey.DATA_SETS, aas_kommune_sparql)
+    result = OrganizationReferencesObject.from_sparql_query_result(ServiceKey.DATASETS, aas_kommune_sparql)
     assert result.name == "Ås kommune"
     assert len(result.same_as) == 1
     assert result.org_uri == "http://data.brreg.no/enhetsregisteret/enhet/964948798"
@@ -571,7 +571,7 @@ def test_sparql_references_parser_without_publisher():
             "value": 6
         }
     }
-    expected = OrganizationReferencesObject.from_sparql_query_result(for_service=ServiceKey.DATA_SETS,
+    expected = OrganizationReferencesObject.from_sparql_query_result(for_service=ServiceKey.DATASETS,
                                                                      organization=data)
     assert expected.name == "Ås kommune"
     assert len(expected.same_as) == 0
@@ -656,15 +656,15 @@ def test_parse_from_informationmodel_harvester_response():
 @pytest.mark.unit
 def test_eq_on_org_uri():
     from_sparql_result = OrganizationReferencesObject.from_sparql_query_result(
-        ServiceKey.DATA_SETS,
+        ServiceKey.DATASETS,
         aas_kommune_sparql
     )
     from_sparql_result_no_publisher = OrganizationReferencesObject.from_sparql_query_result(
-        ServiceKey.DATA_SETS,
+        ServiceKey.DATASETS,
         aas_kommune_sparql_without_publisher
     )
     from_sparql_result_no_same_as = OrganizationReferencesObject.from_sparql_query_result(
-        ServiceKey.DATA_SETS,
+        ServiceKey.DATASETS,
         aas_kommune_sparql_without_same_as
     )
     from_org_catalog_json = OrganizationReferencesObject.from_organization_catalog_single_response(
@@ -679,7 +679,7 @@ def test_eq_on_org_uri():
 @pytest.mark.unit
 def test_eq_on_both_with_same_as_and_no_org_uri():
     same_as_with_name = OrganizationReferencesObject(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         name="Geovekst",
         same_as_entry="https://register.geonorge.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4"
     )
@@ -688,7 +688,7 @@ def test_eq_on_both_with_same_as_and_no_org_uri():
         same_as_entry="https://register.geonorge.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4"
     )
     same_as_without_name_no_match = OrganizationReferencesObject(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         same_as_entry="https://register.geonorge.no/organisasjoner/geov/7ac1627a-4dad-9213-c04a15a462e4"
     )
     same_as_without_name_http = OrganizationReferencesObject(
@@ -696,12 +696,12 @@ def test_eq_on_both_with_same_as_and_no_org_uri():
         same_as_entry="https://register.geonorge.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4"
     )
     no_org_uri_name_only = OrganizationReferencesObject(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         name="geovekst",
         count=7
     )
     no_match_same_as_match_name = OrganizationReferencesObject(
-        for_service=ServiceKey.DATA_SETS,
+        for_service=ServiceKey.DATASETS,
         name="geovekst",
         same_as_entry="https://no.coockie.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4",
         count=7
@@ -791,7 +791,7 @@ def test_reduce_for_response():
         org_path="/STAT/972417831/915429785",
         org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/915429785",
         count=3,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
     some_other_ref = OrganizationReferencesObject(
         name="STRANDA SAG- OG HØVLERI",
         org_path="/PRIVAT/1256847",
@@ -807,18 +807,18 @@ def test_reduce_for_response():
         org_path="/STAT/972417831",
         org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/972417831",
         count=99,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
     politi_root_orgpath_ref = OrganizationReferencesObject(
         name="Stat",
         org_path="/STAT",
         count=99,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
 
     store = OrganizationStore.get_instance()
     store.organizations = []
-    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATA_SETS)
-    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATA_SETS)
-    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATA_SETS)
+    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATASETS)
+    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATASETS)
+    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATASETS)
     store.add_organization(organization=one_empty_ref)
     store.add_organization(some_other_ref)
 

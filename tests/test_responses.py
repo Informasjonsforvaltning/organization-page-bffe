@@ -27,7 +27,7 @@ def test_organization_to_response_dict():
         org_path="/STAT/972417831/915429785",
         for_service=ServiceKey.ORGANIZATIONS
     )
-    org_ref.set_count_value(for_service=ServiceKey.DATA_SETS, count=3)
+    org_ref.set_count_value(for_service=ServiceKey.DATASETS, count=3)
     org_ref.set_count_value(for_service=ServiceKey.CONCEPTS, count=0)
     org_ref.set_count_value(for_service=ServiceKey.DATA_SERVICES, count=100)
     org_ref.set_count_value(for_service=ServiceKey.INFO_MODELS, count=200)
@@ -91,7 +91,7 @@ def test_organization_catalog_list_response():
         org_path="/STAT/972417831/915429785",
         org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/915429785",
         count=3,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
     some_other_ref = OrganizationReferencesObject(
         name="STRANDA SAG- OG HØVLERI",
         org_path="/PRIVAT/1256847",
@@ -107,18 +107,18 @@ def test_organization_catalog_list_response():
         org_path="/STAT/972417831",
         org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/972417831",
         count=99,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
     politi_root_orgpath_ref = OrganizationReferencesObject(
         name="Stat",
         org_path="/STAT",
         count=99,
-        for_service=ServiceKey.DATA_SETS)
+        for_service=ServiceKey.DATASETS)
 
     store = OrganizationStore.get_instance()
     store.organizations = []
-    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATA_SETS)
-    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATA_SETS)
-    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATA_SETS)
+    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATASETS)
+    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATASETS)
+    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATASETS)
     store.add_organization(organization=one_empty_ref)
     store.add_organization(some_other_ref)
 

@@ -22,14 +22,14 @@ class OrganizationReferencesObject:
         if same_as_entry:
             self.same_as.append(same_as_entry)
         self.name: str = name
-        self.dataset_count = count if for_service == ServiceKey.DATA_SETS else 0
+        self.dataset_count = count if for_service == ServiceKey.DATASETS else 0
         self.dataservice_count = count if for_service == ServiceKey.DATA_SERVICES else 0
         self.concept_count = count if for_service == ServiceKey.CONCEPTS else 0
         self.informationmodel_count = count if for_service == ServiceKey.INFO_MODELS else 0
         self.id = OrganizationReferencesObject.resolve_id(org_uri)
 
     def set_count_value(self, for_service: ServiceKey, count):
-        if for_service == ServiceKey.DATA_SETS:
+        if for_service == ServiceKey.DATASETS:
             self.dataset_count = int(count)
         elif for_service == ServiceKey.DATA_SERVICES:
             self.dataservice_count = int(count)
@@ -39,7 +39,7 @@ class OrganizationReferencesObject:
             self.concept_count = count
 
     def get_count_value(self, for_service: ServiceKey) -> int:
-        if for_service == ServiceKey.DATA_SETS:
+        if for_service == ServiceKey.DATASETS:
             return self.dataset_count
         elif for_service == ServiceKey.DATA_SERVICES:
             return self.dataservice_count
