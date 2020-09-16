@@ -1,5 +1,7 @@
 from json.decoder import JSONDecodeError
 import logging
+from typing import List
+
 import httpx
 from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError, AsyncClient
@@ -35,13 +37,13 @@ def service_error_msg(serviceKey: ServiceKey, url: str):
     }
 
 
-async def get_organizations_from_catalog():
+async def get_organizations_from_catalog() -> List[OrganizationReferencesObject]:
     async with httpx.AsyncClient() as client:
         try:
             result = await client.get(url=ORGANIZATION_CATALOG_URL,
                                       headers={"Accept": "application/json"},
                                       timeout=5)
-            return result.json()
+            return OrganizationReferencesObject.from_organization_catalog_list_response(result.json())
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.ORGANIZATIONS,
@@ -104,7 +106,7 @@ async def attempt_fetch_organization_by_name_from_catalog(name: str) -> dict:
             raise NotInNationalRegistryException(name)
 
 
-async def fetch_generated_org_path_from_organization_catalog(name: str):
+async def fetch_generated_org_path_from_organization_catalog(name: str) -> str:
     if name is None:
         return None
     url: str = f'{ORGANIZATION_CATALOG_URL}/organizations/orgpath/{name.upper()}'
@@ -125,14 +127,16 @@ async def fetch_generated_org_path_from_organization_catalog(name: str):
             )
 
 
-async def get_concepts():
+async def get_concepts() -> List[OrganizationReferencesObject]:
     async with httpx.AsyncClient() as client:
         try:
             result = await client.get(url=CONCEPT_HARVESTER_URL,
                                       params={"aggregations": ContentKeys.ORG_PATH, "size": "0"},
                                       timeout=5)
             result.raise_for_status()
-            return result.json()[ContentKeys.AGGREGATIONS]
+            aggregations = result.json()[ContentKeys.AGGREGATIONS]
+            return [OrganizationReferencesObject.from_es_response(es_response=bucket, for_service=ServiceKey.CONCEPTS)
+                    for bucket in aggregations[ContentKeys.ORG_PATH][ContentKeys.BUCKETS]]
 
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
@@ -147,7 +151,7 @@ async def get_concepts():
             }
 
 
-async def get_datasets():
+async def get_datasets() -> List[OrganizationReferencesObject]:
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASET_HARVESTER_URL}/sparql/select"
@@ -155,7 +159,11 @@ async def get_datasets():
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, timeout=5, headers=default_headers)
             result.raise_for_status()
-            return result.json()
+            sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
+            return [OrganizationReferencesObject.from_sparql_query_result(
+                for_service=ServiceKey.DATA_SETS,
+                organization=binding
+            ) for binding in sparql_bindings]
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -164,7 +172,7 @@ async def get_datasets():
             )
 
 
-async def get_dataservices():
+async def get_dataservices() -> List[OrganizationReferencesObject]:
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASERVICE_HARVESTER_URL}/sparql/select"
@@ -172,7 +180,11 @@ async def get_dataservices():
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, headers=default_headers, timeout=5)
             result.raise_for_status()
-            return result.json()
+            sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
+            return [OrganizationReferencesObject.from_sparql_query_result(
+                for_service=ServiceKey.DATA_SERVICES,
+                organization=binding
+            ) for binding in sparql_bindings]
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[dataservices]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -188,7 +200,10 @@ async def get_informationmodels():
                                       params={"aggregations": "orgPath", "size": 0},
                                       timeout=5)
             result.raise_for_status()
-            return result.json()[ContentKeys.AGGREGATIONS]
+            aggregations = result.json()[ContentKeys.AGGREGATIONS]
+            return [OrganizationReferencesObject.from_es_response(es_response=bucket,
+                                                                  for_service=ServiceKey.INFO_MODELS)
+                    for bucket in aggregations[ContentKeys.ORG_PATH][ContentKeys.BUCKETS]]
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.INFO_MODELS,

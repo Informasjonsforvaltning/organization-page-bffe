@@ -1,163 +1,73 @@
 {
   "name": "get_concepts",
   "request":{
-    "url": "/concepts?returnfields=publisher&size=1000&page=0",
+    "url": "/concepts?aggregations=orgPath&size=0",
     "method": "GET"
   },
   "response": {
     "status": 200,
     "jsonBody": {
-  "_embedded": {
-    "concepts": [
-      {
-        "id": "5cd09fd8-0ac9-494a-b49e-3fa68ef9bb30",
-        "prefLabel": {
-          "nb": "det alminnelige gruppeunntaket "
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
+      "_embedded": {
+        "informationmodels": []
       },
-      {
-        "id": "8d641622-9bb9-4316-b2ab-b27e083f893f",
-        "prefLabel": {
-          "nb": "arkivskaper"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
+      "page": {
+        "size": 10,
+        "totalElements": 9,
+        "totalPages": 1,
+        "number": 0
       },
-      {
-        "id": "13dbd4a3-4aff-498c-abdd-61d8f7d6fc40",
-        "prefLabel": {
-          "nb": "pantedokument"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
+      "aggregations": {
+        "orgPath": {
+          "buckets": [
+            {
+              "key": "/STAT",
+              "count": 536
+            },
+            {
+              "key": "/STAT/972417807",
+              "count": 339
+            },
+            {
+              "key": "/STAT/972417807/971526920",
+              "count": 2
+            },
+            {
+              "key": "/STAT/972417807/840747972",
+              "count": 44
+            },
+            {
+              "key": "/STAT/972417807/974761076",
+              "count": 90
+            },
+            {
+              "key": "/STAT/912660680",
+              "count": 64
+            },
+            {
+              "key": "/STAT/912660680/974760673",
+              "count": 32
+            },
+            {
+              "key": "/STAT/983887457",
+              "count": 22
+            },
+            {
+              "key": "/STAT/912660680/974761262",
+              "count": 20
+            },
+            {
+              "key": "MISSING",
+              "count": 6
+            },
+            {
+            "key": "/KOMMUNE/964338531",
+            "count": 2
           }
-        }
-      },
-      {
-        "id": "d45424f6-deb1-4768-8bfe-864b71b25b0b",
-        "prefLabel": {
-          "nb": "bruksenhetsnummer"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
-      },
-      {
-        "id": "de5b25ad-521f-4fbd-af51-7486129c6a6f",
-        "prefLabel": {
-          "nb": "kontaktinformasjon"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
-      },
-      {
-        "id": "7f1d62a3-1e79-4fc9-a0ca-17cbe4a04dcd",
-        "prefLabel": {
-          "nb": "meronym"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
-      },
-      {
-        "id": "9908dcab-38fd-4219-9429-e2e9d7efdb08",
-        "prefLabel": {
-          "nb": "valutakode"
-        },
-        "publisher": {
-          "uri": "http://data.brreg.no/enhetsregisteret/enhet/974760673",
-          "name": "REGISTERENHETEN I BRØNNØYSUND",
-          "orgPath": "/STAT/912660680/974760673",
-          "prefLabel": {
-            "no": "REGISTERENHETEN I BRØNNØYSUND"
-          }
-        }
-      },
-      {
-        "id": "5cd09fd8-0ac9-494a-b49e-3fa68ef9bb30",
-        "prefLabel": {
-          "nb": "det alminnelige gruppeunntaket"
-        },
-        "publisher": {
-          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
-          "name": "PATENTSTYRET",
-          "orgPath": "/STAT/912660680/971526157",
-          "prefLabel": {
-            "no": "PATENTSTYRET"
-          }
-        }
-      },
-       {
-        "id": "5cd09fd8-0ac9-494a-b49e-3fa68ef9bb30",
-        "prefLabel": {
-          "nb": "det alminnelige gruppeunntaket"
-        },
-        "publisher": {
-          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
-          "name": "PATENTSTYRET",
-          "orgPath": "/STAT/912660680/971526157",
-          "prefLabel": {
-            "no": "PATENTSTYRET"
-          }
-        }
-      },
-       {
-        "id": "5cd09fd8-0ac9-494a-b49e-3fa68ef9bb30",
-        "prefLabel": {
-          "nb": "det alminnelige gruppeunntaket"
-        },
-        "publisher": {
-          "uri": "https://data.brreg.no/enhetsregisteret/api/enheter/971526157",
-          "name": "PATENTSTYRET",
-          "orgPath": "/STAT/912660680/971526157",
-          "prefLabel": {
-            "no": "PATENTSTYRET"
-          }
+          ]
         }
       }
-    ]
-  },
-  "page": {
-    "size": 1000,
-    "totalElements": 10,
-    "totalPages": 1,
-    "number": 0
-  }
-},
+    },
+
      "headers": {
       "Content-Type" : "application/json"
     }

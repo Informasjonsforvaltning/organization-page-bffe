@@ -1,0 +1,126 @@
+{
+  "id" : "b6091f0b-24dc-4473-8477-d62744680185",
+  "name" : "select_datasets",
+  "request" : {
+    "urlPattern" : "/datasets/sparql/select[=?a-zA-Z%0-9{}//:%.-_]*",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : {
+  "head": {
+    "vars": [
+      "publisher",
+      "sameAs",
+      "name",
+      "count"
+    ]
+  },
+  "results": {
+    "bindings": [
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/994686011"
+        },
+        "name": {
+          "type": "literal",
+          "value": "ATB AS"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "2"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974760665"
+        },
+        "name": {
+          "type": "literal",
+          "value": "FYLKESMANNEN I VESTLAND"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "6"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974761424"
+        },
+        "name": {
+          "type": "literal",
+          "value": "DEPARTEMENTENES SIKKERHETS-OG SERVICEORGANISASJON (DSS)"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "1"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://register.geonorge.no/organisasjoner/statens-stralevern/b69f18d8-93fd-4cd8-8ee1-68fa20bfd0c7"
+        },
+        "sameAs": {
+          "type": "literal",
+          "value": "http://data.brreg.no/enhetsregisteret/enhet/867668292"
+        },
+        "name": {
+          "type": "literal",
+          "value": "Statens strålevern"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "1"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/970141669"
+        },
+        "name": {
+          "type": "literal",
+          "value": "NORGES FORSKNINGSRÅD"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "3"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://register.geonorge.no/organisasjoner/finnmarkseiendommen/69fbcff8-951b-422b-8bda-b82b8dc07b48"
+        },
+        "sameAs": {
+          "type": "literal",
+          "value": "http://data.brreg.no/enhetsregisteret/enhet/989480731"
+        },
+        "name": {
+          "type": "literal",
+          "value": "Finnmarkseiendommen"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "1"
+        }
+      }
+    ]
+  }
+}
+  },
+  "uuid" : "b6091f0b-24dc-4473-8477-d62744680185",
+  "persistent" : true,
+  "insertionIndex" : 11
+}

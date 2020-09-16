@@ -673,7 +673,7 @@ def test_eq_on_org_uri():
 
     assert from_sparql_result == from_org_catalog_json
     assert from_sparql_result_no_publisher == from_org_catalog_json
-    assert from_sparql_result_no_same_as != from_org_catalog_json
+    assert from_sparql_result_no_same_as == from_org_catalog_json
 
 
 @pytest.mark.unit
@@ -695,11 +695,24 @@ def test_eq_on_both_with_same_as_and_no_org_uri():
         for_service=ServiceKey.DATA_SERVICES,
         same_as_entry="https://register.geonorge.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4"
     )
+    no_org_uri_name_only = OrganizationReferencesObject(
+        for_service=ServiceKey.DATA_SETS,
+        name="geovekst",
+        count=7
+    )
+    no_match_same_as_match_name = OrganizationReferencesObject(
+        for_service=ServiceKey.DATA_SETS,
+        name="geovekst",
+        same_as_entry="https://no.coockie.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4",
+        count=7
+    )
 
     assert same_as_without_name_http == same_as_with_name
     assert same_as_without_name_https == same_as_with_name
     assert same_as_without_name_no_match != same_as_with_name
     assert same_as_without_name_http == same_as_without_name_https
+    assert no_org_uri_name_only == same_as_with_name
+    assert no_match_same_as_match_name == same_as_with_name
 
 
 @pytest.mark.unit
@@ -817,4 +830,3 @@ def test_reduce_for_response():
     assert "EMPTY NONSENSE" in result_names
     assert "LOVER OG SÅNNE TING" not in result_names
     assert "Stat" not in result_names
-

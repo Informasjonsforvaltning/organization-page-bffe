@@ -77,6 +77,9 @@ def get_service_url(service: ServiceKey):
 
 
 class ContentKeys:
+    SPARQL_RESULTS = "results"
+    SPARQL_BINDINGS = "bindings"
+    BUCKETS = "buckets"
     AGGREGATIONS = "aggregations"
     ORG_PATH = "orgPath"
     KEY = "key"

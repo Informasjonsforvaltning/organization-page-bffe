@@ -26,7 +26,7 @@ def wait_for_ready():
     yield
 
 
-def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None, text=None ):
+def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None, text=None):
     class MockResponse:
         def __init__(self, status):
             if service_key == ServiceKey.ORGANIZATIONS:
@@ -34,9 +34,9 @@ def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None,
             elif service_key == ServiceKey.CONCEPTS:
                 self.json_data = concept_es_response
             elif service_key == ServiceKey.DATA_SETS:
-                self.json_data = []
+                self.json_data = {"results": {"bindings": []}}
             elif service_key == ServiceKey.DATA_SERVICES:
-                self.json_data = []
+                self.json_data = {"results": {"bindings": []}}
             elif service_key == ServiceKey.INFO_MODELS:
                 self.json_data = info_es_response_size_1_total_7
             elif json:

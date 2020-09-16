@@ -57,11 +57,14 @@ class OrganizationReferencesObject:
                     return True
                 elif self.org_path and other.org_path:
                     return self.org_path == other.org_path
-
-            elif self.same_as and other.same_as:
-                return self.__eq_on_same_as(other)
+                elif self.name and other.name:
+                    return self.name.upper() == other.name.upper()
+            elif self.same_as and other.same_as and self.__eq_on_same_as(other):
+                return True
             elif self.org_path and other.org_path:
                 return self.org_path == other.org_path
+            elif self.name and other.name:
+                return self.name.upper() == other.name.upper()
         elif type(other) == str:
             if not self.org_path:
                 return False
@@ -160,7 +163,7 @@ class OrganizationReferencesObject:
     def resolve_organization_catalog_uri(uri):
         if re.search(ORGANIZATION_CATALOG_IDENTIFIER_PATTERN, uri):
             org_id = uri.split("/")[-1]
-            return f"{NATIONAL_REGISTRY_URL}/{org_id}"
+            return f"{NATIONAL_REGISTRY_URL}/{org_id}".strip()
         else:
             return False
 
@@ -175,15 +178,19 @@ class OrganizationReferencesObject:
 
 class OrgPathParent:
     def __init__(self, org_path: str):
-        self.org_path_joints = org_path.split("/")
+        if org_path:
+            self.org_path_joints = org_path.split("/")
 
     def __eq__(self, other: 'OrgPathParent'):
-        if len(other.org_path_joints) > len(self.org_path_joints):
-            for idx, joint in enumerate(self.org_path_joints):
-                if other.org_path_joints[idx] != joint:
-                    return False
-            return True
-        return False
+        try:
+            if len(other.org_path_joints) > len(self.org_path_joints):
+                for idx, joint in enumerate(self.org_path_joints):
+                    if other.org_path_joints[idx] != joint:
+                        return False
+                return True
+            return False
+        except AttributeError:
+            return False
 
 
 class OrganizationStore:
@@ -242,10 +249,12 @@ class OrganizationStore:
         except ValueError:
             return None
 
-    def add_all_publishers(self, publishers: List[dict]):
-        for reference in publishers["results"]["bindings"]:
+    def add_all(self, organizations: List[OrganizationReferencesObject], for_service: ServiceKey):
+        for reference in organizations:
             self.add_organization(
-                OrganizationReferencesObject.from_sparql_query_result(reference))
+                organization=reference,
+                for_service=for_service
+            )
 
     @staticmethod
     def get_instance() -> 'OrganizationStore':

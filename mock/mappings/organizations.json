@@ -112,7 +112,67 @@
         "sectorCode": "3200",
         "prefLabel": null,
         "allowDelegatedRegistration": null
-      }
+      },
+      {
+      "organizationId": "971526920",
+      "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/971526920",
+      "internationalRegistry": null,
+      "name": "STATISTISK SENTRALBYRÅ",
+      "orgType": "ORGL",
+      "orgPath": "/STAT/972417807/971526920",
+      "subOrganizationOf": "972417807",
+      "issued": "1995-02-20",
+      "municipalityNumber": "0301",
+      "industryCode": "84.110",
+      "sectorCode": "6100",
+      "prefLabel": null,
+      "allowDelegatedRegistration": null
+      },
+      {
+        "organizationId": "840747972",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/840747972",
+        "internationalRegistry": null,
+        "name": "FINANSTILSYNET",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/972417807/840747972",
+        "subOrganizationOf": "972417807",
+        "issued": "1995-08-09",
+        "municipalityNumber": "0301",
+        "industryCode": "84.130",
+        "sectorCode": "6100",
+        "prefLabel": null,
+        "allowDelegatedRegistration": null
+      },
+      {
+        "organizationId": "974761262",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/974761262",
+        "internationalRegistry": null,
+        "name": "SJØFARTSDIREKTORATET",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/912660680/974761262",
+        "subOrganizationOf": "912660680",
+        "issued": "1995-08-09",
+        "municipalityNumber": "1106",
+        "industryCode": "84.130",
+        "sectorCode": "6100",
+        "prefLabel": null,
+        "allowDelegatedRegistration": null
+      },
+        {
+      "organizationId": "970237372",
+      "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/970237372",
+      "internationalRegistry": null,
+      "name": "KYSTVERKET",
+      "orgType": "ORGL",
+      "orgPath": "/PRIVAT/970237372",
+      "subOrganizationOf": null,
+      "issued": null,
+      "municipalityNumber": null,
+      "industryCode": null,
+      "sectorCode": null,
+      "prefLabel": null,
+      "allowDelegatedRegistration": null
+    }
     ],
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
