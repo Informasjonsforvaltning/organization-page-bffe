@@ -24,8 +24,14 @@ class OrganizationCatalogs(Resource):
 
 class OrganizationCatalogWithId(Resource):
     def get(self, organization_id: str):
-        print(organization_id)
-        abort(http_status_code=501, description="Not implemented")
+        try:
+            assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
+
+            return {
+                "catalogRating": assessment_rating
+            }
+        except Exception as e:
+            abort(http_status_code=500, description=str(e))
 
 
 class DatasetCatalogForOrganization(Resource):
@@ -57,17 +63,11 @@ class DatasetCatalogForOrganization(Resource):
                     "assessment": next((assessment for assessment in assessments if assessment["id"] == hit["uri"]), None)
                 }, paged_datasets["hits"]))
 
-            try:
-                catalog_uri = paged_datasets["hits"][0]["catalog"]["uri"]
-            except AttributeError:
-                catalog_uri = None
-
-            if catalog_uri:
-                assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(catalog_uri, "dataset"))
+            assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
 
             return {
                 **paged_datasets,
-                "rating": assessment_rating
+                "catalogRating": assessment_rating
             }
         except Exception as e:
             abort(http_status_code=500, description=str(e))
