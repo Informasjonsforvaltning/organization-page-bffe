@@ -12,7 +12,6 @@ def get_name(organization: OrganizationReferencesObject) -> dict:
 
 class OrganizationCatalogResponse:
     def __init__(self, organization: OrganizationReferencesObject):
-        self.id = organization.resolve_display_id()
         self.organization = {
             ContentKeys.ORG_PATH: organization.org_path,
             ContentKeys.ORG_NAME: get_name(organization),
@@ -21,6 +20,7 @@ class OrganizationCatalogResponse:
         self.dataservice_count = organization.dataservice_count
         self.informationmodel_count = organization.informationmodel_count
         self.concept_count = organization.concept_count
+        self.id = organization.resolve_display_id()
 
     def has_content(self):
         return self.dataservice_count + self.informationmodel_count + self.dataset_count + self.concept_count > 0
@@ -55,4 +55,3 @@ class OrganizationCatalogListResponse:
                 OrganizationCatalogResponse(org_ref)
             )
         return list_response
-

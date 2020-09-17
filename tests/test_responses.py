@@ -37,6 +37,7 @@ def test_organization_to_response_dict():
 @pytest.mark.unit
 def test_organization_catalog_without_id():
     expected = {
+        "id": "BurdeSkjerpeSeg",
         "organization": {
             "name": {
                 "no": "BurdeSkjerpeSeg"
@@ -71,7 +72,8 @@ def test_organization_catalog_without_id():
         "dataset_count": 3,
         "concept_count": 0,
         "dataservice_count": 100,
-        "informationmodel_count": 29
+        "informationmodel_count": 29,
+        "id": "BurdeSkjerpeSeg"
     }
     org_ref = OrganizationReferencesObject(
         name="BurdeSkjerpeSeg",
