@@ -291,11 +291,11 @@ async def get_assessment_for_entity(entity_uri: str):
             raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
 
 
-async def get_catalog_assessment_rating_for_entity_type(catalog_uri: str, entity_type: str):
+async def get_catalog_assessment_rating_for_entity_type(catalog_id: str, entity_type: str):
     async with httpx.AsyncClient() as client:
         url = f"{METADATA_QUALITY_ASSESSMENT_SERVICE_HOST}/assessment/catalog/rating"
         params = {
-            "catalogUri": catalog_uri,
+            "catalogId": catalog_id,
             "entityType": entity_type
         }
 
