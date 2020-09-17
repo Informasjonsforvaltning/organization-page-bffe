@@ -12,8 +12,7 @@ def get_name(organization: OrganizationReferencesObject) -> dict:
 
 class OrganizationCatalogResponse:
     def __init__(self, organization: OrganizationReferencesObject):
-        if organization.id:
-            self.id = organization.id
+        self.id = organization.resolve_display_id()
         self.organization = {
             ContentKeys.ORG_PATH: organization.org_path,
             ContentKeys.ORG_NAME: get_name(organization),

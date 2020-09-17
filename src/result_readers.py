@@ -26,7 +26,7 @@ class OrganizationReferencesObject:
         self.dataservice_count = count if for_service == ServiceKey.DATA_SERVICES else 0
         self.concept_count = count if for_service == ServiceKey.CONCEPTS else 0
         self.informationmodel_count = count if for_service == ServiceKey.INFO_MODELS else 0
-        self.id = OrganizationReferencesObject.resolve_id(org_uri)
+        self.id = self.resolve_id()
 
     def set_count_value(self, for_service: ServiceKey, count):
         if for_service == ServiceKey.DATASETS:
@@ -167,13 +167,16 @@ class OrganizationReferencesObject:
         else:
             return False
 
-    @staticmethod
-    def resolve_id(uri: str):
-        if uri:
-            uri_parts = uri.split("/")
-            return uri_parts[-1]
+    def resolve_id(self):
+        if self.org_uri:
+            return self.org_uri.split("/")[-1]
+        elif self.org_path:
+            return self.org_path.split("/")[-1]
         else:
             return None
+
+    def resolve_display_id(self):
+        return self.id or self.name
 
 
 class OrgPathParent:

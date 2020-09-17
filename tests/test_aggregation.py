@@ -119,7 +119,7 @@ def test_combine_results_should_update_organization_store_with_one_organization(
                 "publisher": {
                     "type": "uri",
                     "value": "https://organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations"
-                             "/974760673 "
+                             "/974760673"
                 },
                 "count": {
                     "type": "literal",

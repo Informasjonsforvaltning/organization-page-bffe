@@ -16,6 +16,7 @@ class TestSearchAll:
         assert len(result.json()["organizations"]) == expected_size
         for org in result.json()["organizations"]:
             keys = org.keys()
+            assert "id" in keys
             assert "organization" in keys
             assert "dataset_count" in keys
             assert "concept_count" in keys

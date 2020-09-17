@@ -26,14 +26,6 @@ SEARCH_FULLTEXT_HOST = env.get("SEARCH_FULLTEXT_HOST")
 METADATA_QUALITY_ASSESSMENT_SERVICE_HOST = env.get("METADATA_QUALITY_ASSESSMENT_SERVICE_HOST")
 
 
-def error_msg(reason: str, serviceKey: ServiceKey):
-    return {
-        "status": "error",
-        "service": serviceKey,
-        "reason": f"{reason}"
-    }
-
-
 def service_error_msg(serviceKey: ServiceKey, url: str):
     return {
         "service": serviceKey,
@@ -55,15 +47,16 @@ async def get_organizations_from_catalog() -> List[OrganizationReferencesObject]
             )
 
 
-async def fetch_organization_from_catalog(org: OrganizationReferencesObject) -> dict:
-    national_reg_id = OrganizationReferencesObject.resolve_id(org.org_uri)
-    url: str = f'{ORGANIZATION_CATALOG_URL}/{national_reg_id}'
+async def fetch_organization_by_id(org: OrganizationReferencesObject) -> OrganizationReferencesObject:
+    if org.id is None:
+        raise NotInNationalRegistryException("id for organization was not provided")
+    url: str = f'{ORGANIZATION_CATALOG_URL}/{org.id}'
     async with AsyncClient() as session:
         try:
             response = await session.get(url=url, headers=default_headers, timeout=5)
             response.raise_for_status()
 
-            return response.json()
+            return OrganizationReferencesObject.from_organization_catalog_single_response(response.json())
         except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point="get organization by id",
@@ -84,7 +77,7 @@ async def fetch_organization_from_catalog(org: OrganizationReferencesObject) -> 
                 )
 
 
-async def attempt_fetch_organization_by_name_from_catalog(name: str) -> dict:
+async def attempt_fetch_organization_by_name_from_catalog(name: str) -> OrganizationReferencesObject:
     if name is None:
         raise NotInNationalRegistryException("No name")
     url: str = f'{ORGANIZATION_CATALOG_URL}/organizations?name={name.upper()}'
@@ -92,7 +85,7 @@ async def attempt_fetch_organization_by_name_from_catalog(name: str) -> dict:
         try:
             response = await session.get(url=url, headers=default_headers, timeout=5)
             response.raise_for_status()
-            return response.json()[0]
+            return OrganizationReferencesObject.from_organization_catalog_single_response(response)
         except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point="get organization by name",
@@ -107,7 +100,8 @@ async def attempt_fetch_organization_by_name_from_catalog(name: str) -> dict:
                     url=url
                 )
         except IndexError:
-            raise NotInNationalRegistryException(name)
+            generated_org_path = await fetch_generated_org_path_from_organization_catalog(name)
+            return OrganizationReferencesObject(for_service=ServiceKey.ORGANIZATIONS, org_path=generated_org_path)
 
 
 async def fetch_generated_org_path_from_organization_catalog(name: str) -> str:

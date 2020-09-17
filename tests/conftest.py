@@ -10,6 +10,7 @@ from tests.test_data import org_brreg, org_digdir, concept_es_response, info_es_
 
 @pytest.fixture(scope="session")
 def wait_for_ready():
+    wait_for_mock_server()
     timeout = time.time() + 20
     try:
         while True:
@@ -24,6 +25,23 @@ def wait_for_ready():
     except (requests.exceptions.ConnectionError, ConnectionRefusedError, MaxRetryError, NewConnectionError):
         pytest.fail('Test function setup: could not contact fdk-organization-bff')
     yield
+
+
+def wait_for_mock_server():
+    timeout = time.time() + 10
+    while True:
+        try:
+            response = requests.get("http://localhost:8080/ready")
+            if response.status_code == 200:
+                break
+            if time.time() > timeout:
+                pytest.fail(
+                    'Test function setup: timed out while waiting for organization-bff, last response '
+                    'was {0}'.format(response.status_code))
+            time.sleep(1)
+        except (requests.exceptions.ConnectionError, ConnectionRefusedError, MaxRetryError, NewConnectionError):
+            continue
+    return
 
 
 def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None, text=None):

@@ -830,3 +830,53 @@ def test_reduce_for_response():
     assert "EMPTY NONSENSE" in result_names
     assert "LOVER OG SÅNNE TING" not in result_names
     assert "Stat" not in result_names
+
+
+@pytest.mark.unit
+def test_resolve_organization_id():
+    with_uri = OrganizationReferencesObject(
+        for_service=ServiceKey.DATASETS,
+        org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/1256847")
+    with_org_catalog_uri = OrganizationReferencesObject(
+        for_service=ServiceKey.DATA_SERVICES,
+        org_uri="organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations/974760673"
+    )
+
+    with_org_path = OrganizationReferencesObject(
+        for_service=ServiceKey.INFO_MODELS,
+        org_path="STAT/1234678"
+    )
+    no_id = OrganizationReferencesObject(
+        for_service=ServiceKey.DATASETS,
+        name="Name name"
+    )
+
+    assert with_uri.resolve_id() == "1256847"
+    assert with_org_catalog_uri.resolve_id() == "974760673"
+    assert with_org_path.resolve_id() == "1234678"
+    assert no_id.resolve_id() is None
+
+
+@pytest.mark.unit
+def test_resolve_display_id():
+    with_uri = OrganizationReferencesObject(
+        for_service=ServiceKey.DATASETS,
+        org_uri="https://data.brreg.no/enhetsregisteret/api/enheter/1256847")
+    with_org_catalog_uri = OrganizationReferencesObject(
+        for_service=ServiceKey.DATA_SERVICES,
+        org_uri="organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations/974760673"
+    )
+
+    with_org_path = OrganizationReferencesObject(
+        for_service=ServiceKey.INFO_MODELS,
+        org_path="STAT/1234678"
+    )
+    no_id = OrganizationReferencesObject(
+        for_service=ServiceKey.DATASETS,
+        name="Name name"
+    )
+
+    assert with_uri.resolve_display_id() == "1256847"
+    assert with_org_catalog_uri.resolve_display_id() == "974760673"
+    assert with_org_path.resolve_display_id() == "1234678"
+    assert no_id.resolve_display_id() == "Name name"
