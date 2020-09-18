@@ -4,7 +4,7 @@ import requests
 service_url = "http://localhost:8000"
 org_catalog_url = f"{service_url}/organizationcatalogs"
 # update if change in mockdata
-expected_size = 18
+expected_size = 12
 
 
 class TestSearchAll:
@@ -28,20 +28,22 @@ class TestSearchAll:
             assert is_language_object_with_content(organization["name"]), "Error: found organization without name: {0}" \
                 .format(organization)
             assert "orgPath" in org_keys
+            org_path: str = organization["orgPath"]
+            assert org_path is not None, "Error: entry with missing org"
+            assert org_path.startswith("/"), f"Error: {org_path} is not a valid orgPath"
 
     @pytest.mark.contract
     def test_brreg_has_correct_data(self, wait_for_ready):
-        pytest.xfail("Updating mock data")
         result = requests.get(url=org_catalog_url, timeout=10)
         if result.status_code != 200:
             pytest.xfail(f"Response status code was{result.status_code}")
         else:
             for org in result.json()["organizations"]:
                 if org["id"] == "974760673":
-                    assert org["dataset_count"] == 643
-                    assert org["informationmodel_count"] == 0
-                    assert org["concept_count"] == 7
-                    assert org["dataservice_count"] == 3
+                    assert org["dataset_count"] == 3
+                    assert org["informationmodel_count"] == 25
+                    assert org["concept_count"] == 32
+                    assert org["dataservice_count"] == 0
 
     @pytest.mark.contract
     def test_brreg_has_correct_dataset_counts(self, wait_for_ready):
@@ -53,7 +55,7 @@ class TestSearchAll:
                 if "id" in org.keys():
                     if org["id"] == "994686011":
                         assert org["dataset_count"] == 2
-                    if org["id"] == "974760665":
+                    if org["id"] == "983544622":
                         assert org["dataset_count"] == 6
                     if org["id"] == "867668292":
                         assert org["dataset_count"] == 1
@@ -66,12 +68,10 @@ class TestSearchAll:
         else:
             for org in result.json()["organizations"]:
                 if "id" in org.keys():
-                    if org["id"] == "971040238":  # Kartverket
+                    if org["id"] == "994686011":
                         assert org["informationmodel_count"] == 0
-                    if org["id"] == "974761076":  # Skatteetaten
+                    if org["id"] == "974761076":
                         assert org["informationmodel_count"] == 90
-                    if org["id"] == "974760673":  # Fiskeridepartementet
-                        assert org["informationmodel_count"] == 25
 
     @pytest.mark.contract
     def test_has_correct_concept_counts(self, wait_for_ready):
@@ -81,9 +81,9 @@ class TestSearchAll:
         else:
             for org in result.json()["organizations"]:
                 if "id" in org.keys():
-                    if org["id"] == "840747972":  # Kartverket
+                    if org["id"] == "840747972":
                         assert org["concept_count"] == 44
-                    if org["id"] == "974761262":  # Patentstyret:
+                    if org["id"] == "974761262":
                         assert org["concept_count"] == 20
 
     @pytest.mark.contract
@@ -94,11 +94,11 @@ class TestSearchAll:
         else:
             for org in result.json()["organizations"]:
                 if "id" in org.keys():
-                    if org["id"] == "840747972":  # Kartverket
-                        assert org["dataservice_count"] == 0
-                    if org["id"] == "974761076":  # Skatteetaten
-                        assert org["dataservice_count"] == 77
-                    if org["id"] == "910244132":  # Fiskeridepartementet
+                    if org["id"] == "910258028":
+                        assert org["dataservice_count"] == 17
+                #    if org["id"] == "974761076":
+                #        assert org["dataservice_count"] == 77
+                    if org["id"] == "910244132":
                         assert org["dataservice_count"] == 20
 
 

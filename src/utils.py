@@ -2,6 +2,7 @@ import os
 
 
 class OrgCatalogKeys:
+    ID = "organizationId"
     NAME = "name"
     URI = "norwegianRegistry"
     ORG_PATH = "orgPath"
@@ -75,6 +76,7 @@ def get_service_url(service: ServiceKey):
     else:
         return f"{base_url}/{service}"
 
+
 class ContentKeys:
     SPARQL_RESULTS = "results"
     SPARQL_BINDINGS = "bindings"
@@ -108,5 +110,21 @@ class ContentKeys:
 
 
 class NotInNationalRegistryException(Exception):
-    def __init__(self, uri):
+    def __init__(self, uri=None, orgs=None):
         self.reason = f"{uri} was not found in the nationalRegistry"
+        self.organization = orgs
+
+
+class OrganizationCatalogResult:
+    def __init__(self, org_path, org_id=None, name=None):
+        self.org_id = org_id
+        self.name = name
+        self.org_path = org_path
+
+    @staticmethod
+    def from_json(response: dict):
+        return OrganizationCatalogResult(
+            org_id=response[OrgCatalogKeys.ID],
+            name=response[OrgCatalogKeys.NAME],
+            org_path=response[OrgCatalogKeys.ORG_PATH]
+        )

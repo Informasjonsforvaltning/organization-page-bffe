@@ -1,6 +1,9 @@
+import asyncio
 import re
 from typing import List
-from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey
+
+from src.organization_utils import get_organization
+from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey, NotInNationalRegistryException, OrganizationCatalogResult
 
 NATIONAL_REGISTRY_PATTERN = "data.brreg.no/enhetsregisteret"
 NATIONAL_REGISTRY_URL = "https://data.brreg.no/enhetsregisteret/api/enheter"
@@ -142,12 +145,26 @@ class OrganizationReferencesObject:
         return reference_object
 
     @staticmethod
-    def from_es_response(for_service: ServiceKey, es_response: dict):
+    def from_sparql_bindings(for_service: ServiceKey, sparql_bindings: List[dict]):
+        return [OrganizationReferencesObject.from_sparql_query_result(
+            for_service=for_service,
+            organization=binding
+        ) for binding in sparql_bindings]
+
+    @staticmethod
+    def from_es_bucket(for_service: ServiceKey, es_bucket: dict):
         return OrganizationReferencesObject(
             for_service=for_service,
-            org_path=es_response[ContentKeys.KEY],
-            count=es_response[ContentKeys.COUNT]
+            org_path=es_bucket[ContentKeys.KEY],
+            count=es_bucket[ContentKeys.COUNT]
         )
+
+    @staticmethod
+    def from_es_response_list(es_response: List[dict], for_service) -> List['OrganizationReferencesObject']:
+        return [OrganizationReferencesObject.from_es_bucket(for_service=for_service,
+                                                            es_bucket=bucket)
+                for bucket in es_response[ContentKeys.AGGREGATIONS][ContentKeys.ORG_PATH][ContentKeys.BUCKETS]
+                ]
 
     @staticmethod
     def resolve_national_registry_uri(uri):
@@ -168,7 +185,7 @@ class OrganizationReferencesObject:
             return False
 
     def resolve_id(self):
-        if self.org_uri:
+        if self.org_uri and OrganizationReferencesObject.is_national_registry_uri(self.org_uri):
             return self.org_uri.split("/")[-1]
         elif self.org_path:
             return self.org_path.split("/")[-1]
@@ -177,6 +194,26 @@ class OrganizationReferencesObject:
 
     def resolve_display_id(self):
         return self.id or self.name
+
+    @staticmethod
+    def is_national_registry_uri(uri):
+        if uri is None:
+            return False
+        try:
+            prefix = uri.split(":")[1]
+            if NATIONAL_REGISTRY_PATTERN in prefix:
+                return True
+            elif OrganizationReferencesObject.resolve_organization_catalog_uri(uri):
+                return True
+            else:
+                return False
+        except IndexError:
+            return False
+
+    def update_with_catalog_entry(self, entry: OrganizationCatalogResult):
+        self.name = entry.name or self.name
+        self.id = entry.org_id or self.id
+        self.org_path = entry.org_path
 
 
 class OrgPathParent:
@@ -208,15 +245,19 @@ class OrganizationStore:
             raise OrganizationStoreExistsException()
 
     def get_organization_list(self) -> List[OrganizationReferencesObject]:
-        return [org for org in self.organizations if OrgPathParent(org.org_path) not in self.org_path_parents]
+        return [org for org in self.organizations
+                if OrgPathParent(org.org_path) not in self.org_path_parents and
+                org.org_path is not None and
+                org.org_path.startswith("/")
+                and org.name is not None]
 
     def update(self, organizations: List[OrganizationReferencesObject] = None):
         if not self.organizations:
             self.organizations = organizations
             self.org_path_parents = [OrgPathParent(org.org_path) for org in self.organizations]
 
-    def add_organization(self, organization: OrganizationReferencesObject,
-                         for_service: ServiceKey = ServiceKey.ORGANIZATIONS):
+    async def add_organization(self, organization: OrganizationReferencesObject,
+                               for_service: ServiceKey = ServiceKey.ORGANIZATIONS):
         if self.organizations is None:
             self.organizations = list()
         if self.org_path_parents is None:
@@ -229,11 +270,22 @@ class OrganizationStore:
             stored_org: OrganizationReferencesObject = self.organizations[org_idx]
             stored_org.set_count_value(for_service=for_service,
                                        count=organization.get_count_value(for_service=for_service))
+            if len(organization.same_as) > 0:
+                stored_org.same_as.extend(organization.same_as)
         except ValueError:
-            self.organizations.append(organization)
-            if organization.org_path:
-                self.org_path_parents.append(OrgPathParent(organization.org_path))
-            org_idx = self.organizations.index(organization)
+            if for_service != ServiceKey.ORGANIZATIONS:
+                from_catalog = await get_organization(org_id=organization.id, name=organization.name)
+                if from_catalog and OrgPathParent(from_catalog.org_path) not in self.org_path_parents:
+                    organization.update_with_catalog_entry(entry=from_catalog)
+                    await self.add_organization(for_service=ServiceKey.ORGANIZATIONS, organization=organization)
+            else:
+                self.__append_new_organization(organization)
+
+    def __append_new_organization(self, organization: OrganizationReferencesObject):
+        self.organizations.append(organization)
+        if organization.org_path:
+            self.org_path_parents.append(OrgPathParent(organization.org_path))
+        org_idx = self.organizations.index(organization)
         if len(organization.same_as) > 0:
             self.organizations[org_idx].same_as.extend(organization.same_as)
 
@@ -252,9 +304,9 @@ class OrganizationStore:
         except ValueError:
             return None
 
-    def add_all(self, organizations: List[OrganizationReferencesObject], for_service: ServiceKey):
+    async def add_all(self, organizations: List[OrganizationReferencesObject], for_service: ServiceKey):
         for reference in organizations:
-            self.add_organization(
+            await self.add_organization(
                 organization=reference,
                 for_service=for_service
             )

@@ -1,8 +1,10 @@
+import asyncio
+
 import pytest
 
 from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
 from src.result_readers import OrganizationReferencesObject, OrganizationStore
-from src.utils import ServiceKey
+from src.utils import ServiceKey, OrganizationCatalogResult
 
 
 @pytest.mark.unit
@@ -87,7 +89,8 @@ def test_organization_catalog_without_id():
 
 
 @pytest.mark.unit
-def test_organization_catalog_list_response():
+def test_organization_catalog_list_response(event_loop, mocker):
+    mocker.patch('src.result_readers.get_organization', side_effect=mocked_get_organizations)
     politi_ref = OrganizationReferencesObject(
         name="POLITI- OG LENSMANNSETATEN",
         org_path="/STAT/972417831/915429785",
@@ -118,13 +121,39 @@ def test_organization_catalog_list_response():
 
     store = OrganizationStore.get_instance()
     store.organizations = []
-    store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATASETS)
-    store.add_organization(organization=politi_ref, for_service=ServiceKey.DATASETS)
-    store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATASETS)
-    store.add_organization(organization=one_empty_ref)
-    store.add_organization(some_other_ref)
+    add_tasks = asyncio.gather(
+        store.add_organization(organization=politi_parent_ref, for_service=ServiceKey.DATASETS),
+        store.add_organization(organization=politi_ref, for_service=ServiceKey.DATASETS),
+        store.add_organization(organization=politi_root_orgpath_ref, for_service=ServiceKey.DATASETS),
+        store.add_organization(organization=one_empty_ref),
+        store.add_organization(some_other_ref))
+    event_loop.run_until_complete(add_tasks)
 
     result = OrganizationCatalogListResponse.from_organization_store(organization_store=store)
     assert result.count() == 2
     assert result.org_list[0]["organization"]["name"]["no"] == "POLITI- OG LENSMANNSETATEN"
     assert result.org_list[1]["organization"]["name"]["no"] == "STRANDA SAG- OG HØVLERI"
+
+
+def mocked_get_organizations(org_id, name):
+    if org_id == "915429785":
+        return OrganizationCatalogResult.from_json(
+            {
+                "organizationId": "915429785",
+                "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/915429785",
+                "name": "POLITI- OG LENSMANNSETATEN",
+                "orgType": "ORGL",
+                "orgPath": "/STAT/972417831/915429785",
+                "subOrganizationOf": "972417831",
+                "issued": "2015-05-22",
+                "municipalityNumber": "0301",
+                "industryCode": "84.240",
+                "sectorCode": "6100",
+            }
+        )
+    elif org_id == "1256847":
+        return OrganizationCatalogResult(
+            org_path="/PRIVAT/1256847"
+        )
+    elif name == "EMPTY NONSENSE":
+        return None

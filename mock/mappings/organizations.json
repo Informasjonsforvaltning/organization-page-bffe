@@ -172,6 +172,36 @@
       "sectorCode": null,
       "prefLabel": null,
       "allowDelegatedRegistration": null
+    },
+      {
+        "organizationId": "867668292",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/867668292",
+        "internationalRegistry": null,
+        "name": "DIREKTORATET FOR STRÅLEVERN OG ATOMSIKKERHET",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/983887406/867668292",
+        "subOrganizationOf": "983887406",
+        "issued": "1995-08-09",
+        "municipalityNumber": "3024",
+        "industryCode": "84.120",
+        "sectorCode": "6100",
+        "prefLabel": null,
+        "allowDelegatedRegistration": null
+      },
+      {
+        "organizationId": "971349077",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/971349077",
+        "internationalRegistry": null,
+        "name": "HAVFORSKNINGSINSTITUTTET",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/912660680/971349077",
+        "subOrganizationOf": "912660680",
+        "issued": "1995-03-12",
+        "municipalityNumber": "4601",
+        "industryCode": "72.190",
+        "sectorCode": "6100",
+        "prefLabel": null,
+        "allowDelegatedRegistration": null
     }
     ],
     "headers" : {

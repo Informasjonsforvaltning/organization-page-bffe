@@ -36,11 +36,11 @@
       {
         "publisher": {
           "type": "uri",
-          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974760665"
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/983544622"
         },
         "name": {
           "type": "literal",
-          "value": "FYLKESMANNEN I VESTLAND"
+          "value": "HELSEDIREKTORATET"
         },
         "count": {
           "type": "literal",
@@ -51,11 +51,11 @@
       {
         "publisher": {
           "type": "uri",
-          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974761424"
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/970237372"
         },
         "name": {
           "type": "literal",
-          "value": "DEPARTEMENTENES SIKKERHETS-OG SERVICEORGANISASJON (DSS)"
+          "value": "KYSTVERKET"
         },
         "count": {
           "type": "literal",
@@ -83,13 +83,13 @@
         }
       },
       {
-        "publisher": {
+        "sameAs": {
           "type": "uri",
-          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/970141669"
+          "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
         },
         "name": {
           "type": "literal",
-          "value": "NORGES FORSKNINGSRÅD"
+          "value": "Brønnøysundregistrene"
         },
         "count": {
           "type": "literal",

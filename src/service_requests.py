@@ -7,10 +7,9 @@ import httpx
 from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError, AsyncClient
 
-from src.result_readers import OrganizationReferencesObject
 from src.sparql.queries import build_dataset_publisher_query, build_dataservices_publisher_query
 from src.utils import ServiceKey, FetchFromServiceException, encode_for_sparql, \
-    get_service_url, NotInNationalRegistryException, ContentKeys
+    get_service_url, NotInNationalRegistryException, ContentKeys, OrganizationCatalogResult
 
 ORGANIZATION_CATALOG_URL = get_service_url(ServiceKey.ORGANIZATIONS)
 DATASET_HARVESTER_URL = get_service_url(ServiceKey.DATASETS)
@@ -33,13 +32,13 @@ def service_error_msg(serviceKey: ServiceKey, url: str):
     }
 
 
-async def get_organizations_from_catalog() -> List[OrganizationReferencesObject]:
+async def get_organizations_from_catalog() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
             result = await client.get(url=ORGANIZATION_CATALOG_URL,
                                       headers={"Accept": "application/json"},
                                       timeout=5)
-            return OrganizationReferencesObject.from_organization_catalog_list_response(result.json())
+            return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.ORGANIZATIONS,
@@ -47,16 +46,16 @@ async def get_organizations_from_catalog() -> List[OrganizationReferencesObject]
             )
 
 
-async def fetch_organization_by_id(org: OrganizationReferencesObject) -> OrganizationReferencesObject:
-    if org.id is None:
-        raise NotInNationalRegistryException("id for organization was not provided")
-    url: str = f'{ORGANIZATION_CATALOG_URL}/{org.id}'
+async def fetch_organization_by_id(org_id, name) -> OrganizationCatalogResult:
+    if org_id is None:
+        return await attempt_fetch_organization_by_name_from_catalog(name)
+    url: str = f'{ORGANIZATION_CATALOG_URL}/{org_id}'
     async with AsyncClient() as session:
         try:
             response = await session.get(url=url, headers=default_headers, timeout=5)
             response.raise_for_status()
 
-            return OrganizationReferencesObject.from_organization_catalog_single_response(response.json())
+            return OrganizationCatalogResult.from_json(response.json())
         except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point="get organization by id",
@@ -69,7 +68,7 @@ async def fetch_organization_by_id(org: OrganizationReferencesObject) -> Organiz
             )
         except HTTPError as err:
             if err.response.status_code == 404:
-                return await attempt_fetch_organization_by_name_from_catalog(org.name)
+                return await attempt_fetch_organization_by_name_from_catalog(name)
             else:
                 raise FetchFromServiceException(
                     execution_point=f"{err.response.status_code}: get organization",
@@ -77,15 +76,15 @@ async def fetch_organization_by_id(org: OrganizationReferencesObject) -> Organiz
                 )
 
 
-async def attempt_fetch_organization_by_name_from_catalog(name: str) -> OrganizationReferencesObject:
+async def attempt_fetch_organization_by_name_from_catalog(name: str) -> OrganizationCatalogResult:
     if name is None:
         raise NotInNationalRegistryException("No name")
-    url: str = f'{ORGANIZATION_CATALOG_URL}/organizations?name={name.upper()}'
+    url: str = f'{ORGANIZATION_CATALOG_URL}?name={name.upper()}'
     async with AsyncClient() as session:
         try:
             response = await session.get(url=url, headers=default_headers, timeout=5)
             response.raise_for_status()
-            return OrganizationReferencesObject.from_organization_catalog_single_response(response)
+            return OrganizationCatalogResult.from_json(response.json()[0])
         except (ConnectError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point="get organization by name",
@@ -101,13 +100,13 @@ async def attempt_fetch_organization_by_name_from_catalog(name: str) -> Organiza
                 )
         except IndexError:
             generated_org_path = await fetch_generated_org_path_from_organization_catalog(name)
-            return OrganizationReferencesObject(for_service=ServiceKey.ORGANIZATIONS, org_path=generated_org_path)
+            return OrganizationCatalogResult(name=name, org_path=generated_org_path)
 
 
 async def fetch_generated_org_path_from_organization_catalog(name: str) -> str:
     if name is None:
         return None
-    url: str = f'{ORGANIZATION_CATALOG_URL}/organizations/orgpath/{name.upper()}'
+    url: str = f'{ORGANIZATION_CATALOG_URL}/orgpath/{name.upper()}'
     async with AsyncClient() as session:
         try:
             response = await session.get(url=url, timeout=5)
@@ -125,16 +124,14 @@ async def fetch_generated_org_path_from_organization_catalog(name: str) -> str:
             )
 
 
-async def get_concepts() -> List[OrganizationReferencesObject]:
+async def get_concepts() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
             result = await client.get(url=CONCEPT_HARVESTER_URL,
                                       params={"aggregations": ContentKeys.ORG_PATH, "size": "0"},
                                       timeout=5)
             result.raise_for_status()
-            aggregations = result.json()[ContentKeys.AGGREGATIONS]
-            return [OrganizationReferencesObject.from_es_response(es_response=bucket, for_service=ServiceKey.CONCEPTS)
-                    for bucket in aggregations[ContentKeys.ORG_PATH][ContentKeys.BUCKETS]]
+            return result.json()
 
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
@@ -149,7 +146,7 @@ async def get_concepts() -> List[OrganizationReferencesObject]:
             }
 
 
-async def get_datasets() -> List[OrganizationReferencesObject]:
+async def get_datasets() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASET_HARVESTER_URL}/sparql/select"
@@ -158,10 +155,7 @@ async def get_datasets() -> List[OrganizationReferencesObject]:
             result = await client.get(url=url_with_query, timeout=5, headers=default_headers)
             result.raise_for_status()
             sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
-            return [OrganizationReferencesObject.from_sparql_query_result(
-                for_service=ServiceKey.DATASETS,
-                organization=binding
-            ) for binding in sparql_bindings]
+            return sparql_bindings
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -170,7 +164,7 @@ async def get_datasets() -> List[OrganizationReferencesObject]:
             )
 
 
-async def get_dataservices() -> List[OrganizationReferencesObject]:
+async def get_dataservices() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{DATASERVICE_HARVESTER_URL}/sparql/select"
@@ -179,10 +173,7 @@ async def get_dataservices() -> List[OrganizationReferencesObject]:
             result = await client.get(url=url_with_query, headers=default_headers, timeout=5)
             result.raise_for_status()
             sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
-            return [OrganizationReferencesObject.from_sparql_query_result(
-                for_service=ServiceKey.DATA_SERVICES,
-                organization=binding
-            ) for binding in sparql_bindings]
+            return sparql_bindings
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[dataservices]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
@@ -198,10 +189,7 @@ async def get_informationmodels():
                                       params={"aggregations": "orgPath", "size": 0},
                                       timeout=5)
             result.raise_for_status()
-            aggregations = result.json()[ContentKeys.AGGREGATIONS]
-            return [OrganizationReferencesObject.from_es_response(es_response=bucket,
-                                                                  for_service=ServiceKey.INFO_MODELS)
-                    for bucket in aggregations[ContentKeys.ORG_PATH][ContentKeys.BUCKETS]]
+            return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.INFO_MODELS,

@@ -26,22 +26,22 @@ def test_combine_results_should_update_organization_store_with_one_organization(
             })
     ]
     info_model_aggregations = [
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT",
                 "count": 33
             },
             for_service=ServiceKey.INFO_MODELS
         ),
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT/912660680",
                 "count": 33
             },
             for_service=ServiceKey.INFO_MODELS
         ),
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT/912660680/974760673",
                 "count": 33
             },
@@ -49,22 +49,22 @@ def test_combine_results_should_update_organization_store_with_one_organization(
         )
     ]
     concept_aggregations = [
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT",
                 "count": 23
             },
             for_service=ServiceKey.CONCEPTS
         ),
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT/912660680",
                 "count": 23
             },
             for_service=ServiceKey.CONCEPTS
         ),
-        OrganizationReferencesObject.from_es_response(
-            es_response={
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
                 "key": "/STAT/912660680/974760673",
                 "count": 23
             },
@@ -131,7 +131,7 @@ def test_combine_results_should_update_organization_store_with_one_organization(
     ]
 
     combine_results(
-        organizations_from_service=catalog_org,
+        organizations=catalog_org,
         concepts=concept_aggregations,
         informationmodels=info_model_aggregations,
         datasets=dataset_result,
