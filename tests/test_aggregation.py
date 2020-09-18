@@ -1,183 +1,151 @@
-from unittest.mock import MagicMock
-
 import pytest
-from src.aggregation import get_organization_catalog_list
-from src.utils import FetchFromServiceException
-from src.service_requests import ServiceKey
-from tests.test_data import org_1, org_2, org_3, concept_response, dataset_response, dataservice_response, \
-    info_model_response, org_5
 
-
-@pytest.fixture
-def mock_get_organizations(mocker):
-    return mocker.patch('src.aggregation.get_organizations',
-                        return_value=[org_1, org_2, org_3, org_5]
-                        )
-
-
-@pytest.fixture
-def mock_get_organizations_exception(mocker):
-    return mocker.patch('src.aggregation.get_organizations',
-                        side_effect=FetchFromServiceException(
-                            execution_point=ServiceKey.ORGANIZATIONS,
-                            url="http://mock.grape/organizations"
-                        ))
-
-
-@pytest.fixture
-def mock_get_concepts(mocker):
-    return mocker.patch('src.aggregation.get_concepts_for_organization', return_value=concept_response(92))
-
-
-@pytest.fixture
-def mock_get_concepts_exception(mocker):
-    return mocker.patch('src.aggregation.get_concepts_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.CONCEPTS,
-        url="http://mock.grape/concepts"
-    ))
-
-
-@pytest.fixture
-def mock_get_datasets(mocker):
-    return mocker.patch('src.aggregation.get_datasets_for_organization', return_value=dataset_response(8))
-
-
-@pytest.fixture
-def mock_get_datasets_exception(mocker):
-    return mocker.patch('src.aggregation.get_datasets_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.DATA_SETS,
-        url="http://mock.grape/dataset"
-    ))
-
-
-@pytest.fixture
-def mock_get_dataservices(mocker):
-    return mocker.patch('src.aggregation.get_dataservices_for_organization', return_value=dataservice_response(23))
-
-
-@pytest.fixture
-def mock_get_dataservices_exception(mocker):
-    return mocker.patch('src.aggregation.get_dataservices_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.DATA_SERVICES,
-        url="http://mock.grape/dataservices"
-    ))
-
-
-@pytest.fixture()
-def mock_get_informationmodels(mocker):
-    return mocker.patch('src.aggregation.get_informationmodels_for_organization',
-                        return_value=info_model_response(1))
-
-
-@pytest.fixture()
-def mock_get_informationmodels_exception(mocker):
-    return mocker.patch('src.aggregation.get_informationmodels_for_organization', side_effect=FetchFromServiceException(
-        execution_point=ServiceKey.INFO_MODELS,
-        url="http://mock.grape/informationmodels"
-    ))
+from src.aggregation import combine_results
+from src.result_readers import OrganizationStore, OrganizationReferencesObject
+from src.utils import ServiceKey
 
 
 @pytest.mark.unit
-def test_get_organization_catalog_list(mock_get_organizations,
-                                       mock_get_concepts,
-                                       mock_get_datasets,
-                                       mock_get_dataservices,
-                                       mock_get_informationmodels):
-    orgpath_list = [org_1["orgPath"], org_2["orgPath"], org_3["orgPath"], org_5["orgPath"]]
-    result = get_organization_catalog_list()
-    assert mock_get_organizations.call_count == 1
-    assert mock_get_concepts.call_count == 4
-    assert mock_get_informationmodels.call_count == 4
-    assert mock_get_datasets.call_count == 4
-    assert mock_get_dataservices.call_count == 4
-    assert called_with_all_orgPaths(mock_get_concepts, orgpath_list)
-    #assert called_with_all_orgPaths(mock_get_informationmodels, info_orgpath_list)
-    assert called_with_all_orgPaths(mock_get_dataservices, orgpath_list)
-    assert called_with_all_orgPaths(mock_get_datasets, orgpath_list)
-    assert result.org_list.__len__() == 4
+def test_combine_results_should_update_organization_store_with_one_organization():
+    catalog_org = [
+        OrganizationReferencesObject.from_organization_catalog_single_response(
+            {
+                "organizationId": "974760673",
+                "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673",
+                "internationalRegistry": None,
+                "name": "REGISTERENHETEN I BRØNNØYSUND",
+                "orgType": "ORGL",
+                "orgPath": "/STAT/912660680/974760673",
+                "subOrganizationOf": "912660680",
+                "issued": "1995-08-09",
+                "municipalityNumber": "1813",
+                "industryCode": "84.110",
+                "sectorCode": "6100",
+                "prefLabel": None,
+                "allowDelegatedRegistration": None
+            })
+    ]
+    info_model_aggregations = [
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT",
+                "count": 33
+            },
+            for_service=ServiceKey.INFO_MODELS
+        ),
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT/912660680",
+                "count": 33
+            },
+            for_service=ServiceKey.INFO_MODELS
+        ),
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT/912660680/974760673",
+                "count": 33
+            },
+            for_service=ServiceKey.INFO_MODELS
+        )
+    ]
+    concept_aggregations = [
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT",
+                "count": 23
+            },
+            for_service=ServiceKey.CONCEPTS
+        ),
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT/912660680",
+                "count": 23
+            },
+            for_service=ServiceKey.CONCEPTS
+        ),
+        OrganizationReferencesObject.from_es_bucket(
+            es_bucket={
+                "key": "/STAT/912660680/974760673",
+                "count": 23
+            },
+            for_service=ServiceKey.CONCEPTS
+        )
 
+    ]
 
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_organizations(mock_get_organizations_exception,
-                                                                            mock_get_concepts,
-                                                                            mock_get_datasets,
-                                                                            mock_get_informationmodels,
-                                                                            mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "organization" in result["reason"]
+    dataset_result = [
+        OrganizationReferencesObject.from_sparql_query_result(
+            for_service=ServiceKey.DATASETS,
+            organization={
+                "sameAs": {
+                    "type": "uri",
+                    "value": "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"
+                },
+                "name": {
+                    "type": "literal",
+                    "value": "REGISTERENHETEN I BRØNNØYSUND"
+                },
+                "count": {
+                    "type": "literal",
+                    "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                    "value": "2"
+                }
+            }
+        ),
+        OrganizationReferencesObject.from_sparql_query_result(
+            for_service=ServiceKey.DATASETS,
+            organization={
+                "publisher": {
+                    "type": "uri",
+                    "value": "https://natonational.no/api/enheter/987498as24sfw"
+                },
+                "name": {
+                    "type": "literal",
+                    "value": "REGISTERENHETEN I BRØNNØYSUND"
+                },
+                "count": {
+                    "type": "literal",
+                    "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                    "value": "2"
+                }
+            }
+        )
 
+    ]
+    data_services_result = [
+        OrganizationReferencesObject.from_sparql_query_result(
+            for_service=ServiceKey.DATA_SERVICES,
+            organization={
+                "publisher": {
+                    "type": "uri",
+                    "value": "https://organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations"
+                             "/974760673"
+                },
+                "count": {
+                    "type": "literal",
+                    "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                    "value": "18"
+                }
+            }
+        )
+    ]
 
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_concepts(mock_get_organizations,
-                                                                       mock_get_concepts_exception,
-                                                                       mock_get_datasets,
-                                                                       mock_get_informationmodels,
-                                                                       mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "concepts" in result["reason"]
+    combine_results(
+        organizations=catalog_org,
+        concepts=concept_aggregations,
+        informationmodels=info_model_aggregations,
+        datasets=dataset_result,
+        dataservices=data_services_result
+    )
 
-
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_datasets(mock_get_organizations,
-                                                                       mock_get_concepts,
-                                                                       mock_get_datasets_exception,
-                                                                       mock_get_informationmodels,
-                                                                       mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "datasets" in result["reason"]
-
-
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_dataservices(mock_get_organizations,
-                                                                           mock_get_concepts,
-                                                                           mock_get_datasets,
-                                                                           mock_get_informationmodels,
-                                                                           mock_get_dataservices_exception):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "dataservices" in result["reason"]
-
-
-@pytest.mark.unit
-def test_get_organization_catalog_should_return_error_msg_for_informationmodels(mock_get_organizations,
-                                                                                mock_get_concepts,
-                                                                                mock_get_datasets,
-                                                                                mock_get_informationmodels_exception,
-                                                                                mock_get_dataservices):
-    result = get_organization_catalog_list()
-    assert "status" in result.keys()
-    assert result["status"] == "error"
-    assert "reason" in result.keys()
-    assert "informationmodels" in result["reason"]
-
-
-def called_with_all_orgPaths(mock: MagicMock, org_path_list: list):
-    call_args = []
-
-    for call in mock.call_args_list:
-        call_args.append(call[0][0])
-
-    old_org_paths = []
-    for path in org_path_list:
-        old_org_paths.append(get_old_org_path_format(path))
-
-    all_orgpaths = set(call_args).union(set(old_org_paths))
-    return all_orgpaths.__len__() == call_args.__len__()
-
-
-def get_old_org_path_format(org_path: str):
-    if org_path.startswith("/"):
-        return org_path
-    else:
-        return f"/{org_path}"
+    store = OrganizationStore.get_instance()
+    org_list = store.get_organization_list()
+    assert len(org_list) == 1
+    test_org = org_list[0]
+    assert test_org.name == "REGISTERENHETEN I BRØNNØYSUND"
+    assert test_org.id == "974760673"
+    assert test_org.org_path == "/STAT/912660680/974760673"
+    assert test_org.informationmodel_count == 33
+    assert test_org.concept_count == 23
+    assert test_org.dataset_count == 2
+    assert test_org.dataservice_count == 18

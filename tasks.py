@@ -1,4 +1,3 @@
-import json
 import os
 import requests
 from invoke import task
@@ -69,63 +68,60 @@ def contract_test(ctx, image="digdir/fdk-organization-bff:latest", compose=False
 
 
 @task
-def update_organization_catalog(ctx, env=None):
-    if env:
-        publisher_url = "https://www.{0}.fellesdatakatalog.digdir.no/publisher".format(env)
-        org_catalog_url = "https://organization-catalogue.{0}.fellesdatakatalog.digdir.no/organizations/".format(env)
-    else:
-        publisher_url = "https://www.fellesdatakatalog.digdir.no/publisher"
-        org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/".format(env)
+def update_mock_data(ctx):
+    mock_url = "http://localhost:8080"
+    old_harvesters_url = "https://www.fellesdatakatalog.digdir.no/api"
+    org_catalog_url = "https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/"
+    dataset_sparql = """PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX owl: <http://www.w3.org/2002/07/owl%23>
+    SELECT ?uri ?name (COUNT(?item) AS ?count)
+    WHERE {
+  ?publisher a foaf:Agent .
+  ?item dct:publisher ?publisher .
+  {
+    SELECT ?publisher ?uri ?name
+    WHERE {
+      ?publisher a foaf:Agent .
+      OPTIONAL {
+        ?publisher foaf:name ?name .
+      }
+      OPTIONAL {
+        ?publisher owl:sameAs ?sameAs .
+      }
+      BIND(COALESCE(?sameAs, STR(?publisher)) AS ?uri)
+    }
+  }
+}
+GROUP BY ?uri ?name
+ORDER BY DESC(?count)"""
+    stop_recording_curl = "curl -I -X POST  http://localhost:8080/__admin/recordings/stop"
 
-    print(publisher_url)
-    print(org_catalog_url)
+    data_services_curl = f"curl -I -X GET {mock_url}/apis?size=0aggregations=formats,orgPath,firstHarvested,publisher," \
+                         f"openAccess,openLicence,freeUsage -H 'Accept: application/json'"
 
-    publishers = requests.get(url=publisher_url)
-    for hit in publishers.json()["hits"]["hits"]:
-        update_url = org_catalog_url + (hit["_source"]["id"])
-        print(update_url)
-        x = requests.get(url=update_url, headers={'Accept': 'application/json'})
-        print(x)
+    info_models_curl = f" curl -I -X GET {mock_url}/informationmodels?aggregations=orgPath"
 
+    ctx.run("docker-compose up -d")
+    breakpoint()
+    # get content from old harvesters
+    start_recording_curl(record_url=old_harvesters_url)
+    # concepts
+    for i in range(0, 4):
+        concepts_curl = f"curl -I -X GET {0}/concepts?size=5000&returnfields=publisher&page={1}".format(mock_url, i)
+        ctx.run(concepts_curl)
+        concepts_curl = f"curl -I -X GET {0}/concepts?size=5000&returnfields=publisher".format(mock_url, i)
 
-@task
-def record_harvest_data(ctx, old=False, with_org_mock=True):
-    if old:
-        record_content_from_old_harvesters()
+    # informationmodels
 
-
-def record_content_from_old_harvesters(env=None):
-    # start wiremock recording on https://www.fellesdatakatalog.digdir.no/api/
-    old_datasets = "http://localhost:8080/datasets?orgPath="
-    old_dataservices = "http://localhost:8080/apis?orgPath="
-    old_concepts = "http://localhost:8080/concepts?orgPath="
-    old_info_model = "http://localhost:8080/informationmodels?orgPath="
-    with open(f"{os.getcwd()}/mock/mappings/organizations-21af49fb-e881-4c42-8228-26f3fc43ea9c.json") as mockorgs:
-        organizations = json.loads(mockorgs.read())
-        for org in organizations['response']['jsonBody']:
-            org_catalog_orgPath = org["orgPath"]
-            orgPath = get_org_path_for_old_harvester(org["orgPath"])
-            print(f"-----collecting data for org {orgPath} ----.")
-            dataset_res = requests.get(url=f"{old_datasets}{orgPath}", headers={'Accept': 'application/json'})
-            dataset_res = requests.get(url=f"{old_datasets}{org_catalog_orgPath}", headers={'Accept': 'application/json'})
-            print("datasets: {0}".format(dataset_res.status_code))
-            dataservice_res = requests.get(url=f"{old_dataservices}{orgPath}")
-            dataservice_res = requests.get(url=f"{old_dataservices}{org_catalog_orgPath}")
-            print("dataservices: {0}".format(dataservice_res.status_code))
-            concepts_res = requests.get(url=f"{old_concepts}{orgPath}")
-            concepts_res = requests.get(url=f"{old_concepts}{org_catalog_orgPath}")
-            print("concepts: {0}".format(concepts_res.status_code))
-            info_res = requests.get(url=f"{old_info_model}{org_catalog_orgPath}")
-            info_res = requests.get(url=f"{old_info_model}{orgPath}")
-            print("informationmodels: {0}".format(info_res.status_code))
-
-
-def get_content_from_new_harvesters():
-    print("TODO")
+    ctx.run(stop_recording_curl)
+    breakpoint()
+    ctx.run("docker-compose down")
 
 
-def get_org_path_for_old_harvester(orgPath: str):
-    if orgPath.startswith("/"):
-        return orgPath
-    else:
-        return f"/{orgPath}"
+def start_recording_curl(ctx, record_url):
+    start_recording_req = "curl -d '{\"targetBaseUrl\": \"{0}\" }' -H " \
+                          "'Content-Type: application/json' http://localhost:8080/__admin/recordings/start".format(
+        record_url)
+    breakpoint()
+    ctx.run(start_recording_req)

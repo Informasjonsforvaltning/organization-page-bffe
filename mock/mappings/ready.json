@@ -1,0 +1,10 @@
+{
+  "name" : "ready",
+  "request" : {
+    "url" : "/ready",
+    "method" : "GET"
+  },
+  "response": {
+    "status": 200
+  }
+}

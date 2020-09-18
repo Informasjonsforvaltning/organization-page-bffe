@@ -1,0 +1,19 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| id                                                                                                 | name                                              | count |
+==================================================================================================================================================================
+| "https://data.brreg.no/enhetsregisteret/api/enheter/974760673"                                     | "REGISTERENHETEN I BRØNNØYSUND"                   | 643   |
+| "http://data.brreg.no/enhetsregisteret/enhet/971040238"                                            | "Statens Kartverk"                                | 109   |
+| "http://data.brreg.no/enhetsregisteret/enhet/988983837"                                            | "Norsk institutt for bioøkonomi"                  | 80    |
+| "https://prod.nora.links.com.au/organization/e6d3dc7a-752e-418b-9afd-36533b370285"                 | "Statens vegvesen"                                | 49    |
+| "http://data.brreg.no/enhetsregisteret/enhet/970205039"                                            | "Norges vassdrags- og energidirektorat"           | 35    |
+| "http://data.brreg.no/enhetsregisteret/enhet/999601391"                                            | "Miljødirektoratet"                               | 26    |
+| "http://data.brreg.no/enhetsregisteret/enhet/971022264"                                            | "Norsk Polarinstitutt"                            | 23    |
+| "http://data.brreg.no/enhetsregisteret/enhet/971274042"                                            | "Meteorologisk institutt"                         | 21    |
+| "https://register.geonorge.no/organisasjoner/geovekst/7ac1627a-2e25-4dad-9213-c04a15a462e4"        | "Geovekst"                                        | 21    |
+| "http://data.brreg.no/enhetsregisteret/enhet/971032081"                                            | "Statens vegvesen"                                | 5     |
+| "https://register.geonorge.no/organisasjoner/geonorge/f5fb2fdf-76b6-4e15-9fd1-603849e41e09"        | "Geonorge"                                        | 4     |
+| "http://data.brreg.no/enhetsregisteret/enhet/985399077"                                            | "Mattilsynet"                                     | 2     |
+| "https://register.geonorge.no/organisasjoner/kommunene/48fc0f7e-df6b-49de-968a-67ca21c1bbfc"       | "Kommunene"                                       | 2     |
+| "https://prod.nora.links.com.au/publisher/"                                                        | "Statens Vegvesen"                                | 1     |
+| "https://register.geonorge.no/organisasjoner/fylkeskommunene/1fe72a41-cac4-4f16-8dc1-beb568843537" | "Fylkeskommunene"                                 | 1     |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

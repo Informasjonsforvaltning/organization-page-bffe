@@ -1,0 +1,76 @@
+{
+  "name": "get_informationomdels",
+  "request":{
+    "url": "/informationmodels?aggregations=orgPath&size=0",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "_embedded": {
+        "informationmodels": []
+      },
+      "page": {
+        "size": 10,
+        "totalElements": 9,
+        "totalPages": 1,
+        "number": 0
+      },
+      "aggregations": {
+        "orgPath": {
+          "buckets": [
+            {
+              "key": "/STAT",
+              "count": 536
+            },
+            {
+              "key": "/STAT/972417807",
+              "count": 339
+            },
+            {
+              "key": "/STAT/972417807/971526920",
+              "count": 132
+            },
+            {
+              "key": "/STAT/972417807/840747972",
+              "count": 111
+            },
+            {
+              "key": "/STAT/972417807/974761076",
+              "count": 90
+            },
+            {
+              "key": "/STAT/912660680",
+              "count": 64
+            },
+            {
+              "key": "/STAT/912660680/974760673",
+              "count": 25
+            },
+            {
+              "key": "/STAT/983887457",
+              "count": 22
+            },
+            {
+              "key": "/STAT/912660680/974761262",
+              "count": 20
+            },
+            {
+              "key": "MISSING",
+              "count": 10
+            },
+            {
+              "key": "/PRIVAT/970237372",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+
+     "headers": {
+      "Content-Type" : "application/json"
+    }
+  }
+
+}

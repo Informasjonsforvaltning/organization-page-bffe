@@ -1,0 +1,14 @@
+{
+  "name" : "organizations_orgpath_finnmarkseiendommen",
+  "request" : {
+    "url" : "/organizations?name=FINNMARKSEIENDOMMEN",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" :[]
+
+  },
+  "persistent" : true,
+  "insertionIndex" : 11
+}

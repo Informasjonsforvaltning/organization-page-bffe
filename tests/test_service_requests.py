@@ -1,9 +1,9 @@
 import pytest
 from httpcore import ConnectError
-
-from src.service_requests import ServiceKey, get_concepts_for_organization, \
-    get_datasets_for_organization, get_informationmodels_for_organization, get_organizations_async
-from src.utils import FetchFromServiceException
+from src.service_requests import ServiceKey, get_organizations_from_catalog, get_datasets, get_dataservices, \
+    get_informationmodels, get_concepts
+from src.sparql import encode_for_sparql
+from src.utils import FetchFromServiceException, encode_for_fdk_base_sparql
 
 get_request = "httpx.AsyncClient.get"
 
@@ -11,93 +11,101 @@ service_urls = {
     ServiceKey.ORGANIZATIONS: "http://localhost:8080/organizations",
     ServiceKey.INFO_MODELS: "http://localhost:8080/informationmodels",
     ServiceKey.DATA_SERVICES: "http://localhost:8080/apis",
-    ServiceKey.DATA_SETS: "http://localhost:8080/datasets",
+    ServiceKey.DATASETS: "http://localhost:8080/datasets",
     ServiceKey.CONCEPTS: "http://localhost:8080/concepts"
 
 }
 
 
 @pytest.mark.unit
-def test_get_organizations_async(event_loop, mock_get_xhttp_organizations):
-    event_loop.run_until_complete(get_organizations_async())
+def test_get_organizations(event_loop, mock_get_xhttp_organizations):
+    event_loop.run_until_complete(get_organizations_from_catalog())
     mock_get_xhttp_organizations.assert_called_once_with(url="http://localhost:8080/organizations",
                                                          headers={"Accept": "application/json"},
-                                                         timeout=10)
+                                                         timeout=5)
 
 
 @pytest.mark.unit
-def test_get_organizations_async_should_throw_error(event_loop, mocker):
+def test_get_organizations_should_throw_error(event_loop, mocker):
     mocker.patch(get_request, side_effect=ConnectError())
     with pytest.raises(FetchFromServiceException):
-        event_loop.run_until_complete(get_organizations_async())
+        event_loop.run_until_complete(get_organizations_from_catalog())
 
 
 @pytest.mark.unit
-def test_get_concepts_for_organization(event_loop, mock_get_xhttp_concepts):
-    event_loop.run_until_complete(get_concepts_for_organization(orgPath="12345"))
-    mock_get_xhttp_concepts.assert_awaited_once_with(url=service_urls[ServiceKey.CONCEPTS] + "?orgPath=12345",
-                                                     timeout=10)
+def test_get_concepts_should_get_all_concepts_by_org_path(event_loop, mock_get_xhttp_concepts):
+    event_loop.run_until_complete(get_concepts())
+    mock_get_xhttp_concepts.assert_called_once_with(url="http://localhost:8080/concepts",
+                                                    params={'aggregations': 'orgPath', 'size': '0'}, timeout=5)
 
 
 @pytest.mark.unit
-def test_get_concepts_for_organization_should_throw_error(event_loop, mocker):
+def test_get_concepts_should_throw_error(event_loop, mocker):
     mocker.patch(get_request, side_effect=ConnectError())
     with pytest.raises(FetchFromServiceException):
-        event_loop.run_until_complete(get_concepts_for_organization(orgPath="12345"))
+        event_loop.run_until_complete(get_organizations_from_catalog())
 
 
 @pytest.mark.unit
-def test_get_datasets_for_organization(event_loop, mock_get_xhttp_datasets):
-    event_loop.run_until_complete(get_datasets_for_organization(orgPath="12345"))
-    assert mock_get_xhttp_datasets.awaited_once_with(url=service_urls[ServiceKey.DATA_SETS] + "?orgPath=12345",
-                                                     tiemout=10)
+def test_get_datasets_should_send_sparql_query(event_loop, mock_get_xhttp_datasets):
+    expected_query = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
+                     "<http://www.w3.org/2002/07/owl%23> SELECT ?publisher ?sameAs ?name (COUNT(?item) AS ?count) " \
+                     "WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . ?item dct:publisher ?publisher . " \
+                     "OPTIONAL { ?publisher owl:sameAs ?sameAs . } } GROUP BY ?publisher ?name ?sameAs"
+    expected_url = "http://localhost:8080/sparql?query=" + encode_for_fdk_base_sparql(expected_query)
+
+    event_loop.run_until_complete(get_datasets())
+    assert mock_get_xhttp_datasets.call_args.kwargs['url'] == expected_url
+    assert mock_get_xhttp_datasets.call_args.kwargs['headers'] == {
+        "accept": "application/json"
+    }
 
 
 @pytest.mark.unit
-def test_get_datasets_for_organization_should_throw_error(event_loop, mocker):
+def test_get_datasets_should_throw_error(event_loop, mocker):
     mocker.patch(get_request, side_effect=ConnectError())
     with pytest.raises(FetchFromServiceException):
-        event_loop.run_until_complete(get_datasets_for_organization(orgPath="12345"))
+        event_loop.run_until_complete(get_datasets())
 
 
 @pytest.mark.unit
-def test_get_dataservices_for_organization(event_loop, mock_get_xhttp_dataservices):
-    event_loop.run_until_complete(get_concepts_for_organization(orgPath="12345"))
-    assert mock_get_xhttp_dataservices.awaited_once_with(
-        url=service_urls[ServiceKey.DATA_SERVICES] + "?orgPath=12345",
-        timeout=10)
+def test_get_dataservices_should_get_all_dataservices(event_loop, mock_get_xhttp_dataservices):
+    expected_query = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
+                     "<http://www.w3.org/2002/07/owl%23> PREFIX dcat: <http://www.w3.org/ns/dcat%23> SELECT " \
+                     "?publisher ?sameAs (COUNT(?service) AS ?count) WHERE { ?catalog dct:publisher ?publisher . " \
+                     "?catalog dcat:service ?service . OPTIONAL { ?publisher owl:sameAs ?sameAs . } } GROUP BY " \
+                     "?publisher ?sameAs"
+    expected_url = "http://localhost:8080/sparql/select?query=" + encode_for_sparql(expected_query)
+
+    event_loop.run_until_complete(get_dataservices())
+    assert mock_get_xhttp_dataservices.call_args.kwargs['url'] == expected_url
+    assert mock_get_xhttp_dataservices.call_args.kwargs['headers'] == {
+        "accept": "application/json"
+    }
 
 
 @pytest.mark.unit
-def test_get_dataservices_for_organization_should_throw_error(event_loop, mocker):
+def test_get_dataservices_should_throw_error(event_loop, mocker):
     mocker.patch(get_request, side_effect=ConnectError())
     with pytest.raises(FetchFromServiceException):
-        event_loop.run_until_complete(get_datasets_for_organization(orgPath="12345"))
+        event_loop.run_until_complete(get_dataservices())
 
 
 @pytest.mark.unit
-def test_get_informationmodels_for_organization(event_loop, mock_get_xhttp_informationmodels):
-    event_loop.run_until_complete(get_informationmodels_for_organization("12345"))
-    assert mock_get_xhttp_informationmodels.awaited_once_with(
-        url=service_urls[ServiceKey.INFO_MODELS] + "?orgPath=12345",
-        timeout=10)
+def test_get_informationmodels_should_get_all_models_with_orgapth(event_loop, mock_get_xhttp_informationmodels):
+    event_loop.run_until_complete(get_informationmodels())
+    mock_get_xhttp_informationmodels.assert_called_once_with(url="http://localhost:8080/informationmodels",
+                                                             params={'aggregations': 'orgPath', 'size': 0}, timeout=5)
 
 
 @pytest.mark.unit
-def test_get_informationmodels_for_organization_should_send_second_request(event_loop,
-                                                                           mock_get_xhttp_informationmodels_empty):
-    event_loop.run_until_complete(get_informationmodels_for_organization(orgPath="12345"))
-    assert mock_get_xhttp_informationmodels_empty.call_count == 2
-    assert mock_get_xhttp_informationmodels_empty.called_with(
-        url=service_urls[ServiceKey.INFO_MODELS] + "?orgPath=/12345",
-        timeout=10)
-    assert mock_get_xhttp_informationmodels_empty.called_with(
-        url=service_urls[ServiceKey.INFO_MODELS] + "?orgPath=12345",
-        timeout=10)
-
-
-@pytest.mark.unit
-def test_get_informationmodels_for_organization_should_throw_error(event_loop,mocker):
+def test_get_informationmodels_should_throw_error(event_loop, mocker):
     mocker.patch(get_request, side_effect=ConnectError())
     with pytest.raises(FetchFromServiceException):
-        event_loop.run_until_complete(get_informationmodels_for_organization(orgPath="12345"))
+        event_loop.run_until_complete(get_informationmodels())
+
+
+class HttpResponseMock:
+    def __init__(self, status):
+        self.status_code = status
+        self.request = {}

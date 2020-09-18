@@ -1,57 +1,63 @@
 import asyncio
+import logging
+import time
+from typing import List
 
-from src.responses import OrganizationCatalogResponse, OrganizationCatalogListResponse
-from src.service_requests import get_organizations, get_concepts_for_organization, get_dataservices_for_organization, \
-    get_datasets_for_organization, get_informationmodels_for_organization
-from src.utils import FetchFromServiceException
+from src.responses import OrganizationCatalogListResponse
+from src.result_readers import OrganizationStore, OrganizationReferencesObject
+from src.service_requests import get_organizations_from_catalog, get_concepts, get_datasets, get_dataservices, \
+    get_informationmodels
+from src.utils import FetchFromServiceException, ServiceKey
 
 
-def get_organization_catalog_list():
-    response_list = OrganizationCatalogListResponse()
+def get_organization_catalog_list() -> OrganizationCatalogListResponse:
+    start = time.time()
     try:
-        organizations = get_organizations()
-        response_list.org_list = get_organization_catalog_list_async(organizations)
-        return response_list
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        content_requests = asyncio.gather(get_organizations_from_catalog(),
+                                          get_concepts(),
+                                          get_datasets(),
+                                          get_dataservices(),
+                                          get_informationmodels())
+        organizations, concepts, datasets, dataservices, informationmodels = loop.run_until_complete(content_requests)
+        logging.debug(f"data collection took {time.time() - start}")
+
+        return combine_results(
+            organizations=OrganizationReferencesObject.from_organization_catalog_list_response(organizations),
+            concepts=OrganizationReferencesObject.from_es_response_list(for_service=ServiceKey.CONCEPTS,
+                                                                        es_response=concepts),
+            informationmodels=OrganizationReferencesObject.from_es_response_list(for_service=ServiceKey.INFO_MODELS,
+                                                                                 es_response=informationmodels),
+            datasets=OrganizationReferencesObject.from_sparql_bindings(for_service=ServiceKey.DATASETS,
+                                                                       sparql_bindings=datasets),
+            dataservices=OrganizationReferencesObject.from_sparql_bindings(for_service=dataservices,
+                                                                           sparql_bindings=dataservices)
+
+        )
     except FetchFromServiceException as err:
         return err.__dict__
 
 
-def get_organization_catalog_list_async(organizations):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    collection_tasks = asyncio.gather(*[get_catalog_for_organization(org) for org in organizations])
-    result = loop.run_until_complete(collection_tasks)
-    return result
+def combine_results(organizations: List[OrganizationReferencesObject],
+                    concepts: List[OrganizationReferencesObject],
+                    datasets: List[OrganizationReferencesObject],
+                    dataservices: List[OrganizationReferencesObject],
+                    informationmodels: List[OrganizationReferencesObject]) -> OrganizationCatalogListResponse:
+    loop = asyncio.get_event_loop()
+    store = OrganizationStore.get_instance()
 
-
-async def get_catalog_for_organization(organization):
-    old_format = get_old_org_path_format(organization["orgPath"])
-    new_format = get_new_org_path_format(organization["orgPath"])
-    organization["orgPath"] = old_format
-    content_requests = asyncio.gather(get_concepts_for_organization(old_format),
-                                      get_datasets_for_organization(old_format),
-                                      get_dataservices_for_organization(old_format),
-                                      get_informationmodels_for_organization(new_format)
-                                      )
-    concepts, datasets, dataservices, informationmodels = await content_requests
-    return OrganizationCatalogResponse(
-        organization=organization,
-        concepts=concepts,
-        informationmodels=informationmodels,
-        datasets=datasets,
-        dataservices=dataservices
-    ).__dict__
-
-
-def get_old_org_path_format(org_path: str):
-    if org_path.startswith("/"):
-        return org_path
-    else:
-        return f"/{org_path}"
-
-
-def get_new_org_path_format(orgPath: str):
-    if orgPath.startswith("/"):
-        return orgPath[1:]
-    else:
-        return orgPath
+    loop.run_until_complete(store.add_all(organizations=organizations,
+                                          for_service=ServiceKey.ORGANIZATIONS))
+    add_tasks = asyncio.gather(
+        store.add_all(organizations=informationmodels,
+                      for_service=ServiceKey.INFO_MODELS
+                      ),
+        store.add_all(organizations=concepts,
+                      for_service=ServiceKey.CONCEPTS),
+        store.add_all(organizations=datasets,
+                      for_service=ServiceKey.DATASETS),
+        store.add_all(organizations=dataservices,
+                      for_service=ServiceKey.DATA_SERVICES))
+    loop.run_until_complete(add_tasks)
+    return OrganizationCatalogListResponse.from_organization_store(store)

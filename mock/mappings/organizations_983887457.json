@@ -1,0 +1,28 @@
+{
+  "id" : "413bf7d7-e108-4054-90e2-be13198e2aea",
+  "name" : "organizations_983887457",
+  "request" : {
+    "url" : "/organizations/983887457",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"983887457\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/983887457\",\"internationalRegistry\":null,\"name\":\"ARBEIDS- OG SOSIALDEPARTEMENTET\",\"orgType\":\"STAT\",\"orgPath\":\"/STAT/983887457\",\"subOrganizationOf\":null,\"issued\":\"2001-11-08\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.110\",\"sectorCode\":\"6100\",\"prefLabel\":null,\"allowDelegatedRegistration\":null}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 18 Sep 2020 06:25:37 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "413bf7d7-e108-4054-90e2-be13198e2aea",
+  "insertionIndex" : 7
+}
