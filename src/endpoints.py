@@ -92,7 +92,7 @@ class DatasetForOrganization(Resource):
             assessment = asyncio.run(get_assessment_for_entity(dataset["uri"]))
 
             return {
-                "datset": dataset,
+                "dataset": dataset,
                 "assessment": assessment
             }
         except Exception as e:
