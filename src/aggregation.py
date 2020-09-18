@@ -47,8 +47,9 @@ def combine_results(organizations: List[OrganizationReferencesObject],
     loop = asyncio.get_event_loop()
     store = OrganizationStore.get_instance()
 
-    loop.run_until_complete(store.add_all(organizations=organizations,
-                                          for_service=ServiceKey.ORGANIZATIONS))
+    if not store.clear_content_count():
+        loop.run_until_complete(store.add_all(organizations=organizations,
+                                              for_service=ServiceKey.ORGANIZATIONS))
     add_tasks = asyncio.gather(
         store.add_all(organizations=informationmodels,
                       for_service=ServiceKey.INFO_MODELS

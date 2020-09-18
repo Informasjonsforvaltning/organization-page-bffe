@@ -853,6 +853,7 @@ def test_add_organization_from_dataservice_without_same_as_entry(event_loop, moc
     )
 
     store = OrganizationStore.get_instance()
+    store.clear_content_count()
     event_loop.run_until_complete(store.add_organization(test_eq_object, for_service=ServiceKey.CONCEPTS))
     event_loop.run_until_complete(store.add_organization(no_same_as_object, for_service=ServiceKey.DATA_SERVICES))
     assert no_same_as_object in store.organizations
@@ -1143,3 +1144,66 @@ def test_get_organization_list_should_throw_get_organization_from_catalog(event_
 
     result = store.get_organization_list()
     assert len(result) == 2
+
+
+@pytest.mark.unit
+def test_add_should_combine_organizations_from_the_same_service(event_loop):
+    svv_org_catalog = [OrganizationReferencesObject.from_organization_catalog_single_response({
+        "organizationId": "971032081",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081",
+        "name": "STATENS VEGVESEN",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/972417904/971032081",
+        "subOrganizationOf": "972417904"
+    })]
+    dataset_orgs = OrganizationReferencesObject.from_sparql_bindings(
+        sparql_bindings=[
+            {
+            "publisher": {
+                "type": "uri",
+                "value": "https://dataut.vegvesen.no/organization/e6d3dc7a-752e-418b-9afd-36533b370285"
+            },
+            "name": {
+                "type": "literal",
+                "value": "Statens vegvesen"
+            },
+            "count": {
+                "type": "literal",
+                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                "value": "54"
+            }
+        },
+            {
+                "publisher": {
+                    "type": "uri",
+                    "value": "https://register.geonorge.no/organisasjoner/statens-vegvesen/700cfb71-3b42-4d05-a2e5-11d935598537"
+                },
+                "sameAs": {
+                    "type": "literal",
+                    "value": "http://data.brreg.no/enhetsregisteret/enhet/971032081"
+                },
+                "name": {
+                    "type": "literal",
+                    "value": "Statens vegvesen"
+                },
+                "count": {
+                    "type": "literal",
+                    "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                    "value": "5"
+                }
+            }],
+        for_service=ServiceKey.DATASETS
+    )
+
+    store = OrganizationStore.get_instance()
+    store.organizations = svv_org_catalog
+
+    event_loop.run_until_complete(store.add_all(organizations=dataset_orgs, for_service=ServiceKey.DATASETS))
+    assert len(store.organizations) == 1
+    assert store.organizations[0].name == "STATENS VEGVESEN"
+    assert store.organizations[0].dataset_count == 59
+    store.clear_content_count()
+    event_loop.run_until_complete(store.add_all(organizations=dataset_orgs, for_service=ServiceKey.DATASETS))
+    assert len(store.organizations) == 1
+    assert store.organizations[0].name == "STATENS VEGVESEN"
+    assert store.organizations[0].dataset_count == 59

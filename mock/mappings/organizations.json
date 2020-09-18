@@ -202,6 +202,21 @@
         "sectorCode": "6100",
         "prefLabel": null,
         "allowDelegatedRegistration": null
+    },
+          {
+        "organizationId": "971032081",
+        "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/971032081",
+        "internationalRegistry": null,
+        "name": "STATENS VEGVESEN",
+        "orgType": "ORGL",
+        "orgPath": "/STAT/972417904/971032081",
+        "subOrganizationOf": "972417904",
+        "issued": "1995-02-20",
+        "municipalityNumber": "0301",
+        "industryCode": "84.130",
+        "sectorCode": "6100",
+        "prefLabel": null,
+        "allowDelegatedRegistration": null
     }
     ],
     "headers" : {
