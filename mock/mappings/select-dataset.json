@@ -115,6 +115,40 @@
           "datatype": "http://www.w3.org/2001/XMLSchema#integer",
           "value": "1"
         }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://dataut.vegvesen.no/organization/e6d3dc7a-752e-418b-9afd-36533b370285"
+        },
+        "name": {
+          "type": "literal",
+          "value": "Statens vegvesen"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "54"
+        }
+      },
+      {
+        "publisher": {
+          "type": "uri",
+          "value": "https://register.geonorge.no/organisasjoner/statens-vegvesen/700cfb71-3b42-4d05-a2e5-11d935598537"
+        },
+        "sameAs": {
+          "type": "literal",
+          "value": "http://data.brreg.no/enhetsregisteret/enhet/971032081"
+        },
+        "name": {
+          "type": "literal",
+          "value": "Statens vegvesen"
+        },
+        "count": {
+          "type": "literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "5"
+        }
       }
     ]
   }

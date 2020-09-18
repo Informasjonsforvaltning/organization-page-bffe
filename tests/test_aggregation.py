@@ -147,5 +147,5 @@ def test_combine_results_should_update_organization_store_with_one_organization(
     assert test_org.org_path == "/STAT/912660680/974760673"
     assert test_org.informationmodel_count == 33
     assert test_org.concept_count == 23
-    assert test_org.dataset_count == 2
+    assert test_org.dataset_count == 4
     assert test_org.dataservice_count == 18

@@ -4,7 +4,7 @@ import requests
 service_url = "http://localhost:8000"
 org_catalog_url = f"{service_url}/organizationcatalogs"
 # update if change in mockdata
-expected_size = 12
+expected_size = 13
 
 
 class TestSearchAll:
@@ -52,13 +52,14 @@ class TestSearchAll:
             pytest.xfail(f"Response status code was{result.status_code}")
         else:
             for org in result.json()["organizations"]:
-                if "id" in org.keys():
-                    if org["id"] == "994686011":
-                        assert org["dataset_count"] == 2
-                    if org["id"] == "983544622":
-                        assert org["dataset_count"] == 6
-                    if org["id"] == "867668292":
-                        assert org["dataset_count"] == 1
+                if org["id"] == "994686011":
+                    assert org["dataset_count"] == 2
+                if org["id"] == "983544622":
+                    assert org["dataset_count"] == 6
+                if org["id"] == "867668292":
+                    assert org["dataset_count"] == 1
+                if org["id"] == "971032081":
+                    assert org["dataset_count"] == 59
 
     @pytest.mark.contract
     def test_has_correct_informationmodel_counts(self, wait_for_ready):

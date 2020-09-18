@@ -50,6 +50,8 @@ class OrganizationReferencesObject:
             return self.informationmodel_count
         elif for_service == ServiceKey.CONCEPTS:
             return self.concept_count
+        else:
+            return 0
 
     def __eq__(self, other):
         if type(other) == OrganizationReferencesObject:
@@ -215,6 +217,12 @@ class OrganizationReferencesObject:
         self.id = entry.org_id or self.id
         self.org_path = entry.org_path
 
+    def clear_count_values(self):
+        self.dataset_count = 0
+        self.dataservice_count = 0
+        self.concept_count = 0
+        self.informationmodel_count = 0
+
 
 class OrgPathParent:
     def __init__(self, org_path: str):
@@ -268,8 +276,9 @@ class OrganizationStore:
         try:
             org_idx = self.organizations.index(organization)
             stored_org: OrganizationReferencesObject = self.organizations[org_idx]
+            new_content_count = stored_org.get_count_value(for_service) + organization.get_count_value(for_service)
             stored_org.set_count_value(for_service=for_service,
-                                       count=organization.get_count_value(for_service=for_service))
+                                       count=new_content_count)
             if len(organization.same_as) > 0:
                 stored_org.same_as.extend(organization.same_as)
         except ValueError:
@@ -317,6 +326,13 @@ class OrganizationStore:
             return OrganizationStore.__instance__
         else:
             return OrganizationStore()
+
+    def clear_content_count(self):
+        if self.organizations is None:
+            return False
+        for org in self.organizations:
+            org.clear_count_values()
+        return True
 
 
 class OrganizationStoreExistsException(Exception):
