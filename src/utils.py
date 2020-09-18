@@ -9,6 +9,7 @@ class OrgCatalogKeys:
 
 
 class ServiceKey:
+    FDK_BASE = "fdk_base"
     ORGANIZATIONS = "organizations"
     INFO_MODELS = "informationmodels"
     DATA_SERVICES = "dataservices"
@@ -39,6 +40,17 @@ def encode_for_sparql(string: str):
         .replace(")", "%29")
 
 
+def encode_for_fdk_base_sparql(string: str):
+    return string \
+        .replace(" ", "%20") \
+        .replace("<", "%3C") \
+        .replace(">", "%3E") \
+        .replace("(", "%28") \
+        .replace(")", "%29") \
+        .replace("{", "%7B") \
+        .replace("}", "%7D")
+
+
 DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
 FOAF_PREFIX = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
 OWL_PREFIX = "PREFIX owl: <http://www.w3.org/2002/07/owl%23>"
@@ -65,13 +77,14 @@ env_variables = {
     ServiceKey.INFO_MODELS: 'INFORMATIONMODELS_HARVESTER_URL',
     ServiceKey.DATA_SERVICES: 'DATASERVICE_HARVESTER_URL',
     ServiceKey.DATASETS: 'DATASET_HARVESTER_URL',
-    ServiceKey.CONCEPTS: 'CONCEPT_HARVESTER_URL'
+    ServiceKey.CONCEPTS: 'CONCEPT_HARVESTER_URL',
+    ServiceKey.FDK_BASE: 'FDK_BASE'
 }
 
 
 def get_service_url(service: ServiceKey):
     base_url = os.getenv(env_variables[service]) or "http://localhost:8080"
-    if service == ServiceKey.DATASETS or service == ServiceKey.DATA_SERVICES:
+    if service == ServiceKey.DATASETS or service == ServiceKey.DATA_SERVICES or service == ServiceKey.FDK_BASE:
         return base_url
     else:
         return f"{base_url}/{service}"

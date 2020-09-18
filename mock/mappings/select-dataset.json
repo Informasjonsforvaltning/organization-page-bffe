@@ -2,7 +2,7 @@
   "id" : "b6091f0b-24dc-4473-8477-d62744680185",
   "name" : "select_datasets",
   "request" : {
-    "urlPattern" : "/datasets/sparql/select[=?a-zA-Z%0-9{}//:%.-_]*",
+    "urlPattern" : "/sparql[=?a-zA-Z%0-9{}//:%.-_]*",
     "method" : "GET"
   },
   "response" : {

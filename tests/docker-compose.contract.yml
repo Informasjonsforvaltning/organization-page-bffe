@@ -21,3 +21,4 @@ services:
         - DATASET_HARVESTER_URL=http://servicesmock:8080/datasets
         - DATASERVICE_HARVESTER_URL=http://servicesmock:8080/dataservices
         - INFORMATIONMODELS_HARVESTER_URL=http://servicesmock:8080
+        - FDK_BASE=http://servicesmock:8080
