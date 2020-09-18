@@ -92,8 +92,10 @@ class DatasetForOrganization(Resource):
             assessment = asyncio.run(get_assessment_for_entity(dataset["uri"]))
 
             return {
-                "dataset": dataset,
-                "assessment": assessment
+                "dataset": {
+                    **dataset,
+                    "assessment": assessment
+                }
             }
         except Exception as e:
             abort(http_status_code=500, description=str(e))
