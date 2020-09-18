@@ -8,9 +8,10 @@ def build_dataset_publisher_query() -> str:
     foaf = FOAF(NamespaceProperty.TTL)
     owl = OWL(NamespaceProperty.TTL)
     rdf = RDF(NamespaceProperty.TTL)
+    dcat = DCAT(NamespaceProperty.TTL)
 
     item_var = "item"
-    prefixes = [dct, foaf, owl]
+    prefixes = [dct, foaf, owl, dcat]
     select = SparqlSelect(
         variable_names=[ContentKeys.PUBLISHER, ContentKeys.SAME_AS, ContentKeys.ORG_NAME],
         functions=[
@@ -33,6 +34,13 @@ def build_dataset_publisher_query() -> str:
         obj=SparqlGraphTerm(var=ContentKeys.ORG_NAME),
         close_pattern_with="."
     )
+    item_a_dataset = SparqlGraphTerm.build_graph_pattern(
+        subject=SparqlGraphTerm(var=item_var),
+        predicate=SparqlGraphTerm(namespace_property=rdf.type),
+        obj=SparqlGraphTerm(namespace_property=dcat.type_dataset),
+        close_pattern_with="."
+    )
+
     item_dct_publisher = SparqlGraphTerm.build_graph_pattern(
         subject=SparqlGraphTerm(var=item_var),
         predicate=SparqlGraphTerm(namespace_property=dct.publisher),
@@ -53,7 +61,8 @@ def build_dataset_publisher_query() -> str:
         graphs=[
             publisher_a_foaf_agent,
             publisher_foaf_name,
-            item_dct_publisher
+            item_a_dataset,
+            item_dct_publisher,
         ],
         optional=optional_publisher_same_as
     )
@@ -67,17 +76,6 @@ def build_dataset_publisher_query() -> str:
 
 
 def build_dataservices_publisher_query() -> str:
-    "PREFIX dct: <http://purl.org/dc/terms/> " \
-    "PREFIX foaf: <http://xmlns.com/foaf/0.1/> " \
-    "PREFIX owl: <http://www.w3.org/2002/07/owl%23> " \
-    "PREFIX dcat: <http://www.w3.org/ns/dcat%23> " \
-    "SELECT ?publisher ?sameAs (COUNT(?service) AS ?count) " \
-    "WHERE { " \
-    "?catalog dct:publisher ?publisher . " \
-    "?catalog dcat:service ?service . " \
-    "OPTIONAL{ ?publisher owl:sameAs ?sameAs } } " \
-    "GROUP BY ?publisher ?sameAs"
-
     dct = DCT(NamespaceProperty.TTL)
     foaf = FOAF(NamespaceProperty.TTL)
     owl = OWL(NamespaceProperty.TTL)

@@ -161,7 +161,7 @@ async def get_datasets() -> List[dict]:
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
             raise FetchFromServiceException(
                 execution_point=ServiceKey.DATASETS,
-                url=sparql_select_endpoint
+                url=url_with_query
             )
 
 

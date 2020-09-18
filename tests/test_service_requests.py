@@ -49,9 +49,10 @@ def test_get_concepts_should_throw_error(event_loop, mocker):
 @pytest.mark.unit
 def test_get_datasets_should_send_sparql_query(event_loop, mock_get_xhttp_datasets):
     expected_query = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
-                     "<http://www.w3.org/2002/07/owl%23> SELECT ?publisher ?sameAs ?name (COUNT(?item) AS ?count) " \
-                     "WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . ?item dct:publisher ?publisher . " \
-                     "OPTIONAL { ?publisher owl:sameAs ?sameAs . } } GROUP BY ?publisher ?name ?sameAs"
+               "<http://www.w3.org/2002/07/owl%23> PREFIX dcat: <http://www.w3.org/ns/dcat%23> SELECT ?publisher " \
+               "?sameAs ?name (COUNT(?item) AS ?count) WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . " \
+               "?item a dcat:Dataset . ?item dct:publisher ?publisher . OPTIONAL { ?publisher owl:sameAs ?sameAs . } " \
+               "} GROUP BY ?publisher ?name ?sameAs"
     expected_url = "http://localhost:8080/sparql?query=" + encode_for_fdk_base_sparql(expected_query)
 
     event_loop.run_until_complete(get_datasets())
