@@ -592,6 +592,60 @@ def test_sparql_references_parser_without_publisher():
 
 
 @pytest.mark.unit
+def test_sparql_reference_parser_with_organization_catalog_uri():
+    data_with_brreg_uri = {
+        "publisher": {
+            "type": "uri",
+            "value": "https://organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations/910244132"
+        },
+        "sameAs": {
+            "type": "literal",
+            "value": "https://data.brreg.no/enhetsregisteret/api/enheter/910244132"
+        },
+        "count": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+            "value": "20"
+        }
+
+    }
+    data_without_brreg_uri = {
+        "publisher": {
+            "type": "uri",
+            "value": "https://organization-catalogue.staging.fellesdatakatalog.digdir.no/organizations/910244132"
+        },
+
+        "count": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+            "value": "20"
+        }
+
+    }
+    result_from_organization_catalog = OrganizationReferencesObject.from_organization_catalog_single_response(
+        {
+            "organizationId": "910244132",
+            "norwegianRegistry": "https://data.brreg.no/enhetsregisteret/api/enheter/910244132",
+            "name": "TEST ORG",
+            "orgType": "ORGL",
+            "orgPath": "/STAT/912660680/",
+        }
+    )
+
+    result_with_brreg = OrganizationReferencesObject.from_sparql_query_result(
+        for_service=ServiceKey.DATA_SERVICES,
+        organization=data_with_brreg_uri
+    )
+    result_without_brreg = OrganizationReferencesObject.from_sparql_query_result(
+        for_service=ServiceKey.DATA_SERVICES,
+        organization=data_without_brreg_uri
+    )
+    assert result_with_brreg == result_without_brreg
+    assert result_without_brreg == result_from_organization_catalog
+    assert result_with_brreg == result_from_organization_catalog
+
+
+@pytest.mark.unit
 def test_parse_from_organization_catalog_json():
     data = {
         "organizationId": "991825827",

@@ -31,7 +31,7 @@ def get_organization_catalog_list() -> OrganizationCatalogListResponse:
                                                                                  es_response=informationmodels),
             datasets=OrganizationReferencesObject.from_sparql_bindings(for_service=ServiceKey.DATASETS,
                                                                        sparql_bindings=datasets),
-            dataservices=OrganizationReferencesObject.from_sparql_bindings(for_service=dataservices,
+            dataservices=OrganizationReferencesObject.from_sparql_bindings(for_service=ServiceKey.DATA_SERVICES,
                                                                            sparql_bindings=dataservices)
 
         )

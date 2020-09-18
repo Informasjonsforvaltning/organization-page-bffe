@@ -3,7 +3,7 @@ import re
 from typing import List
 
 from src.organization_utils import get_organization
-from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey, NotInNationalRegistryException, OrganizationCatalogResult
+from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey, OrganizationCatalogResult
 
 NATIONAL_REGISTRY_PATTERN = "data.brreg.no/enhetsregisteret"
 NATIONAL_REGISTRY_URL = "https://data.brreg.no/enhetsregisteret/api/enheter"

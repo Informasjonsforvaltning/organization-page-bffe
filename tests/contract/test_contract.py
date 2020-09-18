@@ -92,14 +92,15 @@ class TestSearchAll:
         if result.status_code != 200:
             pytest.xfail(f"Response status code was{result.status_code}")
         else:
+            has_dataservice_count_higher_than_zero = False
             for org in result.json()["organizations"]:
-                if "id" in org.keys():
-                    if org["id"] == "910258028":
-                        assert org["dataservice_count"] == 17
-                #    if org["id"] == "974761076":
-                #        assert org["dataservice_count"] == 77
-                    if org["id"] == "910244132":
-                        assert org["dataservice_count"] == 20
+                if org["dataservice_count"] > 0:
+                    has_dataservice_count_higher_than_zero = True
+                if org["id"] == "910258028":
+                    assert org["dataservice_count"] == 17
+                if org["id"] == "910244132":
+                    assert org["dataservice_count"] == 20
+            assert has_dataservice_count_higher_than_zero
 
 
 def is_language_object_with_content(entry: dict):
