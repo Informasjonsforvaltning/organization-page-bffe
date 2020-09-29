@@ -9,7 +9,7 @@ from httpx import HTTPError, AsyncClient
 
 from src.sparql.queries import build_dataset_publisher_query, build_dataservices_publisher_query
 from src.utils import ServiceKey, FetchFromServiceException, encode_for_sparql, \
-    get_service_url, NotInNationalRegistryException, ContentKeys, OrganizationCatalogResult, encode_for_fdk_base_sparql
+    get_service_url, NotInNationalRegistryException, ContentKeys, OrganizationCatalogResult, encode_for_sparql
 
 ORGANIZATION_CATALOG_URL = get_service_url(ServiceKey.ORGANIZATIONS)
 DATASET_HARVESTER_URL = get_service_url(ServiceKey.DATASETS)
@@ -151,7 +151,7 @@ async def get_datasets() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
             sparql_select_endpoint = f"{FDK_BASE}/sparql"
-            encoded_query = encode_for_fdk_base_sparql(build_dataset_publisher_query())
+            encoded_query = encode_for_sparql(build_dataset_publisher_query())
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, timeout=5, headers=default_headers)
             result.raise_for_status()
@@ -168,7 +168,7 @@ async def get_datasets() -> List[dict]:
 async def get_dataservices() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
-            sparql_select_endpoint = f"{DATASERVICE_HARVESTER_URL}/sparql/select"
+            sparql_select_endpoint = f"{FDK_BASE}/sparql"
             encoded_query = encode_for_sparql(build_dataservices_publisher_query())
             url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
             result = await client.get(url=url_with_query, headers=default_headers, timeout=5)

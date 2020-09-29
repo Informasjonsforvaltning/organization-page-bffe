@@ -3,6 +3,12 @@ from typing import List
 from src.sparql.rdf_namespaces import NamespaceProperty, SparqlFunctionString
 
 
+class FromGraph:
+    DATASETS = " FROM <https://datasets.fellesdatakatalog.digdir.no>"
+    DATA_SERVICES = " FROM <https://dataservices.fellesdatakatalog.digdir.no>"
+    ALL = ""
+
+
 class SparqlFunction:
     def __init__(self, function: SparqlFunctionString, var: str, as_var):
         self.var = SparqlBuilder.make_var(var)
@@ -36,16 +42,17 @@ class SparqlGraphTerm:
 
 class SparqlSelect:
 
-    def __init__(self, variable_names: List[str] = None, functions=None):
+    def __init__(self, variable_names: List[str] = None, functions=None, from_graph: FromGraph = FromGraph.ALL):
         self.variable_names = variable_names
         self.functions = functions
+        self.from_graph = from_graph
 
     def __str__(self):
         select_str = SparqlSelect.select(self.variable_names)
         if self.functions:
             for fun in self.functions:
                 select_str += f" ({str(fun)})"
-        return select_str
+        return f"{select_str}{self.from_graph}"
 
     @staticmethod
     def select(variable_names: List[str] = None) -> str:
@@ -142,15 +149,3 @@ class SparqlBuilder:
         if self.group_by:
             query_str += f"GROUP BY {self.group_by} "
         return query_str.strip()
-
-
-def encode_for_sparql(string: str):
-    trim_str = string.strip()
-    return trim_str \
-        .replace(" ", "%20") \
-        .replace("<", "%3C") \
-        .replace(">", "%3E") \
-        .replace("(", "%28") \
-        .replace(")", "%29") \
-        .replace("'", "%27") \
-        .replace("*", "%2A").replace("\\", "\\\\")

@@ -145,3 +145,4 @@ src/.DS_Store
 
 .env
 requirements.txt
+.python-version
