@@ -1,4 +1,5 @@
-from src.sparql.builder import SparqlSelect, SparqlWhere, SparqlGraphTerm, SparqlOptional, SparqlBuilder, SparqlFunction
+from src.sparql.builder import FromGraph, SparqlSelect, SparqlWhere, SparqlGraphTerm, SparqlOptional, \
+    SparqlBuilder, SparqlFunction
 from src.sparql.rdf_namespaces import NamespaceProperty, DCT, FOAF, OWL, RDF, SparqlFunctionString, DCAT
 from src.utils import ContentKeys
 
@@ -20,7 +21,8 @@ def build_dataset_publisher_query() -> str:
                 var=item_var,
                 as_var="count"
             )
-        ]
+        ],
+        from_graph=FromGraph.DATASETS
     )
     publisher_a_foaf_agent = SparqlGraphTerm.build_graph_pattern(
         subject=SparqlGraphTerm(var=ContentKeys.PUBLISHER),
@@ -95,7 +97,8 @@ def build_dataservices_publisher_query() -> str:
                 var=service_var,
                 as_var=ContentKeys.COUNT
             )
-        ]
+        ],
+        from_graph=FromGraph.DATA_SERVICES
     )
     catalog_dct_publisher = SparqlGraphTerm.build_graph_pattern(
         subject=catalog_graph_term,

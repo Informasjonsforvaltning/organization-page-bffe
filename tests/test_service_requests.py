@@ -2,8 +2,7 @@ import pytest
 from httpcore import ConnectError
 from src.service_requests import ServiceKey, get_organizations_from_catalog, get_datasets, get_dataservices, \
     get_informationmodels, get_concepts
-from src.sparql import encode_for_sparql
-from src.utils import FetchFromServiceException, encode_for_fdk_base_sparql
+from src.utils import FetchFromServiceException, encode_for_sparql
 
 get_request = "httpx.AsyncClient.get"
 
@@ -50,10 +49,11 @@ def test_get_concepts_should_throw_error(event_loop, mocker):
 def test_get_datasets_should_send_sparql_query(event_loop, mock_get_xhttp_datasets):
     expected_query = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
                "<http://www.w3.org/2002/07/owl%23> PREFIX dcat: <http://www.w3.org/ns/dcat%23> SELECT ?publisher " \
-               "?sameAs ?name (COUNT(?item) AS ?count) WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . " \
+               "?sameAs ?name (COUNT(?item) AS ?count) FROM <https://datasets.fellesdatakatalog.digdir.no> " \
+               "WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . " \
                "?item a dcat:Dataset . ?item dct:publisher ?publisher . OPTIONAL { ?publisher owl:sameAs ?sameAs . } " \
                "} GROUP BY ?publisher ?name ?sameAs"
-    expected_url = "http://localhost:8080/sparql?query=" + encode_for_fdk_base_sparql(expected_query)
+    expected_url = "http://localhost:8080/sparql?query=" + encode_for_sparql(expected_query)
 
     event_loop.run_until_complete(get_datasets())
     assert mock_get_xhttp_datasets.call_args.kwargs['url'] == expected_url
@@ -73,10 +73,12 @@ def test_get_datasets_should_throw_error(event_loop, mocker):
 def test_get_dataservices_should_get_all_dataservices(event_loop, mock_get_xhttp_dataservices):
     expected_query = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
                      "<http://www.w3.org/2002/07/owl%23> PREFIX dcat: <http://www.w3.org/ns/dcat%23> SELECT " \
-                     "?publisher ?sameAs (COUNT(?service) AS ?count) WHERE { ?catalog dct:publisher ?publisher . " \
+                     "?publisher ?sameAs (COUNT(?service) AS ?count) FROM " \
+                     "<https://dataservices.fellesdatakatalog.digdir.no> " \
+                     "WHERE { ?catalog dct:publisher ?publisher . " \
                      "?catalog dcat:service ?service . OPTIONAL { ?publisher owl:sameAs ?sameAs . } } GROUP BY " \
                      "?publisher ?sameAs"
-    expected_url = "http://localhost:8080/sparql/select?query=" + encode_for_sparql(expected_query)
+    expected_url = "http://localhost:8080/sparql?query=" + encode_for_sparql(expected_query)
 
     event_loop.run_until_complete(get_dataservices())
     assert mock_get_xhttp_dataservices.call_args.kwargs['url'] == expected_url

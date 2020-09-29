@@ -32,23 +32,17 @@ class BadUriException(Exception):
 
 
 def encode_for_sparql(string: str):
-    return string \
-        .replace(" ", "%20") \
-        .replace("<", "%3C") \
-        .replace(">", "%3E") \
-        .replace("(", "%28") \
-        .replace(")", "%29")
-
-
-def encode_for_fdk_base_sparql(string: str):
-    return string \
+    trim_str = string.strip()
+    return trim_str \
         .replace(" ", "%20") \
         .replace("<", "%3C") \
         .replace(">", "%3E") \
         .replace("(", "%28") \
         .replace(")", "%29") \
         .replace("{", "%7B") \
-        .replace("}", "%7D")
+        .replace("}", "%7D") \
+        .replace("'", "%27") \
+        .replace("*", "%2A").replace("\\", "\\\\")
 
 
 DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
