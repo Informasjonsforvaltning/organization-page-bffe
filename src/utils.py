@@ -16,6 +16,7 @@ class ServiceKey:
     OLD_DATA_SERVICES = "apis"
     DATASETS = "datasets"
     CONCEPTS = "concepts"
+    METADATA = "metadata"
 
 
 class FetchFromServiceException(Exception):
