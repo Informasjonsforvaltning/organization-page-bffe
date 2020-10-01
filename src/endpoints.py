@@ -24,9 +24,23 @@ class OrganizationCatalogs(Resource):
 class OrganizationCatalogWithId(Resource):
     def get(self, organization_id: str):
         try:
-            assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
+            organization = asyncio.run(get_organization_from_organization_catalogue(organization_id))
+
+            datasets = asyncio.run(search_datasets({
+                "filters": [
+                    {
+                        "orgPath": organization["orgPath"]
+                    }
+                ]
+            }))
+
+            try:
+                assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
+            except Exception:
+                assessment_rating = None
 
             return {
+                "datasets": datasets,
                 "catalogRating": assessment_rating
             }
         except Exception as e:
@@ -63,7 +77,10 @@ class DatasetCatalogForOrganization(Resource):
                                        None)
                 }, paged_datasets["hits"]))
 
-            assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
+            try:
+                assessment_rating = asyncio.run(get_catalog_assessment_rating_for_entity_type(organization_id, "dataset"))
+            except Exception:
+                assessment_rating = None
 
             return {
                 **paged_datasets,
@@ -89,7 +106,10 @@ class DatasetForOrganization(Resource):
             except AttributeError:
                 abort(http_status_code=404, description=f"Could not find dataset with ID: {dataset_id}")
 
-            assessment = asyncio.run(get_assessment_for_entity(dataset["uri"]))
+            try:
+                assessment = asyncio.run(get_assessment_for_entity(dataset["uri"]))
+            except Exception:
+                assessment = None
 
             return {
                 "dataset": {

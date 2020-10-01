@@ -256,7 +256,7 @@ async def get_assessments_for_entities(entity_uris: List[str]):
             return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[assessments]: assessments for entities request failed")
-            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+            raise FetchFromServiceException(execution_point=ServiceKey.METADATA, url=url)
 
 
 async def get_assessment_for_entity(entity_uri: str):
@@ -277,7 +277,7 @@ async def get_assessment_for_entity(entity_uri: str):
             return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[assessments]: assessment for entity request failed")
-            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+            raise FetchFromServiceException(execution_point=ServiceKey.METADATA, url=url)
 
 
 async def get_catalog_assessment_rating_for_entity_type(catalog_id: str, entity_type: str):
@@ -299,4 +299,4 @@ async def get_catalog_assessment_rating_for_entity_type(catalog_id: str, entity_
             return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[assessments]: catalog assessment rating for entity type request failed")
-            raise FetchFromServiceException(execution_point=ServiceKey.DATASETS, url=url)
+            raise FetchFromServiceException(execution_point=ServiceKey.METADATA, url=url)
