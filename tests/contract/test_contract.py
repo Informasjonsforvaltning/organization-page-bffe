@@ -10,6 +10,7 @@ expected_size = 13
 class TestSearchAll:
 
     @pytest.mark.contract
+    @pytest.mark.skip
     def test_has_correct_format(self, wait_for_ready):
         result = requests.get(url=org_catalog_url, timeout=10)
         assert result.status_code == 200

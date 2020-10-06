@@ -8,7 +8,7 @@ from src.sparql.rdf_namespaces import SparqlFunctionString, FOAF, NamespacePrope
 @pytest.mark.unit
 def test_build_dataset_publisher_query():
     expected = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
-               "<http://www.w3.org/2002/07/owl%23> PREFIX dcat: <http://www.w3.org/ns/dcat%23> SELECT ?publisher " \
+               "<http://www.w3.org/2002/07/owl#> PREFIX dcat: <http://www.w3.org/ns/dcat#> SELECT ?publisher " \
                "?sameAs ?name (COUNT(?item) AS ?count) FROM <https://datasets.fellesdatakatalog.digdir.no> " \
                "WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . " \
                "?item a dcat:Dataset . ?item dct:publisher ?publisher . OPTIONAL { ?publisher owl:sameAs ?sameAs . } " \
@@ -21,8 +21,8 @@ def test_build_dataset_publisher_query():
 def test_build_dataservice_publisher_query():
     expected = "PREFIX dct: <http://purl.org/dc/terms/> " \
                "PREFIX foaf: <http://xmlns.com/foaf/0.1/> " \
-               "PREFIX owl: <http://www.w3.org/2002/07/owl%23> " \
-               "PREFIX dcat: <http://www.w3.org/ns/dcat%23> " \
+               "PREFIX owl: <http://www.w3.org/2002/07/owl#> " \
+               "PREFIX dcat: <http://www.w3.org/ns/dcat#> " \
                "SELECT ?publisher ?sameAs (COUNT(?service) AS ?count) " \
                "FROM <https://dataservices.fellesdatakatalog.digdir.no> " \
                "WHERE { " \
@@ -92,7 +92,7 @@ def test_sparql_where():
 
 @pytest.mark.unit
 def test_sparql_build():
-    expected = "PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: <http://www.w3.org/2002/07/owl%23> " \
+    expected = "PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: <http://www.w3.org/2002/07/owl#> " \
                "SELECT ?publisher (COUNT(?sameAs) AS ?count) " \
                "WHERE { ?publisher a foaf:Agent . OPTIONAL { ?publisher owl:sameAs ?sameAs . } } " \
                "GROUP BY ?publisher"

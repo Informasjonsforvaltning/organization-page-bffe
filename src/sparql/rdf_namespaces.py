@@ -107,7 +107,7 @@ class OWL(NamespaceProperty):
 
     @staticmethod
     def get_ttl_ns_definition():
-        return "owl: <http://www.w3.org/2002/07/owl%23>"
+        return "owl: <http://www.w3.org/2002/07/owl#>"
 
 
 class DCAT(NamespaceProperty):
@@ -133,7 +133,7 @@ class DCAT(NamespaceProperty):
 
     @staticmethod
     def get_ttl_ns_definition():
-        return "dcat: <http://www.w3.org/ns/dcat%23>"
+        return "dcat: <http://www.w3.org/ns/dcat#>"
 
 
 class XSD(NamespaceProperty):

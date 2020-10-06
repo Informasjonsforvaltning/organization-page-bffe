@@ -27,20 +27,6 @@ class FetchFromServiceException(Exception):
             self.reason += additional_info
 
 
-def encode_for_sparql(string: str):
-    trim_str = string.strip()
-    return trim_str \
-        .replace(" ", "%20") \
-        .replace("<", "%3C") \
-        .replace(">", "%3E") \
-        .replace("(", "%28") \
-        .replace(")", "%29") \
-        .replace("{", "%7B") \
-        .replace("}", "%7D") \
-        .replace("'", "%27") \
-        .replace("*", "%2A").replace("\\", "\\\\")
-
-
 env_variables = {
     ServiceKey.ORGANIZATIONS: 'ORGANIZATION_CATALOG_URL',
     ServiceKey.INFO_MODELS: 'INFORMATIONMODELS_HARVESTER_URL',
