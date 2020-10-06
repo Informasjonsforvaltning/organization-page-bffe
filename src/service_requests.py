@@ -9,6 +9,7 @@ from httpx import HTTPError, AsyncClient
 
 from src.sparql.queries import (
     build_dataset_publisher_query,
+    build_dataset_publisher_query_for_transportportal,
     build_dataservices_publisher_query
 )
 from src.utils import (
@@ -158,6 +159,32 @@ async def get_datasets() -> List[dict]:
                 url=url,
                 params={
                     "query": build_dataset_publisher_query()
+                },
+                headers=default_headers,
+                timeout=5
+            )
+
+            result.raise_for_status()
+
+            return result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
+        except (ConnectError, HTTPError, ConnectTimeout):
+            logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
+
+            raise FetchFromServiceException(
+                execution_point=ServiceKey.DATASETS,
+                url=url
+            )
+
+
+async def get_datasets_for_transportportal() -> List[dict]:
+    async with httpx.AsyncClient() as client:
+        try:
+            url = f"{FDK_BASE}/sparql"
+
+            result = await client.get(
+                url=url,
+                params={
+                    "query": build_dataset_publisher_query_for_transportportal()
                 },
                 headers=default_headers,
                 timeout=5

@@ -2,7 +2,7 @@ import asyncio
 from flask import request
 from flask_restful import Resource, abort
 
-from src.aggregation import get_organization_catalog_list
+from src.aggregation import get_organization_catalog_list, get_organization_catalog_list_for_transportportal
 from src.service_requests import (
     get_assessments_for_entities,
     get_assessment_for_entity,
@@ -14,7 +14,13 @@ from src.service_requests import (
 
 class OrganizationCatalogs(Resource):
     def get(self):
-        result = get_organization_catalog_list()
+        filter = request.args.get("filter", type=str)
+
+        if filter == "transportportal":
+            result = get_organization_catalog_list_for_transportportal()
+        else:
+            result = get_organization_catalog_list()
+
         if isinstance(result, dict):
             abort(http_status_code=500, description=result["reason"])
         else:

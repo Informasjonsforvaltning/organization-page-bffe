@@ -1,6 +1,5 @@
-import asyncio
 import re
-from typing import List
+from typing import List, Iterable
 
 from src.organization_utils import get_organization
 from src.utils import ContentKeys, OrgCatalogKeys, ServiceKey, OrganizationCatalogResult
@@ -118,7 +117,7 @@ class OrganizationReferencesObject:
         )
 
     @staticmethod
-    def from_organization_catalog_list_response(organizations: List[dict]):
+    def from_organization_catalog_list_response(organizations: Iterable):
         return [OrganizationReferencesObject.from_organization_catalog_single_response(org) for org in organizations]
 
     @staticmethod
@@ -147,7 +146,7 @@ class OrganizationReferencesObject:
         return reference_object
 
     @staticmethod
-    def from_sparql_bindings(for_service: ServiceKey, sparql_bindings: List[dict]):
+    def from_sparql_bindings(for_service: ServiceKey, sparql_bindings: Iterable):
         return [OrganizationReferencesObject.from_sparql_query_result(
             for_service=for_service,
             organization=binding
