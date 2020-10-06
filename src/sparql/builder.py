@@ -114,7 +114,7 @@ class SparqlOptional(SparqlWhere):
 class SparqlBuilder:
 
     def __init__(self, prefix: List[NamespaceProperty] = None, select: SparqlSelect = None, where: SparqlWhere = None,
-                 group_by_vars: str = None, group_by_str: List[str] = None, order_by_str=None):
+                 group_by_vars: List[str] = None, group_by_str: str = None, order_by_str=None):
         self.prefix = prefix
         self.select = select
         self.where = where

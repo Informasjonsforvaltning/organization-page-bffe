@@ -7,9 +7,18 @@ import httpx
 from httpcore import ConnectError, ConnectTimeout
 from httpx import HTTPError, AsyncClient
 
-from src.sparql.queries import build_dataset_publisher_query, build_dataservices_publisher_query
-from src.utils import ServiceKey, FetchFromServiceException, encode_for_sparql, \
-    get_service_url, NotInNationalRegistryException, ContentKeys, OrganizationCatalogResult, encode_for_sparql
+from src.sparql.queries import (
+    build_dataset_publisher_query,
+    build_dataservices_publisher_query
+)
+from src.utils import (
+    ServiceKey,
+    FetchFromServiceException,
+    get_service_url,
+    NotInNationalRegistryException,
+    ContentKeys,
+    OrganizationCatalogResult,
+)
 
 ORGANIZATION_CATALOG_URL = get_service_url(ServiceKey.ORGANIZATIONS)
 DATASET_HARVESTER_URL = get_service_url(ServiceKey.DATASETS)
@@ -143,36 +152,52 @@ async def get_concepts() -> List[dict]:
 async def get_datasets() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
-            sparql_select_endpoint = f"{FDK_BASE}/sparql"
-            encoded_query = encode_for_sparql(build_dataset_publisher_query())
-            url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
-            result = await client.get(url=url_with_query, timeout=5, headers=default_headers)
+            url = f"{FDK_BASE}/sparql"
+
+            result = await client.get(
+                url=url,
+                params={
+                    "query": build_dataset_publisher_query()
+                },
+                headers=default_headers,
+                timeout=5
+            )
+
             result.raise_for_status()
-            sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
-            return sparql_bindings
+
+            return result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
+
             raise FetchFromServiceException(
                 execution_point=ServiceKey.DATASETS,
-                url=url_with_query
+                url=url
             )
 
 
 async def get_dataservices() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
-            sparql_select_endpoint = f"{FDK_BASE}/sparql"
-            encoded_query = encode_for_sparql(build_dataservices_publisher_query())
-            url_with_query = f"{sparql_select_endpoint}?query={encoded_query}"
-            result = await client.get(url=url_with_query, headers=default_headers, timeout=5)
+            url = f"{FDK_BASE}/sparql"
+
+            result = await client.get(
+                url=url,
+                params={
+                    "query": build_dataservices_publisher_query()
+                },
+                headers=default_headers,
+                timeout=5
+            )
+
             result.raise_for_status()
-            sparql_bindings = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
-            return sparql_bindings
+
+            return result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[dataservices]: Error when attempting to execute SPARQL select query", )
+
             raise FetchFromServiceException(
                 execution_point=ServiceKey.DATA_SERVICES,
-                url=sparql_select_endpoint
+                url=url
             )
 
 
