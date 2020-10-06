@@ -27,11 +27,6 @@ class FetchFromServiceException(Exception):
             self.reason += additional_info
 
 
-class BadUriException(Exception):
-    def __init__(self, execution_point: ServiceKey, url: str = None):
-        self.reason = f"Attempt to fetch {execution_point} from {url}"
-
-
 def encode_for_sparql(string: str):
     trim_str = string.strip()
     return trim_str \
@@ -44,27 +39,6 @@ def encode_for_sparql(string: str):
         .replace("}", "%7D") \
         .replace("'", "%27") \
         .replace("*", "%2A").replace("\\", "\\\\")
-
-
-DCT_PREFIX = "PREFIX dct: <http://purl.org/dc/terms/>"
-FOAF_PREFIX = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
-OWL_PREFIX = "PREFIX owl: <http://www.w3.org/2002/07/owl%23>"
-
-
-def aggregation_cache(function):
-    memo = {}
-
-    def wrapper(organizations_from_service, concepts, datasets, dataservices,
-                informationmodels):
-        content_hash = hash(tuple([x for x in concepts + datasets + dataservices + informationmodels]))
-        if content_hash in memo:
-            return memo[content_hash]
-        else:
-            rv = function(organizations_from_service, concepts, datasets, dataservices, informationmodels)
-            memo[content_hash] = rv
-            return rv
-
-    return wrapper
 
 
 env_variables = {
@@ -94,27 +68,9 @@ class ContentKeys:
     KEY = "key"
     SAME_AS = "sameAs"
     PUBLISHER = "publisher"
-    SRC_ORGANIZATION = "publisher"
-    FORMAT = "format"
-    WITH_SUBJECT = "withSubject"
-    OPEN_DATA = "opendata"
-    TOTAL = "total"
-    NEW_LAST_WEEK = "new_last_week"
-    NATIONAL_COMPONENT = "nationalComponent"
-    ORGANIZATION = "organization"
     COUNT = "count"
     VALUE = "value"
-    ACCESS_RIGHTS_CODE = "code"
-    TIME_SERIES_MONTH = "month"
-    TIME_SERIES_YEAR = "year"
-    TIME_SERIES_Y_AXIS = "yAxis"
-    TIME_SERIES_X_AXIS = "xAxis"
-    THEME = "theme"
     ORG_NAME = "name"
-    ORGANIZATION_URI = "organization"
-    LOS_PATH = "losPath"
-    CATALOGS = "catalogs"
-    ORGANIZATION_COUNT = "organizationCount"
 
 
 class NotInNationalRegistryException(Exception):

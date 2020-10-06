@@ -26,13 +26,6 @@ SEARCH_FULLTEXT_HOST = env.get("SEARCH_FULLTEXT_HOST")
 METADATA_QUALITY_ASSESSMENT_SERVICE_HOST = env.get("METADATA_QUALITY_ASSESSMENT_SERVICE_HOST")
 
 
-def service_error_msg(serviceKey: ServiceKey, url: str):
-    return {
-        "service": serviceKey,
-        "reason": f"Connection error on {url}"
-    }
-
-
 async def get_organizations_from_catalog() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:

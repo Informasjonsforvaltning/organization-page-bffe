@@ -298,15 +298,6 @@ class OrganizationStore:
         if len(organization.same_as) > 0:
             self.organizations[org_idx].same_as.extend(organization.same_as)
 
-    def get_orgpath(self, uri: str) -> str:
-        try:
-            org_idx = self.organizations.index(uri)
-            return self.organizations[org_idx].org_path
-        except ValueError:
-            return None
-        except AttributeError:
-            raise OrganizationStoreNotInitiatedException()
-
     def get_organization(self, org) -> OrganizationReferencesObject:
         try:
             return self.organizations[self.organizations.index(org)]
@@ -320,19 +311,19 @@ class OrganizationStore:
                 for_service=for_service
             )
 
-    @staticmethod
-    def get_instance() -> 'OrganizationStore':
-        if OrganizationStore.__instance__:
-            return OrganizationStore.__instance__
-        else:
-            return OrganizationStore()
-
     def clear_content_count(self):
         if self.organizations is None:
             return False
         for org in self.organizations:
             org.clear_count_values()
         return True
+
+    @staticmethod
+    def get_instance() -> 'OrganizationStore':
+        if OrganizationStore.__instance__:
+            return OrganizationStore.__instance__
+        else:
+            return OrganizationStore()
 
 
 class OrganizationStoreExistsException(Exception):
