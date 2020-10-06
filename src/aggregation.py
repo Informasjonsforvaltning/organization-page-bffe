@@ -1,12 +1,19 @@
 import asyncio
 import logging
 import time
+import re
 from typing import List
 
 from src.responses import OrganizationCatalogListResponse
 from src.result_readers import OrganizationStore, OrganizationReferencesObject
-from src.service_requests import get_organizations_from_catalog, get_concepts, get_datasets, get_dataservices, \
+from src.service_requests import (
+    get_organizations_from_catalog,
+    get_concepts,
+    get_datasets,
+    get_datasets_for_transportportal,
+    get_dataservices,
     get_informationmodels
+)
 from src.utils import FetchFromServiceException, ServiceKey
 
 
@@ -34,6 +41,39 @@ def get_organization_catalog_list() -> OrganizationCatalogListResponse:
             dataservices=OrganizationReferencesObject.from_sparql_bindings(for_service=ServiceKey.DATA_SERVICES,
                                                                            sparql_bindings=dataservices)
 
+        )
+    except FetchFromServiceException as err:
+        return err.__dict__
+
+
+def get_organization_catalog_list_for_transportportal() -> OrganizationCatalogListResponse:
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        organizations, datasets = loop.run_until_complete(
+            asyncio.gather(
+                get_organizations_from_catalog(),
+                get_datasets_for_transportportal()
+            )
+        )
+
+        norwegian_registry_pattern = re.compile(r"^https://data.brreg.no/enhetsregisteret/api/enheter/\d{9}$")
+
+        transportportal_norwegian_registry_ids = list(filter(
+            lambda norwegian_registry_id: re.search(norwegian_registry_pattern, norwegian_registry_id),
+            map(lambda dataset: dataset["publisher"]["value"], datasets)
+        ))
+
+        transportportal_organizations = filter(lambda o: o["norwegianRegistry"] in transportportal_norwegian_registry_ids, organizations)
+        transportportal_datasets = filter(lambda d: d["publisher"]["value"] in transportportal_norwegian_registry_ids, datasets)
+
+        return combine_results(
+            organizations=OrganizationReferencesObject.from_organization_catalog_list_response(transportportal_organizations),
+            datasets=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATASETS, transportportal_datasets),
+            concepts=[],
+            informationmodels=[],
+            dataservices=[]
         )
     except FetchFromServiceException as err:
         return err.__dict__
