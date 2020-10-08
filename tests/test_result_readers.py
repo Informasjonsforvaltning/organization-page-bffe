@@ -969,13 +969,12 @@ def test_resolve_display_id():
     )
     no_id = OrganizationReferencesObject(
         for_service=ServiceKey.DATASETS,
-        name="Name name"
     )
 
     assert with_uri.resolve_display_id() == "1256847"
     assert with_org_catalog_uri.resolve_display_id() == "974760673"
     assert with_org_path.resolve_display_id() == "1234678"
-    assert no_id.resolve_display_id() == "Name name"
+    assert no_id.resolve_display_id() is None
 
 
 @pytest.mark.unit

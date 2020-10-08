@@ -194,7 +194,7 @@ class OrganizationReferencesObject:
             return None
 
     def resolve_display_id(self):
-        return self.id or self.name
+        return self.id
 
     @staticmethod
     def is_national_registry_uri(uri):

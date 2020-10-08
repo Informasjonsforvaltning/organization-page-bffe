@@ -51,7 +51,7 @@ def get_organization_catalog_list_for_transportportal() -> OrganizationCatalogLi
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
 
-        organizations, datasets = loop.run_until_complete(
+        [_, datasets] = loop.run_until_complete(
             asyncio.gather(
                 get_organizations_from_catalog(),
                 get_datasets_for_transportportal()
@@ -65,11 +65,10 @@ def get_organization_catalog_list_for_transportportal() -> OrganizationCatalogLi
             map(lambda dataset: dataset["publisher"]["value"], datasets)
         ))
 
-        transportportal_organizations = filter(lambda o: o["norwegianRegistry"] in transportportal_norwegian_registry_ids, organizations)
         transportportal_datasets = filter(lambda d: d["publisher"]["value"] in transportportal_norwegian_registry_ids, datasets)
 
         return combine_results(
-            organizations=OrganizationReferencesObject.from_organization_catalog_list_response(transportportal_organizations),
+            organizations=[],
             datasets=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATASETS, transportportal_datasets),
             concepts=[],
             informationmodels=[],
