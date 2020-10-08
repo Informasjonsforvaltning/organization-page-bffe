@@ -31,7 +31,7 @@ class OrganizationCatalogListResponse:
         self.org_list = []
 
     def add_organization_catalog(self, organization_catalog: OrganizationCatalogResponse):
-        if organization_catalog.has_content():
+        if organization_catalog.has_content() and organization_catalog.id:
             self.org_list.append(organization_catalog.__dict__)
 
     def map_response(self):
