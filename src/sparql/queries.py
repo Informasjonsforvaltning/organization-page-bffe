@@ -84,11 +84,12 @@ def build_dataset_publisher_query_for_transportportal() -> str:
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-        SELECT ?publisher ?sameAs ?name (COUNT(?item) AS ?count)
+        SELECT ?publisher ?sameAs ?name ?organizationNumber (COUNT(?item) AS ?count)
         FROM <https://datasets.fellesdatakatalog.digdir.no>
         WHERE {{
             ?publisher a foaf:Agent .
             ?publisher foaf:name ?name .
+            ?publisher dct:identifier ?organizationNumber .
             ?item a dcat:Dataset .
             ?item dct:publisher ?publisher .
             OPTIONAL {{ ?publisher owl:sameAs ?sameAs . }}
@@ -105,7 +106,7 @@ def build_dataset_publisher_query_for_transportportal() -> str:
                 )
             )
         }}
-        GROUP BY ?publisher ?name ?sameAs
+        GROUP BY ?publisher ?name ?sameAs ?organizationNumber
     """
 
 

@@ -1,6 +1,7 @@
 from json.decoder import JSONDecodeError
 from os import environ as env
 import logging
+import re
 from typing import List
 
 import httpx
@@ -192,7 +193,9 @@ async def get_datasets_for_transportportal() -> List[dict]:
 
             result.raise_for_status()
 
-            return result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
+            datasets = result.json()[ContentKeys.SPARQL_RESULTS][ContentKeys.SPARQL_BINDINGS]
+
+            return list(filter(lambda d: re.search(r"\d{9}", d[ContentKeys.ORGANIZATION_NUMBER][ContentKeys.VALUE]), datasets))
         except (ConnectError, HTTPError, ConnectTimeout):
             logging.error("[datasets]: Error when attempting to execute SPARQL select query", )
 
