@@ -1,80 +1,30 @@
 from src.sparql.builder import FromGraph, SparqlSelect, SparqlWhere, SparqlGraphTerm, SparqlOptional, \
     SparqlBuilder, SparqlFunction
-from src.sparql.rdf_namespaces import NamespaceProperty, DCT, FOAF, OWL, RDF, SparqlFunctionString, DCAT
+from src.sparql.rdf_namespaces import NamespaceProperty, DCT, FOAF, OWL, SparqlFunctionString, DCAT
 from src.utils import ContentKeys
 
 
 def build_dataset_publisher_query() -> str:
-    dct = DCT(NamespaceProperty.TTL)
-    foaf = FOAF(NamespaceProperty.TTL)
-    owl = OWL(NamespaceProperty.TTL)
-    rdf = RDF(NamespaceProperty.TTL)
-    dcat = DCAT(NamespaceProperty.TTL)
+    return """
+        PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-    item_var = "item"
-    prefixes = [dct, foaf, owl, dcat]
-    select = SparqlSelect(
-        variable_names=[ContentKeys.PUBLISHER, ContentKeys.SAME_AS, ContentKeys.ORG_NAME],
-        functions=[
-            SparqlFunction(
-                function=SparqlFunctionString.COUNT,
-                var=item_var,
-                as_var="count"
-            )
-        ],
-        from_graph=FromGraph.DATASETS
-    )
-    publisher_a_foaf_agent = SparqlGraphTerm.build_graph_pattern(
-        subject=SparqlGraphTerm(var=ContentKeys.PUBLISHER),
-        predicate=SparqlGraphTerm(namespace_property=rdf.type),
-        obj=SparqlGraphTerm(namespace_property=foaf.agent),
-        close_pattern_with="."
-    )
-    publisher_foaf_name = SparqlGraphTerm.build_graph_pattern(
-        subject=SparqlGraphTerm(var=ContentKeys.PUBLISHER),
-        predicate=SparqlGraphTerm(namespace_property=foaf.name),
-        obj=SparqlGraphTerm(var=ContentKeys.ORG_NAME),
-        close_pattern_with="."
-    )
-    item_a_dataset = SparqlGraphTerm.build_graph_pattern(
-        subject=SparqlGraphTerm(var=item_var),
-        predicate=SparqlGraphTerm(namespace_property=rdf.type),
-        obj=SparqlGraphTerm(namespace_property=dcat.type_dataset),
-        close_pattern_with="."
-    )
-
-    item_dct_publisher = SparqlGraphTerm.build_graph_pattern(
-        subject=SparqlGraphTerm(var=item_var),
-        predicate=SparqlGraphTerm(namespace_property=dct.publisher),
-        obj=SparqlGraphTerm(var=ContentKeys.PUBLISHER),
-        close_pattern_with="."
-    )
-    optional_publisher_same_as = SparqlOptional(
-        graphs=[
-            SparqlGraphTerm.build_graph_pattern(
-                subject=SparqlGraphTerm(var=ContentKeys.PUBLISHER),
-                predicate=SparqlGraphTerm(namespace_property=owl.sameAs),
-                obj=SparqlGraphTerm(var=ContentKeys.SAME_AS),
-                close_pattern_with="."
-            )
-        ]
-    )
-    where = SparqlWhere(
-        graphs=[
-            publisher_a_foaf_agent,
-            publisher_foaf_name,
-            item_a_dataset,
-            item_dct_publisher,
-        ],
-        optional=optional_publisher_same_as
-    )
-
-    return SparqlBuilder(
-        prefix=prefixes,
-        select=select,
-        where=where,
-        group_by_vars=[ContentKeys.PUBLISHER, ContentKeys.ORG_NAME, ContentKeys.SAME_AS]
-    ).build()
+        SELECT ?publisher ?sameAs ?name ?organisationNumber (COUNT(?item) AS ?count)
+        FROM <https://datasets.fellesdatakatalog.digdir.no>
+        WHERE {{
+            ?publisher a foaf:Agent .
+            ?publisher foaf:name ?name .
+            ?publisher dct:identifier ?organisationNumber .
+            ?item a dcat:Dataset .
+            ?item dct:publisher ?publisher .
+            OPTIONAL {{
+                ?publisher owl:sameAs ?sameAs .
+            }}
+        }}
+        GROUP BY ?publisher ?name ?sameAs ?organisationNumber
+    """
 
 
 def build_dataset_publisher_query_for_transportportal() -> str:
