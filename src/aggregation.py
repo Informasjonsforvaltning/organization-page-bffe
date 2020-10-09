@@ -1,8 +1,7 @@
 import asyncio
 import logging
 import time
-import re
-from typing import List
+from typing import List, Union, Dict, Any
 
 from src.responses import OrganizationCatalogListResponse
 from src.result_readers import OrganizationStore, OrganizationReferencesObject
@@ -17,7 +16,7 @@ from src.service_requests import (
 from src.utils import FetchFromServiceException, ServiceKey
 
 
-def get_organization_catalog_list() -> OrganizationCatalogListResponse:
+def get_organization_catalog_list() -> Union[OrganizationCatalogListResponse, Dict[str, Any]]:
     start = time.time()
     try:
         loop = asyncio.new_event_loop()
@@ -46,7 +45,7 @@ def get_organization_catalog_list() -> OrganizationCatalogListResponse:
         return err.__dict__
 
 
-def get_organization_catalog_list_for_transportportal() -> OrganizationCatalogListResponse:
+def get_organization_catalog_list_for_transportportal() -> Union[OrganizationCatalogListResponse, Dict[str, Any]]:
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -58,46 +57,45 @@ def get_organization_catalog_list_for_transportportal() -> OrganizationCatalogLi
             )
         )
 
-        norwegian_registry_pattern = re.compile(r"^https://data.brreg.no/enhetsregisteret/api/enheter/\d{9}$")
-
-        transportportal_norwegian_registry_ids = list(filter(
-            lambda norwegian_registry_id: re.search(norwegian_registry_pattern, norwegian_registry_id),
-            map(lambda dataset: dataset["publisher"]["value"], datasets)
-        ))
-
-        transportportal_datasets = filter(lambda d: d["publisher"]["value"] in transportportal_norwegian_registry_ids, datasets)
-
         return combine_results(
-            organizations=[],
-            datasets=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATASETS, transportportal_datasets),
-            concepts=[],
-            informationmodels=[],
-            dataservices=[]
+            datasets=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATASETS, datasets)
         )
     except FetchFromServiceException as err:
         return err.__dict__
 
 
-def combine_results(organizations: List[OrganizationReferencesObject],
-                    concepts: List[OrganizationReferencesObject],
-                    datasets: List[OrganizationReferencesObject],
-                    dataservices: List[OrganizationReferencesObject],
-                    informationmodels: List[OrganizationReferencesObject]) -> OrganizationCatalogListResponse:
+def combine_results(
+        organizations: List[OrganizationReferencesObject] = None,
+        concepts: List[OrganizationReferencesObject] = None,
+        datasets: List[OrganizationReferencesObject] = None,
+        dataservices: List[OrganizationReferencesObject] = None,
+        informationmodels: List[OrganizationReferencesObject] = None
+) -> OrganizationCatalogListResponse:
     loop = asyncio.get_event_loop()
     store = OrganizationStore.get_instance()
 
     if not store.clear_content_count():
-        loop.run_until_complete(store.add_all(organizations=organizations,
-                                              for_service=ServiceKey.ORGANIZATIONS))
-    add_tasks = asyncio.gather(
-        store.add_all(organizations=informationmodels,
-                      for_service=ServiceKey.INFO_MODELS
-                      ),
-        store.add_all(organizations=concepts,
-                      for_service=ServiceKey.CONCEPTS),
-        store.add_all(organizations=datasets,
-                      for_service=ServiceKey.DATASETS),
-        store.add_all(organizations=dataservices,
-                      for_service=ServiceKey.DATA_SERVICES))
-    loop.run_until_complete(add_tasks)
+        loop.run_until_complete(store.add_all(
+            organizations=organizations or [],
+            for_service=ServiceKey.ORGANIZATIONS)
+        )
+
+    loop.run_until_complete(asyncio.gather(
+        store.add_all(
+            organizations=informationmodels or [],
+            for_service=ServiceKey.INFO_MODELS
+        ),
+        store.add_all(
+            organizations=concepts or [],
+            for_service=ServiceKey.CONCEPTS
+        ),
+        store.add_all(
+            organizations=datasets or [],
+            for_service=ServiceKey.DATASETS
+        ),
+        store.add_all(
+            organizations=dataservices or [],
+            for_service=ServiceKey.DATA_SERVICES)
+    ))
+
     return OrganizationCatalogListResponse.from_organization_store(store)

@@ -54,6 +54,7 @@ class ContentKeys:
     KEY = "key"
     SAME_AS = "sameAs"
     PUBLISHER = "publisher"
+    ORGANIZATION_NUMBER = "organizationNumber"
     COUNT = "count"
     VALUE = "value"
     ORG_NAME = "name"
