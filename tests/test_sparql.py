@@ -1,20 +1,8 @@
 import pytest
 
 from src.sparql.builder import SparqlFunction, SparqlSelect, SparqlGraphTerm, SparqlWhere, SparqlOptional, SparqlBuilder
-from src.sparql.queries import build_dataservices_publisher_query, build_dataset_publisher_query
+from src.sparql.queries import build_dataservices_publisher_query
 from src.sparql.rdf_namespaces import SparqlFunctionString, FOAF, NamespaceProperty, RDF, OWL
-
-
-@pytest.mark.unit
-def test_build_dataset_publisher_query():
-    expected = "PREFIX dct: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX owl: " \
-               "<http://www.w3.org/2002/07/owl#> PREFIX dcat: <http://www.w3.org/ns/dcat#> SELECT ?publisher " \
-               "?sameAs ?name (COUNT(?item) AS ?count) FROM <https://datasets.fellesdatakatalog.digdir.no> " \
-               "WHERE { ?publisher a foaf:Agent . ?publisher foaf:name ?name . " \
-               "?item a dcat:Dataset . ?item dct:publisher ?publisher . OPTIONAL { ?publisher owl:sameAs ?sameAs . } " \
-               "} GROUP BY ?publisher ?name ?sameAs"
-    result = build_dataset_publisher_query()
-    assert result == expected
 
 
 @pytest.mark.unit
