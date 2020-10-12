@@ -132,12 +132,18 @@ async def fetch_generated_org_path_from_organization_catalog(name: str) -> str:
 async def get_concepts() -> List[dict]:
     async with httpx.AsyncClient() as client:
         try:
-            result = await client.get(url=CONCEPT_HARVESTER_URL,
-                                      params={"aggregations": ContentKeys.ORG_PATH, "size": "0"},
-                                      timeout=5)
-            result.raise_for_status()
-            return result.json()
+            result = await client.get(
+                url=CONCEPT_HARVESTER_URL,
+                params={
+                    "aggregations": ContentKeys.ORG_PATH,
+                    "size": "0"
+                },
+                timeout=5
+            )
 
+            result.raise_for_status()
+
+            return result.json()
         except (ConnectError, HTTPError, ConnectTimeout):
             raise FetchFromServiceException(
                 execution_point=ServiceKey.CONCEPTS,
