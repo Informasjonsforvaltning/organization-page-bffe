@@ -79,13 +79,13 @@ def combine_results(
         informationmodels: List[OrganizationReferencesObject] = None
 ) -> OrganizationCatalogListResponse:
     loop = asyncio.get_event_loop()
-    store = OrganizationStore.get_instance()
+    store = OrganizationStore()
 
-    if not store.clear_content_count():
-        loop.run_until_complete(store.add_all(
-            organizations=organizations or [],
-            for_service=ServiceKey.ORGANIZATIONS)
-        )
+    # if not store.clear_content_count():
+    loop.run_until_complete(store.add_all(
+        organizations=organizations or [],
+        for_service=ServiceKey.ORGANIZATIONS)
+    )
 
     loop.run_until_complete(asyncio.gather(
         store.add_all(
