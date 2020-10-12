@@ -161,11 +161,11 @@ class OrganizationReferencesObject:
         )
 
     @staticmethod
-    def from_es_response_list(es_response: List[dict], for_service) -> List['OrganizationReferencesObject']:
-        return [OrganizationReferencesObject.from_es_bucket(for_service=for_service,
-                                                            es_bucket=bucket)
-                for bucket in es_response[ContentKeys.AGGREGATIONS][ContentKeys.ORG_PATH][ContentKeys.BUCKETS]
-                ]
+    def from_es_response_list(for_service, es_response: List[dict]) -> List['OrganizationReferencesObject']:
+        return [
+            OrganizationReferencesObject.from_es_bucket(for_service, bucket)
+            for bucket in es_response[ContentKeys.AGGREGATIONS][ContentKeys.ORG_PATH][ContentKeys.BUCKETS]
+        ]
 
     @staticmethod
     def resolve_national_registry_uri(uri):
