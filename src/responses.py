@@ -20,7 +20,7 @@ class OrganizationCatalogResponse:
         self.dataservice_count = organization.dataservice_count
         self.informationmodel_count = organization.informationmodel_count
         self.concept_count = organization.concept_count
-        self.id = organization.resolve_display_id()
+        self.id = organization.id
 
     def has_content(self):
         return self.dataservice_count + self.informationmodel_count + self.dataset_count + self.concept_count > 0

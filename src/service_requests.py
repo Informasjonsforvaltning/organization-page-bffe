@@ -51,9 +51,7 @@ async def get_organizations_from_catalog() -> List[dict]:
             )
 
 
-async def fetch_organization_by_id(org_id, name) -> OrganizationCatalogResult:
-    if org_id is None:
-        return await attempt_fetch_organization_by_name_from_catalog(name)
+async def fetch_organization_by_id(org_id) -> OrganizationCatalogResult:
     url: str = f'{ORGANIZATION_CATALOG_URL}/{org_id}'
     async with AsyncClient() as session:
         try:
@@ -72,13 +70,10 @@ async def fetch_organization_by_id(org_id, name) -> OrganizationCatalogResult:
                 url=url
             )
         except HTTPError as err:
-            if err.response.status_code == 404:
-                return await attempt_fetch_organization_by_name_from_catalog(name)
-            else:
-                raise FetchFromServiceException(
-                    execution_point=f"{err.response.status_code}: get organization",
-                    url=url
-                )
+            raise FetchFromServiceException(
+                execution_point=f"{err.response.status_code}: get organization",
+                url=url
+            )
 
 
 async def attempt_fetch_organization_by_name_from_catalog(name: str) -> OrganizationCatalogResult:

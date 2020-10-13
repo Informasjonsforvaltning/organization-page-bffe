@@ -20,7 +20,7 @@ class ServiceKey:
 
 
 class FetchFromServiceException(Exception):
-    def __init__(self, execution_point: ServiceKey, url: str = None, additional_info: str = None):
+    def __init__(self, execution_point: str, url: str = None, additional_info: str = None):
         self.status = "error"
         self.reason = f"Connection error when attempting to fetch {execution_point} from {url}"
         if additional_info:
@@ -67,7 +67,7 @@ class NotInNationalRegistryException(Exception):
 
 
 class OrganizationCatalogResult:
-    def __init__(self, org_path, org_id=None, name=None):
+    def __init__(self, org_id=None, org_path=None, name=None):
         self.org_id = org_id
         self.name = name
         self.org_path = org_path
