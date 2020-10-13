@@ -6,6 +6,7 @@ from src.utils import ServiceKey
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_combine_results_should_update_organization_store_with_one_organization():
     catalog_org = [
         OrganizationReferencesObject.from_organization_catalog_single_response(

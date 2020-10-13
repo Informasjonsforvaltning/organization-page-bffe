@@ -8,6 +8,7 @@ from src.utils import NotInNationalRegistryException, ServiceKey, OrganizationCa
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_get_organization_should_return_none(event_loop):
     test_org = OrganizationReferencesObject(
         for_service=ServiceKey.INFO_MODELS,
@@ -17,6 +18,7 @@ def test_get_organization_should_return_none(event_loop):
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_get_organization_should_return_catalog_response_by_id(event_loop, mock_fetch_organization_with_id):
     test_org = OrganizationReferencesObject(
         for_service=ServiceKey.INFO_MODELS,
@@ -56,6 +58,7 @@ def test_get_organization_should_return_catalog_response_by_id(event_loop, mock_
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_get_organization_should_return_generated_org_path(event_loop,
                                                            mock_fetch_organization_not_in_national_registry,
                                                            mock_get_generated_org_path):

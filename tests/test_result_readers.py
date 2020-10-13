@@ -275,6 +275,7 @@ def test_organization_store_add_organization_from_organization_catalog(event_loo
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_store_add_sparql_result_org(event_loop, mocker):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -298,6 +299,7 @@ def test_organization_store_add_sparql_result_org(event_loop, mocker):
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_store_add_sparql_dataset_result_org_with_existing_from_catalog(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -326,6 +328,7 @@ def test_organization_store_add_sparql_dataset_result_org_with_existing_from_cat
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_store_add_sparql_dataservices_result_org_with_existing_from_catalog(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -354,6 +357,7 @@ def test_organization_store_add_sparql_dataservices_result_org_with_existing_fro
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_store_add_sparql_result_org_with_same_as_in_existing_from_catalog(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -393,6 +397,7 @@ def test_organization_store_add_sparql_result_org_with_same_as_in_existing_from_
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_store_add_concept_to_existing_org(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -440,6 +445,7 @@ def test_organization_store_add_concept_to_existing_org(event_loop):
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_content_from_all_content_types(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
@@ -512,6 +518,7 @@ def test_content_from_all_content_types(event_loop):
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_sparql_references_parser():
     result = OrganizationReferencesObject.from_sparql_query_result(ServiceKey.DATASETS, aas_kommune_sparql)
     assert result.name == "Ås kommune"
@@ -523,6 +530,7 @@ def test_sparql_references_parser():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_sparql_references_parser_without_same_as():
     data = {
         "name": {
@@ -548,6 +556,7 @@ def test_sparql_references_parser_without_same_as():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_sparql_references_parser_without_publisher():
     data = {
         "name": {
@@ -570,6 +579,7 @@ def test_sparql_references_parser_without_publisher():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_sparql_references_parser_without_publisher():
     data = {
         "name": {
@@ -592,6 +602,7 @@ def test_sparql_references_parser_without_publisher():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_sparql_reference_parser_with_organization_catalog_uri():
     data_with_brreg_uri = {
         "publisher": {
@@ -721,6 +732,7 @@ def test_parse_from_informationmodel_harvester_response():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_eq_on_org_uri():
     from_sparql_result = OrganizationReferencesObject.from_sparql_query_result(
         ServiceKey.DATASETS,
@@ -744,6 +756,7 @@ def test_eq_on_org_uri():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_eq_on_both_with_same_as_and_no_org_uri():
     same_as_with_name = OrganizationReferencesObject(
         for_service=ServiceKey.DATASETS,
@@ -783,6 +796,7 @@ def test_eq_on_both_with_same_as_and_no_org_uri():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_from_dataservice_without_same_as_entry():
     entry = {
         "publisher": {
@@ -816,6 +830,7 @@ def test_organization_from_dataservice_without_same_as_entry():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_add_organization_from_dataservice_without_same_as_entry(event_loop, mocker):
     mocker.patch('src.result_readers.get_organization', return_value=OrganizationCatalogResult.from_json(
         {
@@ -863,6 +878,7 @@ def test_add_organization_from_dataservice_without_same_as_entry(event_loop, moc
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_reduce_for_response(event_loop, mocker):
     mocker.patch('src.result_readers.get_organization', return_value=OrganizationCatalogResult.from_json(
         {
@@ -929,6 +945,7 @@ def test_reduce_for_response(event_loop, mocker):
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_resolve_organization_id():
     with_uri = OrganizationReferencesObject(
         for_service=ServiceKey.DATASETS,
@@ -954,6 +971,7 @@ def test_resolve_organization_id():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_resolve_display_id():
     with_uri = OrganizationReferencesObject(
         for_service=ServiceKey.DATASETS,
@@ -978,6 +996,7 @@ def test_resolve_display_id():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_get_organization_list_should_throw_get_organization_from_catalog(event_loop, mocker):
     mocker.patch('src.result_readers.get_organization', return_value=OrganizationCatalogResult(
         name="JUST A NAME",
@@ -1146,6 +1165,7 @@ def test_get_organization_list_should_throw_get_organization_from_catalog(event_
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_add_should_combine_organizations_from_the_same_service(event_loop):
     svv_org_catalog = [OrganizationReferencesObject.from_organization_catalog_single_response({
         "organizationId": "971032081",

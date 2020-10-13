@@ -89,6 +89,7 @@ def test_organization_catalog_without_id():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_organization_catalog_list_response(event_loop, mocker):
     mocker.patch('src.result_readers.get_organization', side_effect=mocked_get_organizations)
     politi_ref = OrganizationReferencesObject(
