@@ -181,9 +181,6 @@ class OrganizationStore:
         if self.org_path_parents is None:
             self.org_path_parents = list()
 
-        if organization.org_path and OrgPathParent(organization.org_path) in self.org_path_parents:
-            return None
-
         stored_organisation = next((o for o in self.organizations if organization.id == o.id), None)
 
         if stored_organisation:
@@ -201,9 +198,6 @@ class OrganizationStore:
 
                         await self.add_organization(for_service=ServiceKey.ORGANIZATIONS, organization=organization)
                 else:
-                    if organization.org_path:
-                        self.org_path_parents.append(OrgPathParent(organization.org_path))
-
                     self.organizations.append(organization)
 
     def get_organization(self, org) -> OrganizationReferencesObject:
