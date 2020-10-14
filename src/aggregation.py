@@ -24,17 +24,17 @@ def get_organization_catalog_list() -> Union[OrganizationCatalogListResponse, Di
 
         [
             organizations,
-            concepts,
+            # concepts,
+            # informationmodels,
             datasets,
-            dataservices,
-            informationmodels
+            dataservices
         ] = loop.run_until_complete(
             asyncio.gather(
                 get_organizations_from_catalog(),
-                get_concepts(),
+                # get_concepts(),
+                # get_informationmodels(),
                 get_datasets(),
-                get_dataservices(),
-                get_informationmodels()
+                get_dataservices()
             )
         )
 
@@ -42,8 +42,8 @@ def get_organization_catalog_list() -> Union[OrganizationCatalogListResponse, Di
 
         return combine_results(
             organizations=OrganizationReferencesObject.from_organization_catalog_list_response(organizations),
-            concepts=OrganizationReferencesObject.from_es_response_list(ServiceKey.CONCEPTS, concepts),
-            informationmodels=OrganizationReferencesObject.from_es_response_list(ServiceKey.INFO_MODELS, informationmodels),
+            # concepts=OrganizationReferencesObject.from_es_response_list(ServiceKey.CONCEPTS, concepts),
+            # informationmodels=OrganizationReferencesObject.from_es_response_list(ServiceKey.INFO_MODELS, informationmodels),
             datasets=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATASETS, datasets),
             dataservices=OrganizationReferencesObject.from_sparql_bindings(ServiceKey.DATA_SERVICES, dataservices)
 

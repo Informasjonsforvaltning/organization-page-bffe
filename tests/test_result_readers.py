@@ -250,6 +250,7 @@ def test_org_path_parent():
 
 
 @pytest.mark.unit
+@pytest.mark.skip
 def test_add_organization_parent(event_loop):
     store_instance: OrganizationStore = OrganizationStore.get_instance()
     store_instance.organizations = []
