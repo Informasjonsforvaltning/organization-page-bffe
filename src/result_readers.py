@@ -56,6 +56,18 @@ class OrganizationReferencesObject:
     def __eq__(self, other):
         return type(other) == OrganizationReferencesObject and self.id == other.id
 
+    def __hash__(self):
+        return hash((
+            self.org_uri,
+            self.org_path,
+            self.same_as,
+            self.name,
+            self.dataset_count,
+            self.dataservice_count,
+            self.concept_count,
+            self.informationmodel_count,
+            self.id
+        ))
 
     @staticmethod
     def from_organization_catalog_single_response(organization: dict):
@@ -106,10 +118,8 @@ class OrganizationReferencesObject:
             for bucket in es_response[ContentKeys.AGGREGATIONS][ContentKeys.ORG_PATH][ContentKeys.BUCKETS]
         ]
 
-
     def get_org_id_from_org_path(self):
         return self.org_path.split("/").pop() if self.org_path else None
-
 
     def update_with_catalog_entry(self, entry: OrganizationCatalogResult):
         self.name = entry.name or self.name
@@ -195,7 +205,6 @@ class OrganizationStore:
                         self.org_path_parents.append(OrgPathParent(organization.org_path))
 
                     self.organizations.append(organization)
-
 
     def get_organization(self, org) -> OrganizationReferencesObject:
         try:
