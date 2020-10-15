@@ -57,16 +57,19 @@ class DatasetCatalogForOrganization(Resource):
     def get(self, organization_id: str):
         page = request.args.get("page", default=0, type=int)
         size = request.args.get("size", default=10, type=int)
+        filter = request.args.get("filter", type=str)
 
         try:
             organization = asyncio.run(get_organization_from_organization_catalogue(organization_id))
 
+            dataset_filters = [{"orgPath": organization["orgPath"]}]
+
+            if filter == "transportportal":
+                dataset_filters.extend([{"accessRights": "PUBLIC"}, {"themeprofile": "transport"}])
+
+
             paged_datasets = asyncio.run(search_datasets({
-                "filters": [
-                    {
-                        "orgPath": organization["orgPath"]
-                    }
-                ],
+                "filters": dataset_filters,
                 "page": page,
                 "size": size
             }))
