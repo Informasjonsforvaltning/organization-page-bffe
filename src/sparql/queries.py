@@ -9,7 +9,6 @@ def build_dataset_publisher_query() -> str:
         WHERE {{
             ?item a dcat:Dataset .
             ?item dct:publisher ?publisher .
-            ?publisher a foaf:Agent .
             ?publisher dct:identifier ?organizationNumber .
         }}
         GROUP BY ?organizationNumber
@@ -25,7 +24,6 @@ def build_dataset_publisher_query_for_transportportal() -> str:
         SELECT ?organizationNumber (COUNT(DISTINCT ?item) AS ?count)
         FROM <https://datasets.fellesdatakatalog.digdir.no>
         WHERE {{
-            ?publisher a foaf:Agent .
             ?publisher dct:identifier ?organizationNumber .
             ?item a dcat:Dataset .
             ?item dct:publisher ?publisher .
@@ -56,7 +54,6 @@ def build_dataservices_publisher_query() -> str:
         WHERE {{
             ?catalog dcat:service ?service .
             ?catalog dct:publisher ?publisher .
-            ?publisher a foaf:Agent .
             ?publisher dct:identifier ?organizationNumber .
         }}
         GROUP BY ?organizationNumber
