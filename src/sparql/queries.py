@@ -4,11 +4,15 @@ def build_dataset_publisher_query() -> str:
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-        SELECT ?organizationNumber (COUNT(DISTINCT ?item) AS ?count)
+        SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
         FROM <https://datasets.fellesdatakatalog.digdir.no>
         WHERE {{
-            ?item a dcat:Dataset .
-            ?item dct:publisher ?publisher .
+            ?dataset a dcat:Dataset .
+            ?catalog dcat:dataset ?dataset .
+            OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
+            OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
+            BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
+                ?dsPublisher, ?catPublisher ) AS ?publisher ) .
             ?publisher dct:identifier ?organizationNumber .
         }}
         GROUP BY ?organizationNumber
@@ -21,16 +25,20 @@ def build_dataset_publisher_query_for_transportportal() -> str:
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-        SELECT ?organizationNumber (COUNT(DISTINCT ?item) AS ?count)
+        SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
         FROM <https://datasets.fellesdatakatalog.digdir.no>
         WHERE {{
+            ?dataset a dcat:Dataset .
+            ?catalog dcat:dataset ?dataset .
+            OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
+            OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
+            BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
+                ?dsPublisher, ?catPublisher ) AS ?publisher ) .
             ?publisher dct:identifier ?organizationNumber .
-            ?item a dcat:Dataset .
-            ?item dct:publisher ?publisher .
-            OPTIONAL {{ ?item dct:accessRights ?code . }}
-            OPTIONAL {{ ?item dcat:theme ?theme . }}
-            FILTER EXISTS {{ ?item dct:accessRights ?code . }}
-            FILTER EXISTS {{ ?item dcat:theme ?theme . }}
+            OPTIONAL {{ ?dataset dct:accessRights ?code . }}
+            OPTIONAL {{ ?dataset dcat:theme ?theme . }}
+            FILTER EXISTS {{ ?dataset dct:accessRights ?code . }}
+            FILTER EXISTS {{ ?dataset dcat:theme ?theme . }}
             FILTER (STR(?code) = "http://publications.europa.eu/resource/authority/access-right/PUBLIC")
             FILTER (STR(?theme) IN (
                     "https://psi.norge.no/los/tema/mobilitetstilbud",
@@ -51,9 +59,14 @@ def build_dataservices_publisher_query() -> str:
         PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
         SELECT ?organizationNumber (COUNT(DISTINCT ?service) AS ?count)
+        FROM <https://dataservices.fellesdatakatalog.digdir.no>
         WHERE {{
+            ?service a dcat:DataService .
             ?catalog dcat:service ?service .
-            ?catalog dct:publisher ?publisher .
+            OPTIONAL {{ ?service dct:publisher ?servicePublisher . }}
+            OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
+            BIND ( IF( EXISTS {{ ?service dct:publisher ?servicePublisher . }},
+                ?servicePublisher, ?catPublisher ) AS ?publisher ) .
             ?publisher dct:identifier ?organizationNumber .
         }}
         GROUP BY ?organizationNumber
