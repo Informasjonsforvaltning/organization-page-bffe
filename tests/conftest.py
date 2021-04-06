@@ -1,122 +1,55 @@
+"""Conftest module."""
+from asyncio import AbstractEventLoop
+import os
+from os import environ as env
 import time
+from typing import Any
+
+from dotenv import load_dotenv
 import pytest
 import requests
-from urllib3.exceptions import MaxRetryError, NewConnectionError
+from requests.exceptions import ConnectionError
 
-from src.utils import ServiceKey
-from tests.test_data import org_brreg, org_digdir, concept_es_response, info_es_response_size_1_total_7, \
-    org_politi
+from fdk_organization_bff import create_app
+
+load_dotenv()
+HOST_PORT = int(env.get("HOST_PORT", "8080"))
+
+
+def is_responsive(url: Any) -> Any:
+    """Return true if response from service is 200."""
+    url = f"{url}/ready"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            time.sleep(2)  # sleep extra 2 sec
+            return True
+    except ConnectionError:
+        return False
 
 
 @pytest.fixture(scope="session")
-def wait_for_ready():
-    wait_for_mock_server()
-    timeout = time.time() + 20
-    try:
-        while True:
-            response = requests.get("http://localhost:8000/ready")
-            if response.status_code == 200:
-                break
-            if time.time() > timeout:
-                pytest.fail(
-                    'Test function setup: timed out while waiting for organization-bff, last response '
-                    'was {0}'.format(response.status_code))
-            time.sleep(1)
-    except (requests.exceptions.ConnectionError, ConnectionRefusedError, MaxRetryError, NewConnectionError):
-        pytest.fail('Test function setup: could not contact fdk-organization-bff')
-    yield
+def docker_service(docker_ip: Any, docker_services: Any) -> Any:
+    """Ensure that HTTP service is up and responsive."""
+    # `port_for` takes a container port and returns the corresponding host port
+    port = docker_services.port_for("fdk-organization-bff", HOST_PORT)
+    url = "http://{}:{}".format(docker_ip, port)
+    docker_services.wait_until_responsive(
+        timeout=30.0, pause=0.1, check=lambda: is_responsive(url)
+    )
+    return url
 
 
-def wait_for_mock_server():
-    timeout = time.time() + 10
-    while True:
-        try:
-            response = requests.get("http://localhost:8080/ready")
-            if response.status_code == 200:
-                break
-            if time.time() > timeout:
-                pytest.fail(
-                    'Test function setup: timed out while waiting for organization-bff, last response '
-                    'was {0}'.format(response.status_code))
-            time.sleep(1)
-        except (requests.exceptions.ConnectionError, ConnectionRefusedError, MaxRetryError, NewConnectionError):
-            continue
-    return
+@pytest.fixture(scope="session")
+def docker_compose_file(pytestconfig: Any) -> Any:
+    """Override default location of docker-compose.yml file."""
+    return os.path.join(str(pytestconfig.rootdir), "./", "docker-compose.yml")
 
 
-def get_xhttp_mock(status_code, service_key=None, organizations=None, json=None, text=None):
-    class MockResponse:
-        def __init__(self, status):
-            if service_key == ServiceKey.ORGANIZATIONS:
-                self.json_data = [org_brreg, org_digdir, org_politi]
-            elif service_key == ServiceKey.CONCEPTS:
-                self.json_data = concept_es_response
-            elif service_key == ServiceKey.DATASETS:
-                self.json_data = {"results": {"bindings": []}}
-            elif service_key == ServiceKey.DATA_SERVICES:
-                self.json_data = {"results": {"bindings": []}}
-            elif service_key == ServiceKey.INFO_MODELS:
-                self.json_data = info_es_response_size_1_total_7
-            elif json:
-                self.json_data = json
-            elif text:
-                self.text = text
-            else:
-                self.json_data = {}
-            self.status_code = status
-
-        def json(self):
-            return self.json_data
-
-        def raise_for_status(self):
-            pass
-
-    return MockResponse(status_code)
-
-
-@pytest.fixture
-def mock_get_xhttp_organizations(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.ORGANIZATIONS)
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
-
-
-@pytest.fixture
-def mock_get_xhttp_concepts(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.CONCEPTS)
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
-
-
-@pytest.fixture
-def mock_get_xhttp_dataservices(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATA_SERVICES)
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
-
-
-@pytest.fixture
-def mock_get_xhttp_datasets(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.DATASETS)
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
-
-
-@pytest.fixture
-def mock_get_xhttp_informationmodels(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key=ServiceKey.INFO_MODELS)
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
-
-
-@pytest.fixture
-def mock_get_xhttp_informationmodels_empty(mocker):
-    mock_values = get_xhttp_mock(status_code=200, service_key="empty")
-    return mocker.patch('httpx.AsyncClient.get',
-                        return_value=mock_values
-                        )
+@pytest.mark.integration
+@pytest.fixture(scope="function")
+def client(loop: AbstractEventLoop, aiohttp_client: Any) -> Any:
+    """Return an aiohttp client for testing."""
+    return loop.run_until_complete(
+        aiohttp_client(loop.run_until_complete(create_app()))
+    )

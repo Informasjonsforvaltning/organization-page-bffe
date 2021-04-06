@@ -1,8 +1,17 @@
-version: "3"
+version: '3'
 services:
-  servicesmock:
-    image: rodolpheche/wiremock
+
+  fdk-organization-bff:
+    build: .
+    image: eu.gcr.io/digdir-fdk-infra/fdk-organization-bff:test
     ports:
       - "8080:8080"
+    depends_on:
+      - wiremock
+
+  wiremock:
+    image: rodolpheche/wiremock
+    ports:
+      - "8000:8080"
     volumes:
-      - ./mock/mappings:/home/wiremock/mappings
+      - ./mock_mappings/mappings:/home/wiremock/mappings
