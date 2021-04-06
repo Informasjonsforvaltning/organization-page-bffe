@@ -16,13 +16,13 @@ servers:
 paths:
   /organizationcatalogs:
     get:
-      summary: Get all organizations and their content in Felles Datakatalog
+      summary: Get all organizations with content in Felles Datakatalog
       tags:
         - organizationcatalogs
       operationId: get-organizationcatalogs
       responses:
         '200':
-          description: OK. Returns an array of all organizations and their content in Felles Datakatalog
+          description: OK. Returns an array of all organizations with content in Felles Datakatalog
           content:
             application/json:
               schema:
@@ -31,11 +31,11 @@ paths:
     parameters:
       - schema:
           type: string
-        name: organization-id
+        name: id
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get detailed data regarding an organization and its content in Felles Datakatalog
       tags:
         - ogranizationcatalogs
       responses:
@@ -56,51 +56,89 @@ paths:
           description: OK if service is runnning and can contact other services
         '503':
           description: Temporarily unavailable. Returned if fdk-organization-bff can not contact other services
-          content:
-            application/json:
-              schema:
 
 components:
   schemas:
     OrganizationCatalog:
       title: OrganizationCatalog
       type: object
-      x-examples:
-        example-fylke:
-          organization:
-            id: '971045698'
-            orgPath: /FYLKE/971045698
-            name:
-              'no': Rogaland fylkeskommune
-          dataset_count: 0
-          dataservice_count: 5
-          concept_count: 189
-          informationmodel_count: 27
       properties:
         organization:
-          id:
-            type: string
+          $ref: '#/components/schemas/OrganizationDetails'
+        datasets:
           type: object
           properties:
-            orgPath:
+            total:
+              type: integer
+            new:
+              type: integer
+            authorative:
+              type: integer
+            open:
+              type: integer
+            quality:
+              $ref: '#/components/schemas/CatalogQualityRating'
+    CatalogQualityRating:
+      title: CatalogQualityRating
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+            - excellent
+            - good
+            - sufficient
+            - poor
+        percentage:
+          type: integer
+    OrganizationDetails:
+      title: OrganizationDetails
+      type: object
+      properties:
+        name:
+          type: string
+        organizationId:
+          type: string
+        prefLabel:
+          $ref: '#/components/schemas/LanguageObject'
+        orgPath:
+          type: string
+        orgType:
+          type: string
+        sectorCode:
+          type: string
+        industryCode:
+          type: string
+        homepage:
+          type: string
+    OrganizationCatalogSummary:
+      title: OrganizationCatalog
+      type: object
+      properties:
+        organization:
+          type: object
+          properties:
+            id:
               type: string
             name:
+              type: string
+            prefLabel:
               $ref: '#/components/schemas/LanguageObject'
         dataset_count:
           type: integer
         concept_count:
           type: integer
         dataservice_count:
-          type: string
+          type: integer
         informationmodel_count:
-          type: string
+          type: integer
     OrganizationCatalogList:
       type: object
       properties:
         organizations:
           type: array
           items:
-            $ref: '#/components/schemas/OrganizationCatalog'
+            $ref: '#/components/schemas/OrganizationCatalogSummary'
     LanguageObject:
       title: LanguageObject
       type: object
@@ -111,17 +149,5 @@ components:
           type: string
         en:
           type: string
-        'no':
+        no:
           type: string
-      x-examples:
-        example-text:
-          nb: En tekst på Bokmål
-          nn: Ein tekst på Nynorsk
-          'no': Ein tekst på Norsk, uspesifisert
-          en: Some text in english
-    ErrorMessage:
-      type: object
-      properties:
-        reason:
-          type: string
-
