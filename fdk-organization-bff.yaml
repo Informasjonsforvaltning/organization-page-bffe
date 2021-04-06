@@ -16,13 +16,13 @@ servers:
 paths:
   /organizationcatalogs:
     get:
-      summary: Get all organizations with content in Felles Datakatalog
+      summary: Get all organizations that have published content in Felles Datakatalog.
       tags:
         - organizationcatalogs
       operationId: get-organizationcatalogs
       responses:
         '200':
-          description: OK. Returns an array of all organizations with content in Felles Datakatalog
+          description: OK. Returns an array of all organizations with published content in Felles Datakatalog.
           content:
             application/json:
               schema:
@@ -35,12 +35,12 @@ paths:
         in: path
         required: true
     get:
-      summary: Get detailed data regarding an organization and its content in Felles Datakatalog
+      summary: Get detailed data regarding an organization and its published content in Felles Datakatalog.
       tags:
         - ogranizationcatalogs
       responses:
         '200':
-          description: OK. Returns an organizations and its content in Felles Datakatalog
+          description: OK. Returns data regarding an organizations and its published content in Felles Datakatalog.
           content:
             application/json:
               schema:
@@ -110,6 +110,10 @@ components:
         industryCode:
           type: string
         homepage:
+          type: string
+        seeAlso:
+          type: string
+        icon:
           type: string
     OrganizationCatalogSummary:
       title: OrganizationCatalog
