@@ -1,7 +1,6 @@
 """Conftest module."""
 from asyncio import AbstractEventLoop
 import os
-from os import environ as env
 import time
 from typing import Any
 
@@ -13,7 +12,7 @@ from requests.exceptions import ConnectionError
 from fdk_organization_bff import create_app
 
 load_dotenv()
-HOST_PORT = int(env.get("HOST_PORT", "8080"))
+HOST_PORT = int(os.environ.get("HOST_PORT", "8080"))
 
 
 def is_responsive(url: Any) -> Any:
