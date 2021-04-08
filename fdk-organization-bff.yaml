@@ -19,7 +19,7 @@ paths:
       summary: Get all organizations that have published content in Felles Datakatalog.
       tags:
         - organizationcatalogs
-      operationId: get-organizationcatalogs
+      operationId: get_organization_catalogs
       responses:
         '200':
           description: OK. Returns an array of all organizations with published content in Felles Datakatalog.
@@ -38,6 +38,7 @@ paths:
       summary: Get detailed data regarding an organization and its published content in Felles Datakatalog.
       tags:
         - ogranizationcatalogs
+      operationId: get_organization_catalog
       responses:
         '200':
           description: OK. Returns data regarding an organizations and its published content in Felles Datakatalog.
@@ -45,17 +46,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalog'
-
-      operationId: get-organizationcatalog-organization-id
-  /ready:
-    get:
-      summary: check if application is ready to accept requests
-      operationId: get-ready
-      responses:
-        '200':
-          description: OK if service is runnning and can contact other services
-        '503':
-          description: Temporarily unavailable. Returned if fdk-organization-bff can not contact other services
 
 components:
   schemas:
@@ -72,7 +62,7 @@ components:
               type: integer
             new:
               type: integer
-            authorative:
+            authoritative:
               type: integer
             open:
               type: integer

@@ -1,0 +1,5 @@
+"""SPARQL package.
+
+Modules:
+    queries
+"""

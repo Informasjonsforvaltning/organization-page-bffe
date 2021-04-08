@@ -1,0 +1,23 @@
+{
+  "id" : "ea782229-91cd-4edb-b447-6929d597da6a",
+  "name" : "api_enheter_971203420",
+  "request" : {
+    "url" : "/enhetsregisteret/api/enheter/971203420",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organisasjonsnummer\":\"971203420\",\"navn\":\"FISKERIDIREKTORATET\",\"organisasjonsform\":{\"kode\":\"ORGL\",\"beskrivelse\":\"Organisasjonsledd\",\"_links\":{\"self\":{\"href\":\"https://data.brreg.no/enhetsregisteret/api/organisasjonsformer/ORGL\"}}},\"hjemmeside\":\"www.fiskeridir.no/\",\"postadresse\":{\"land\":\"Norge\",\"landkode\":\"NO\",\"postnummer\":\"5804\",\"poststed\":\"BERGEN\",\"adresse\":[\"Postboks 185 Sentrum\"],\"kommune\":\"BERGEN\",\"kommunenummer\":\"4601\"},\"registreringsdatoEnhetsregisteret\":\"1995-02-20\",\"registrertIMvaregisteret\":true,\"naeringskode1\":{\"beskrivelse\":\"Offentlig administrasjon tilknyttet næringsvirksomhet og arbeidsmarked\",\"kode\":\"84.130\"},\"antallAnsatte\":222,\"overordnetEnhet\":\"912660680\",\"forretningsadresse\":{\"land\":\"Norge\",\"landkode\":\"NO\",\"postnummer\":\"5004\",\"poststed\":\"BERGEN\",\"adresse\":[\"Strandgaten 229\"],\"kommune\":\"BERGEN\",\"kommunenummer\":\"4601\"},\"institusjonellSektorkode\":{\"kode\":\"6100\",\"beskrivelse\":\"Statsforvaltningen\"},\"registrertIForetaksregisteret\":false,\"registrertIStiftelsesregisteret\":false,\"registrertIFrivillighetsregisteret\":false,\"konkurs\":false,\"underAvvikling\":false,\"underTvangsavviklingEllerTvangsopplosning\":false,\"maalform\":\"Bokmål\",\"_links\":{\"self\":{\"href\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971203420\"},\"overordnetEnhet\":{\"href\":\"https://data.brreg.no/enhetsregisteret/api/enheter/912660680\"}}}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 09 Apr 2021 11:34:46 GMT",
+      "Set-Cookie" : [ "0a6517082ccf6d7c45f7bf355f56b22c=322bd2d6fac2403edadbc315e3802af7; path=/; HttpOnly; Secure; SameSite=None", "BRjEE1=!kTLKrsfQ9n4WyvJ9n86SlOT8cxL+8UGQ8eSrLylsmkVdJdtkkPA9i1HWNZ7vFr7+TLic+jOZBJ0EwQ==; path=/; Httponly; Secure" ],
+      "Cache-control" : "private",
+      "Strict-Transport-Security" : "max-age=157680000; includeSubDomains"
+    }
+  },
+  "uuid" : "ea782229-91cd-4edb-b447-6929d597da6a",
+  "persistent" : true,
+  "insertionIndex" : 1
+}
