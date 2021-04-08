@@ -18,6 +18,10 @@ Backend-for-frontend service that provides content for fdk portal's organization
 
 #### Env variables:
 ```
+ORGANIZATION_CATALOGUE_URI
+DATA_BRREG_URI
+FDK_PORTAL_URI
+FDK_METADATA_QUALITY_URI
 ```
 ### Running the application 
 #### in commandline
@@ -49,3 +53,11 @@ Run specific session:
 ```
 % poetry run pytest
 ```
+
+## Updating mock data
+
+1. Set API_URL env variable to `http://0.0.0.0:8000`
+2. Start wiremock with `docker-compose up`
+2. Go to `http://0.0.0.0:8000/__admin/recorder/` and start recording with target url 
+3. Send request to capture
+4. Stop recording
