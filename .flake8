@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 120
+per-file-ignores = tests/*:S101
+application-import-names = fdk_organization_bff, tests
+import-order-style = google
