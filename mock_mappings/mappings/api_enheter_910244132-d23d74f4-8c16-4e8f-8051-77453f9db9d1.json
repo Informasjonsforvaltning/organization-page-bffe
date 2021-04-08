@@ -1,0 +1,21 @@
+{
+  "id" : "d23d74f4-8c16-4e8f-8051-77453f9db9d1",
+  "name" : "api_enheter_910244132",
+  "request" : {
+    "url" : "/enhetsregisteret/api/enheter/910244132",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "Date" : "Fri, 09 Apr 2021 11:35:06 GMT",
+      "Set-Cookie" : "0a6517082ccf6d7c45f7bf355f56b22c=ca58ebc0cf92b42e2da9eb3b84cc25ae; path=/; HttpOnly; Secure; SameSite=None",
+      "Cache-control" : "private",
+      "Strict-Transport-Security" : "max-age=157680000; includeSubDomains"
+    }
+  },
+  "uuid" : "d23d74f4-8c16-4e8f-8051-77453f9db9d1",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

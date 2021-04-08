@@ -1,0 +1,22 @@
+{
+  "id" : "c29a5532-fc62-4408-9202-9530316357cd",
+  "name" : "assessment_catalog_rating",
+  "request" : {
+    "url" : "/assessment/catalog/rating?entityType=dataset&catalogId=971203420",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"score\":3760,\"maxScore\":4400,\"satisfiedCriteria\":94,\"totalCriteria\":110,\"category\":\"excellent\",\"dimensionsRating\":{\"readability\":{\"score\":340,\"maxScore\":400},\"findability\":{\"score\":520,\"maxScore\":1000},\"interoperability\":{\"score\":900,\"maxScore\":1000},\"accessibility\":{\"score\":1000,\"maxScore\":1000},\"reusability\":{\"score\":1000,\"maxScore\":1000}}}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 09 Apr 2021 11:41:38 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "c29a5532-fc62-4408-9202-9530316357cd",
+  "persistent" : true,
+  "insertionIndex" : 11
+}

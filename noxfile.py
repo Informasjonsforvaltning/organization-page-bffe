@@ -30,7 +30,12 @@ def unit_tests(session: Session) -> None:
         "-m unit",
         "-rA",
         *args,
-        env={},
+        env={
+            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "DATA_BRREG_URI": "http://localhost:8000",
+            "FDK_PORTAL_URI": "http://localhost:8000",
+            "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+        },
     )
 
 
@@ -51,7 +56,12 @@ def integration_tests(session: Session) -> None:
         "-m integration",
         "-rA",
         *args,
-        env={},
+        env={
+            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "DATA_BRREG_URI": "http://localhost:8000",
+            "FDK_PORTAL_URI": "http://localhost:8000",
+            "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+        },
     )
 
 
@@ -73,7 +83,12 @@ def tests(session: Session) -> None:
         "pytest",
         "-rA",
         *args,
-        env={},
+        env={
+            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "DATA_BRREG_URI": "http://localhost:8000",
+            "FDK_PORTAL_URI": "http://localhost:8000",
+            "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+        },
     )
 
 
@@ -87,7 +102,6 @@ def contract_tests(session: Session) -> None:
         "-m contract",
         "-rA",
         *args,
-        env={},
     )
 
 
