@@ -34,3 +34,47 @@ WHERE {{
     )
 
     return quote_plus(query_template.substitute(org_id=organization_id))
+
+
+def build_datasets_by_publisher_query() -> str:
+    """Build urlencoded query to count datasets grouped by publisher."""
+    query = """
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
+FROM <https://datasets.fellesdatakatalog.digdir.no>
+WHERE {{
+    ?dataset a dcat:Dataset .
+    ?catalog dcat:dataset ?dataset .
+    OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
+    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
+    BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
+        ?dsPublisher, ?catPublisher ) AS ?publisher ) .
+    ?publisher dct:identifier ?organizationNumber .
+}}
+GROUP BY ?organizationNumber"""
+
+    return quote_plus(query)
+
+
+def build_dataservices_by_publisher_query() -> str:
+    """Build urlencoded query to count dataservices grouped by publisher."""
+    query = """
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+SELECT ?organizationNumber (COUNT(DISTINCT ?service) AS ?count)
+FROM <https://dataservices.fellesdatakatalog.digdir.no>
+WHERE {{
+    ?service a dcat:DataService .
+    ?catalog dcat:service ?service .
+    OPTIONAL {{ ?service dct:publisher ?servicePublisher . }}
+    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
+    BIND ( IF( EXISTS {{ ?service dct:publisher ?servicePublisher . }},
+        ?servicePublisher, ?catPublisher ) AS ?publisher ) .
+    ?publisher dct:identifier ?organizationNumber .
+}}
+GROUP BY ?organizationNumber"""
+
+    return quote_plus(query)

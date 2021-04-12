@@ -13,6 +13,7 @@ class Config:
         "PING": "/ping",
         "READY": "/ready",
         "ORG_CATALOG": "/organizationcatalog/{id}",
+        "ORG_CATALOGS": "/organizationcatalog",
     }
     _ORGANIZATION_CATALOGUE_URI = os.getenv(
         "ORGANIZATION_CATALOGUE_URI",

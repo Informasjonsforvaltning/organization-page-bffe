@@ -4,7 +4,7 @@ import logging
 from aiohttp import web
 
 from fdk_organization_bff.config import Config
-from fdk_organization_bff.resources import OrgCatalog, Ping, Ready
+from fdk_organization_bff.resources import OrgCatalog, OrgCatalogs, Ping, Ready
 
 
 def setup_routes(app: web.Application) -> None:
@@ -14,6 +14,7 @@ def setup_routes(app: web.Application) -> None:
             web.get(Config.routes()["PING"], Ping),
             web.get(Config.routes()["READY"], Ready),
             web.get(Config.routes()["ORG_CATALOG"], OrgCatalog),
+            web.get(Config.routes()["ORG_CATALOGS"], OrgCatalogs),
         ]
     )
 
