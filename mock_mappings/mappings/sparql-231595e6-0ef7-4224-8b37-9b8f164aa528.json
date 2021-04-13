@@ -1,0 +1,27 @@
+{
+  "id" : "231595e6-0ef7-4224-8b37-9b8f164aa528",
+  "name" : "sparql",
+  "request" : {
+    "url" : "/sparql?query=%0APREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0APREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0APREFIX+dcat:+%3Chttp://www.w3.org/ns/dcat%23%3E%0ASELECT+?organizationNumber+(COUNT(DISTINCT+?service)+AS+?count)%0AFROM+%3Chttps://dataservices.fellesdatakatalog.digdir.no%3E%0AWHERE+%7B%7B%0A++++?service+a+dcat:DataService+.%0A++++?catalog+dcat:service+?service+.%0A++++OPTIONAL+%7B%7B+?service+dct:publisher+?servicePublisher+.+%7D%7D%0A++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catPublisher+.+%7D%7D%0A++++BIND+(+IF(+EXISTS+%7B%7B+?service+dct:publisher+?servicePublisher+.+%7D%7D,%0A++++++++?servicePublisher,+?catPublisher+)+AS+?publisher+)+.%0A++++?publisher+dct:identifier+?organizationNumber+.%0A%7D%7D%0AGROUP+BY+?organizationNumber",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{ \"head\": {\n    \"vars\": [ \"organizationNumber\" , \"count\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"910244132\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"20\" }\n      } ,\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"910258028\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"18\" }\n      } ,\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"555111290\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"2\" }\n      }\n    ]\n  }\n}\n",
+    "headers" : {
+      "Server" : "nginx/1.19.8",
+      "Date" : "Mon, 12 Apr 2021 11:37:07 GMT",
+      "Content-Type" : "application/sparql-results+json; charset=utf-8",
+      "Fuseki-Request-Id" : "3295",
+      "Vary" : [ "Accept,Accept-Encoding,Accept-Charset", "Accept, Accept-Encoding" ],
+      "Cache-Control" : "must-revalidate,no-cache,no-store",
+      "Pragma" : "no-cache",
+      "X-Robots-Tag" : "noindex, nofollow, nosnippet, noarchive",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "231595e6-0ef7-4224-8b37-9b8f164aa528",
+  "persistent" : true,
+  "insertionIndex" : 11
+}

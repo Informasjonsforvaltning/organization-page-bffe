@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 
 from fdk_organization_bff.classes import (
     CatalogQualityRating,
+    OrganizationCatalogSummary,
     OrganizationDatasets,
     OrganizationDetails,
 )
@@ -116,3 +117,68 @@ def map_org_details(
         )
     else:
         return None
+
+
+def count_list_from_sparql_response(sparql_response: Dict) -> List:
+    """Map sparql-response to list of orgId and count value."""
+    results = sparql_response.get("results")
+    bindings = results.get("bindings") if results else []
+    result_list = bindings if bindings else []
+    mapped_list = [
+        org_and_count_value_from_sparql_response(item) for item in result_list
+    ]
+    return list(filter(None, mapped_list))
+
+
+def org_and_count_value_from_sparql_response(sparql_response: Dict) -> Optional[Dict]:
+    """Map sparql-response to dict with orgId and count value."""
+    org = sparql_response.get("organizationNumber")
+    org_value = org.get("value") if org else None
+    count = sparql_response.get("count")
+    count_value = count.get("value") if count else None
+
+    return (
+        {"org": org_value.strip().replace(" ", ""), "count": count_value}
+        if org_value and count_value
+        else None
+    )
+
+
+def map_org_summary(
+    org_id: str, org_counts: Dict, org_data: Optional[Dict]
+) -> OrganizationCatalogSummary:
+    """Map data from organization-catalogue and counts from sparql-queries to OrganizationCatalogSummary."""
+    dataset_count = int(org_counts["datasets"]) if org_counts.get("datasets") else 0
+    dataservice_count = (
+        int(org_counts["dataservices"]) if org_counts.get("dataservices") else 0
+    )
+
+    return OrganizationCatalogSummary(
+        id=org_id,
+        name=org_data["name"] if org_data else org_id,
+        prefLabel=org_data["prefLabel"] if org_data else dict(),
+        datasetCount=dataset_count,
+        conceptCount=0,
+        dataserviceCount=dataservice_count,
+        informationmodelCount=0,
+    )
+
+
+def map_org_summaries(
+    organizations: Dict,
+    datasets: List,
+    dataservices: List,
+) -> List[OrganizationCatalogSummary]:
+    """Map data from fdk-sparql-service and organization-ctalogue to a list of OrganizationCatalogSummary."""
+    org_counts = {count["org"]: {"datasets": count["count"]} for count in datasets}
+
+    for count in dataservices:
+        if org_counts.get(count["org"]):
+            org_counts[count["org"]]["dataservices"] = count["count"]
+        else:
+            org_counts[count["org"]] = {"dataservices": count["count"]}
+
+    return [
+        map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
+        for org_id in org_counts
+    ]

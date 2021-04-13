@@ -109,22 +109,19 @@ components:
       title: OrganizationCatalog
       type: object
       properties:
-        organization:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-            prefLabel:
-              $ref: '#/components/schemas/LanguageObject'
-        dataset_count:
+        id:
+          type: string
+        name:
+          type: string
+        prefLabel:
+          $ref: '#/components/schemas/LanguageObject'
+        datasetCount:
           type: integer
-        concept_count:
+        conceptCount:
           type: integer
-        dataservice_count:
+        dataserviceCount:
           type: integer
-        informationmodel_count:
+        informationmodelCount:
           type: integer
     OrganizationCatalogList:
       type: object

@@ -11,8 +11,8 @@ class OrgCatalog(View):
 
     async def get(self: View) -> Response:
         """Get specific organization catalog."""
-        res = await get_organization_catalog(self.request.match_info["id"])
-        if res:
-            return json_response(asdict(res))
+        catalog = await get_organization_catalog(self.request.match_info["id"])
+        if catalog:
+            return json_response(asdict(catalog))
         else:
             return Response(status=404)
