@@ -27,7 +27,6 @@ ramsund = """{
   }
 }"""
 
-
 fiskeri = """{
   "organization": {
     "organizationId": "971203420",
@@ -53,4 +52,53 @@ fiskeri = """{
       "percentage": 85
     }
   }
+}"""
+
+all_catalogs = """{
+  "organizations": [
+    {
+      "id": "910258028",
+      "name": "LILAND OG ERDAL REVISJON",
+      "prefLabel": {
+        "nb": "Liland og erdal revisjon"
+      },
+      "datasetCount": 20,
+      "conceptCount": 0,
+      "dataserviceCount": 18,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "971203420",
+      "name": "FISKERIDIREKTORATET",
+      "prefLabel": {
+        "nb": "Fiskeridirektoratet"
+      },
+      "datasetCount": 10,
+      "conceptCount": 0,
+      "dataserviceCount": 0,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "910244132",
+      "name": "RAMSUND OG ROGNAN REVISJON",
+      "prefLabel": {
+        "nb": "Ramsund og Rognand revisjon"
+      },
+      "datasetCount": 70,
+      "conceptCount": 0,
+      "dataserviceCount": 20,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "555111290",
+      "name": "Høgskolen for IT og arkitektur",
+      "prefLabel": {
+        "nb": "Høgskolen for it og arkitektur"
+      },
+      "datasetCount": 0,
+      "conceptCount": 0,
+      "dataserviceCount": 2,
+      "informationmodelCount": 0
+    }
+  ]
 }"""
