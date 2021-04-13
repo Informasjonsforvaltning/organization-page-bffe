@@ -10,7 +10,7 @@ PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
-SELECT ?dataset ?issued ?provenance ?rights ?licenseSource
+SELECT DISTINCT ?dataset ?issued ?provenance ?rights ?licenseSource
 FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
@@ -21,7 +21,9 @@ WHERE {{
     OPTIONAL {{
         ?dataset dcat:distribution ?distribution .
         ?distribution dct:license ?license .
-        ?license dct:source ?licenseSource .
+        OPTIONAL {{ ?license dct:source ?source . }}
+        BIND ( IF( EXISTS {{ ?license dct:source ?source . }},
+            ?source, ?license ) AS ?licenseSource ) .
     }}
     ?catalog dcat:dataset ?dataset .
     OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
