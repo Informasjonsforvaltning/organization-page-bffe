@@ -1,11 +1,14 @@
 """Conftest module."""
 from asyncio import AbstractEventLoop
+import datetime
 import os
 import time
 from typing import Any
+from unittest.mock import Mock
 
 from dotenv import load_dotenv
 import pytest
+from pytest_mock import MockFixture
 import requests
 from requests.exceptions import ConnectionError
 
@@ -13,6 +16,7 @@ from fdk_organization_bff import create_app
 
 load_dotenv()
 HOST_PORT = int(os.environ.get("HOST_PORT", "8080"))
+MOCKED_DATE = datetime.date(2021, 4, 10)
 
 
 def is_responsive(url: Any) -> Any:
@@ -52,3 +56,11 @@ def client(loop: AbstractEventLoop, aiohttp_client: Any) -> Any:
     return loop.run_until_complete(
         aiohttp_client(loop.run_until_complete(create_app()))
     )
+
+
+@pytest.fixture
+def mock_datetime(mocker: MockFixture) -> Mock:
+    """Mock datetime."""
+    mock = mocker.patch("datetime.date")
+    mock.today.return_value = MOCKED_DATE
+    return mock

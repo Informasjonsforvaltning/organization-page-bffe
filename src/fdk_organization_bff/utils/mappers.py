@@ -182,3 +182,25 @@ def map_org_summaries(
         map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
         for org_id in org_counts
     ]
+
+
+def strip_http_and_ending_slash_from_uri(uri: str) -> str:
+    """Strip ending slash and starting http:// or https:// from uri."""
+    no_ending_slash = uri[:-1] if uri[-1] == "/" else uri
+    return no_ending_slash[7:] if uri[:5] == "http:" else no_ending_slash[8:]
+
+
+def expand_open_licenses_with_https(
+    licenses: List[str],
+) -> List[str]:
+    """Expand open license list to include both http and https."""
+    all_variants = list()
+    stripped = [strip_http_and_ending_slash_from_uri(lic) for lic in licenses]
+
+    for lic in stripped:
+        all_variants.append(f"http://{lic}")
+        all_variants.append(f"http://{lic}/")
+        all_variants.append(f"https://{lic}")
+        all_variants.append(f"https://{lic}/")
+
+    return all_variants

@@ -1,5 +1,6 @@
 """Integration test cases for specific organizations."""
 import json
+from unittest.mock import Mock
 
 from aiohttp.test_utils import TestClient
 import pytest
@@ -9,7 +10,9 @@ from tests import responses
 
 @pytest.mark.integration
 @pytest.mark.docker
-async def test_ramsund(client: TestClient, docker_service: str) -> None:
+async def test_ramsund(
+    client: TestClient, docker_service: str, mock_datetime: Mock
+) -> None:
     """Should return the ramsund response."""
     response = await client.get("/organizationcatalog/910244132")
     response_json = await response.json()
