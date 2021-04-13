@@ -1,5 +1,5 @@
 """Util module."""
-from datetime import datetime, timedelta
+import datetime
 import logging
 from typing import Dict, List, Optional
 from urllib.parse import quote_plus
@@ -31,10 +31,12 @@ def dataset_is_new(dataset: Dict) -> bool:
     """Check if dataset was first published within the last 7 days."""
     issued = dataset.get("issued")
     if issued:
-        date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        date_format = "%Y-%m-%d"
         try:
-            issued_date = datetime.strptime(issued["value"], date_format).date()
-            seven_days_ago = (datetime.now() - timedelta(days=7)).date()
+            issued_date = datetime.datetime.strptime(
+                issued["value"][0:10], date_format
+            ).date()
+            seven_days_ago = datetime.date.today() - datetime.timedelta(days=7)
             return issued_date >= seven_days_ago
         except BaseException:
             logging.error("failed to parse dataset issued date")

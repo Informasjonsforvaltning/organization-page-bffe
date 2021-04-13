@@ -46,7 +46,7 @@ fiskeri = """{
     "total": 10,
     "new": 0,
     "authoritative": 0,
-    "open": 0,
+    "open": 9,
     "quality": {
       "category": "excellent",
       "percentage": 85
