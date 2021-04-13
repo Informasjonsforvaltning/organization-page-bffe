@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 import logging
 from typing import Dict, List, Optional
+from urllib.parse import quote_plus
 
 
 def url_with_params(url: str, params: Optional[Dict[str, str]]) -> str:
@@ -9,7 +10,7 @@ def url_with_params(url: str, params: Optional[Dict[str, str]]) -> str:
     if params and len(params) > 0:
         params_list = []
         for key in params:
-            params_list.append(f"{key}={params[key]}")
+            params_list.append(f"{key}={quote_plus(params[key])}")
 
         seperator = "&"
         return f"{url}?{seperator.join(params_list)}"

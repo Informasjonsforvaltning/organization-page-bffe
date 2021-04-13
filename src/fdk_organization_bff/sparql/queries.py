@@ -1,10 +1,9 @@
 """Module for SPARQL-queries."""
 from string import Template
-from urllib.parse import quote_plus
 
 
 def build_org_datasets_query(organization_id: str) -> str:
-    """Build urlencoded query for an organizations datasets."""
+    """Build query for an organizations datasets."""
     query_template = Template(
         """
 PREFIX dct: <http://purl.org/dc/terms/>
@@ -33,12 +32,12 @@ WHERE {{
 }}"""
     )
 
-    return quote_plus(query_template.substitute(org_id=organization_id))
+    return query_template.substitute(org_id=organization_id)
 
 
 def build_datasets_by_publisher_query() -> str:
-    """Build urlencoded query to count datasets grouped by publisher."""
-    query = """
+    """Build query to count datasets grouped by publisher."""
+    return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -55,12 +54,10 @@ WHERE {{
 }}
 GROUP BY ?organizationNumber"""
 
-    return quote_plus(query)
-
 
 def build_dataservices_by_publisher_query() -> str:
-    """Build urlencoded query to count dataservices grouped by publisher."""
-    query = """
+    """Build query to count dataservices grouped by publisher."""
+    return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -76,5 +73,3 @@ WHERE {{
     ?publisher dct:identifier ?organizationNumber .
 }}
 GROUP BY ?organizationNumber"""
-
-    return quote_plus(query)

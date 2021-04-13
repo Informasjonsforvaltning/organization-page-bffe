@@ -124,10 +124,17 @@ async def get_organization_catalog(id: str) -> Optional[OrganizationCatalog]:
             asyncio.ensure_future(fetch_open_licenses(session)),
         )
 
+    """Respond with None if no datasets are found."""
     if responses[2] and len(responses[2]) > 0:
         return OrganizationCatalog(
-            organization=map_org_details(responses[0], responses[1]),
-            datasets=map_org_datasets(responses[2], responses[3], responses[4]),
+            organization=map_org_details(
+                org_cat_data=responses[0], brreg_data=responses[1]
+            ),
+            datasets=map_org_datasets(
+                org_datasets=responses[2],
+                assessment_data=responses[3],
+                open_licenses=responses[4],
+            ),
         )
     else:
         return None
@@ -144,5 +151,7 @@ async def get_organization_catalogs() -> OrganizationCatalogList:
             asyncio.ensure_future(query_all_dataservices_ordered_by_publisher(session)),
         )
     return OrganizationCatalogList(
-        organizations=map_org_summaries(responses[0], responses[1], responses[2])
+        organizations=map_org_summaries(
+            organizations=responses[0], datasets=responses[1], dataservices=responses[2]
+        )
     )
