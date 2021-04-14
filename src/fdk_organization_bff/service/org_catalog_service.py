@@ -5,11 +5,17 @@ from typing import Dict, List, Optional, Union
 
 from aiohttp import ClientSession
 
-from fdk_organization_bff.classes import OrganizationCatalog, OrganizationCatalogList
+from fdk_organization_bff.classes import (
+    FilterEnum,
+    OrganizationCatalog,
+    OrganizationCatalogList,
+)
 from fdk_organization_bff.config import Config
 from fdk_organization_bff.sparql.queries import (
     build_dataservices_by_publisher_query,
     build_datasets_by_publisher_query,
+    build_nap_datasets_by_publisher_query,
+    build_nap_org_datasets_query,
     build_org_datasets_query,
 )
 from fdk_organization_bff.utils.mappers import (
@@ -68,25 +74,44 @@ async def query_sparql_service(query: str, session: ClientSession) -> Dict:
         return dict()
 
 
-async def query_publisher_datasets(id: str, session: ClientSession) -> List:
+async def query_publisher_datasets(
+    id: str, filter: FilterEnum, session: ClientSession
+) -> List:
     """Query publisher datasets from fdk-sparql-service."""
-    response = await query_sparql_service(build_org_datasets_query(id), session)
+    if filter is FilterEnum.NAP:
+        query = build_nap_org_datasets_query(id)
+    else:
+        query = build_org_datasets_query(id)
+
+    response = await query_sparql_service(query, session)
     results = response.get("results")
     org_datasets = results.get("bindings") if results else []
     return org_datasets if org_datasets else []
 
 
-async def query_all_dataservices_ordered_by_publisher(session: ClientSession) -> List:
+async def query_all_dataservices_ordered_by_publisher(
+    filter: FilterEnum, session: ClientSession
+) -> List:
     """Query all dataservices from fdk-sparql-service and order by publisher."""
-    response = await query_sparql_service(
-        build_dataservices_by_publisher_query(), session
-    )
-    return count_list_from_sparql_response(response)
+    if filter is FilterEnum.NAP:
+        return list()
+    else:
+        response = await query_sparql_service(
+            build_dataservices_by_publisher_query(), session
+        )
+        return count_list_from_sparql_response(response)
 
 
-async def query_all_datasets_ordered_by_publisher(session: ClientSession) -> List:
+async def query_all_datasets_ordered_by_publisher(
+    filter: FilterEnum, session: ClientSession
+) -> List:
     """Query all datasets from fdk-sparql-service and order by publisher."""
-    response = await query_sparql_service(build_datasets_by_publisher_query(), session)
+    if filter is FilterEnum.NAP:
+        query = build_nap_datasets_by_publisher_query()
+    else:
+        query = build_datasets_by_publisher_query()
+
+    response = await query_sparql_service(query, session)
     return count_list_from_sparql_response(response)
 
 
@@ -114,7 +139,9 @@ async def fetch_open_licenses(session: ClientSession) -> List:
     return expand_open_licenses_with_https(license_uris)
 
 
-async def get_organization_catalog(id: str) -> Optional[OrganizationCatalog]:
+async def get_organization_catalog(
+    id: str, filter: FilterEnum
+) -> Optional[OrganizationCatalog]:
     """Return specific organization catalog."""
     logging.debug(f"Fetching catalog for organization with id {id}")
 
@@ -122,7 +149,7 @@ async def get_organization_catalog(id: str) -> Optional[OrganizationCatalog]:
         responses = await asyncio.gather(
             asyncio.ensure_future(fetch_org_cat_data(id, session)),
             asyncio.ensure_future(fetch_brreg_data(id, session)),
-            asyncio.ensure_future(query_publisher_datasets(id, session)),
+            asyncio.ensure_future(query_publisher_datasets(id, filter, session)),
             asyncio.ensure_future(fetch_org_datasets_assessment(id, session)),
             asyncio.ensure_future(fetch_open_licenses(session)),
         )
@@ -143,15 +170,19 @@ async def get_organization_catalog(id: str) -> Optional[OrganizationCatalog]:
         return None
 
 
-async def get_organization_catalogs() -> OrganizationCatalogList:
+async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogList:
     """Return all organization catalogs."""
     logging.debug("Fetching all catalogs")
 
     async with ClientSession() as session:
         responses = await asyncio.gather(
             asyncio.ensure_future(fetch_all_organizations(session)),
-            asyncio.ensure_future(query_all_datasets_ordered_by_publisher(session)),
-            asyncio.ensure_future(query_all_dataservices_ordered_by_publisher(session)),
+            asyncio.ensure_future(
+                query_all_datasets_ordered_by_publisher(filter, session)
+            ),
+            asyncio.ensure_future(
+                query_all_dataservices_ordered_by_publisher(filter, session)
+            ),
         )
     return OrganizationCatalogList(
         organizations=map_org_summaries(

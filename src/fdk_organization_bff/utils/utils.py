@@ -4,6 +4,8 @@ import logging
 from typing import Dict, List, Optional
 from urllib.parse import quote_plus
 
+from fdk_organization_bff.classes import FilterEnum
+
 
 def url_with_params(url: str, params: Optional[Dict[str, str]]) -> str:
     """Add parameters to a URL."""
@@ -16,6 +18,16 @@ def url_with_params(url: str, params: Optional[Dict[str, str]]) -> str:
         return f"{url}?{seperator.join(params_list)}"
     else:
         return url
+
+
+def filter_param_to_enum(param: Optional[str]) -> FilterEnum:
+    """Map filter param value to corresponding enum."""
+    if param is None:
+        return FilterEnum.NONE
+    elif param == FilterEnum.NAP.value:
+        return FilterEnum.NAP
+    else:
+        return FilterEnum.INVALID
 
 
 def dataset_has_national_provenance(dataset: Dict) -> bool:

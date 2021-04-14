@@ -39,3 +39,23 @@ async def test_not_found(client: TestClient, docker_service: str) -> None:
     response = await client.get("/organizationcatalog/123")
 
     assert response.status == 404
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_nap_ramsund(client: TestClient, docker_service: str) -> None:
+    """Should return the ramsund_nap response."""
+    response = await client.get("/organizationcatalog/910244132?filter=transportportal")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.ramsund_nap)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
+    """Should return 400."""
+    response = await client.get("/organizationcatalog/910244132?filter=invalid")
+
+    assert response.status == 400
