@@ -9,10 +9,30 @@ from tests import responses
 
 @pytest.mark.integration
 @pytest.mark.docker
-async def test_all(client: TestClient, docker_service: str) -> None:
+async def test_all_catalogs(client: TestClient, docker_service: str) -> None:
     """Should return the all_catalogs response."""
     response = await client.get("/organizationcatalog")
     response_json = await response.json()
 
     assert response.status == 200
     assert response_json == json.loads(responses.all_catalogs)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_all_nap_catalogs(client: TestClient, docker_service: str) -> None:
+    """Should return the all_nap response."""
+    response = await client.get("/organizationcatalog?filter=transportportal")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.all_nap)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
+    """Should return 400."""
+    response = await client.get("/organizationcatalog?filter=invalid")
+
+    assert response.status == 400

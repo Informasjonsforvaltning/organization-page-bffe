@@ -2,6 +2,7 @@
 
 Modules:
     catalog_quality_rating
+    filter_enum
     organization_catalog
     organization_catalog_list
     organization_catalog_summary
@@ -9,6 +10,7 @@ Modules:
     organization_details
 """
 from fdk_organization_bff.classes.catalog_quality_rating import CatalogQualityRating
+from fdk_organization_bff.classes.filter_enum import FilterEnum
 from fdk_organization_bff.classes.organization_catalog import OrganizationCatalog
 from fdk_organization_bff.classes.organization_catalog_list import (
     OrganizationCatalogList,
