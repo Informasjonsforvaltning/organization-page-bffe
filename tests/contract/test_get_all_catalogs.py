@@ -9,10 +9,31 @@ from tests import responses
 
 @pytest.mark.contract
 @pytest.mark.docker
-def test_ramsund(docker_service: str) -> None:
+def test_all_catalogs(docker_service: str) -> None:
     """Should return the all_catalogs response."""
     url = f"{docker_service}/organizationcatalog"
     response = requests.get(url)
 
     assert response.status_code == 200
     assert response.json() == json.loads(responses.all_catalogs)
+
+
+@pytest.mark.contract
+@pytest.mark.docker
+def test_all_nap_catalogs(docker_service: str) -> None:
+    """Should return the all_nap response."""
+    url = f"{docker_service}/organizationcatalog?filter=transportportal"
+    response = requests.get(url)
+
+    assert response.status_code == 200
+    assert response.json() == json.loads(responses.all_nap)
+
+
+@pytest.mark.contract
+@pytest.mark.docker
+def test_invalid_filter(docker_service: str) -> None:
+    """Should return 400."""
+    url = f"{docker_service}/organizationcatalog?filter=invalid"
+    response = requests.get(url)
+
+    assert response.status_code == 400

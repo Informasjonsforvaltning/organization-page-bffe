@@ -102,3 +102,68 @@ all_catalogs = """{
     }
   ]
 }"""
+
+ramsund_nap = """{
+  "organization": {
+    "organizationId": "910244132",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "prefLabel": {
+      "nb": "Ramsund og Rognand revisjon"
+    },
+    "orgPath": "/ANNET/910244132",
+    "orgType": null,
+    "sectorCode": null,
+    "industryCode": null,
+    "homepage": null,
+    "seeAlso": null,
+    "icon": "https://orglogo.difi.no/api/logo/org/910244132"
+  },
+  "datasets": {
+    "total": 7,
+    "new": 0,
+    "authoritative": 2,
+    "open": 2,
+    "quality": {
+      "category": "sufficient",
+      "percentage": 33
+    }
+  }
+}"""
+
+all_nap = """{
+  "organizations": [
+    {
+      "id": "910244132",
+      "name": "RAMSUND OG ROGNAN REVISJON",
+      "prefLabel": {
+        "nb": "Ramsund og Rognand revisjon"
+      },
+      "datasetCount": 7,
+      "conceptCount": 0,
+      "dataserviceCount": 0,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "910258028",
+      "name": "LILAND OG ERDAL REVISJON",
+      "prefLabel": {
+        "nb": "Liland og erdal revisjon"
+      },
+      "datasetCount": 3,
+      "conceptCount": 0,
+      "dataserviceCount": 0,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "971032081",
+      "name": "STATENS VEGVESEN",
+      "prefLabel": {
+        "nb": "Statens Vegvesen"
+      },
+      "datasetCount": 21,
+      "conceptCount": 0,
+      "dataserviceCount": 0,
+      "informationmodelCount": 0
+    }
+  ]
+}"""
