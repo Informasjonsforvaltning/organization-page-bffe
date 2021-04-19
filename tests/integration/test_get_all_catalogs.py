@@ -11,7 +11,7 @@ from tests import responses
 @pytest.mark.docker
 async def test_all_catalogs(client: TestClient, docker_service: str) -> None:
     """Should return the all_catalogs response."""
-    response = await client.get("/organizationcatalog")
+    response = await client.get("/organizationcatalogs")
     response_json = await response.json()
 
     assert response.status == 200
@@ -22,7 +22,7 @@ async def test_all_catalogs(client: TestClient, docker_service: str) -> None:
 @pytest.mark.docker
 async def test_all_nap_catalogs(client: TestClient, docker_service: str) -> None:
     """Should return the all_nap response."""
-    response = await client.get("/organizationcatalog?filter=transportportal")
+    response = await client.get("/organizationcatalogs?filter=transportportal")
     response_json = await response.json()
 
     assert response.status == 200
@@ -33,6 +33,6 @@ async def test_all_nap_catalogs(client: TestClient, docker_service: str) -> None
 @pytest.mark.docker
 async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
     """Should return 400."""
-    response = await client.get("/organizationcatalog?filter=invalid")
+    response = await client.get("/organizationcatalogs?filter=invalid")
 
     assert response.status == 400

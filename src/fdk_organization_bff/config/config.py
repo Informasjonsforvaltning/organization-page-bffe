@@ -9,11 +9,13 @@ T = TypeVar("T", bound="Config")
 class Config:
     """Configuration class."""
 
+    _ORG_CATALOG_PATH = "/organizationcatalogs"
+
     _ROUTES = {
         "PING": "/ping",
         "READY": "/ready",
-        "ORG_CATALOG": "/organizationcatalog/{id}",
-        "ORG_CATALOGS": "/organizationcatalog",
+        "ORG_CATALOG": _ORG_CATALOG_PATH + "/{id}",
+        "ORG_CATALOGS": _ORG_CATALOG_PATH,
     }
     _ORGANIZATION_CATALOGUE_URI = os.getenv(
         "ORGANIZATION_CATALOGUE_URI",
