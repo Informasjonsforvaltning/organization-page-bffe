@@ -2,6 +2,7 @@
 import logging
 
 from aiohttp import web
+from aiohttp_middlewares import cors_middleware
 
 from fdk_organization_bff.config import Config
 from fdk_organization_bff.resources import OrgCatalog, OrgCatalogs, Ping, Ready
@@ -21,7 +22,7 @@ def setup_routes(app: web.Application) -> None:
 
 async def create_app() -> web.Application:
     """Create aiohttp application."""
-    app = web.Application()
+    app = web.Application(middlewares=[cors_middleware(allow_all=True)])
     logging.basicConfig(level=logging.INFO)
     setup_routes(app)
     return app
