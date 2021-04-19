@@ -117,7 +117,7 @@ async def query_all_datasets_ordered_by_publisher(
 
 async def fetch_org_datasets_assessment(id: str, session: ClientSession) -> Dict:
     """Fetch organization datasets assessment from fdk-metadata-quality-service."""
-    url = f"{Config.metadata_uri()}/assessment/catalog/rating"
+    url = f"{Config.metadata_uri()}/rating/catalog"
     params = {"entityType": "dataset", "catalogId": id}
     assessment = await fetch_json_data(url, params, session)
     if assessment and isinstance(assessment, Dict):
