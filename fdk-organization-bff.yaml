@@ -36,7 +36,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrganizationCatalogList'
-  '/organizationcatalog/{id}':
+  '/organizationcatalogs/{id}':
     get:
       summary: Get detailed data regarding an organization and its published content in Felles Datakatalog.
       tags:

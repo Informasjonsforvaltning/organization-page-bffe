@@ -11,7 +11,7 @@ from tests import responses
 @pytest.mark.docker
 def test_fiskeri(docker_service: str) -> None:
     """Should return the fiskeri response."""
-    url = f"{docker_service}/organizationcatalog/971203420"
+    url = f"{docker_service}/organizationcatalogs/971203420"
     response = requests.get(url)
 
     assert response.status_code == 200
@@ -22,7 +22,7 @@ def test_fiskeri(docker_service: str) -> None:
 @pytest.mark.docker
 def test_not_found(docker_service: str) -> None:
     """Should return 404."""
-    url = f"{docker_service}/organizationcatalog/123"
+    url = f"{docker_service}/organizationcatalogs/123"
     response = requests.get(url)
 
     assert response.status_code == 404
@@ -32,7 +32,7 @@ def test_not_found(docker_service: str) -> None:
 @pytest.mark.docker
 def test_nap_ramsund(docker_service: str) -> None:
     """Should return the ramsund_nap response."""
-    url = f"{docker_service}/organizationcatalog/910244132?filter=transportportal"
+    url = f"{docker_service}/organizationcatalogs/910244132?filter=transportportal"
     response = requests.get(url)
 
     assert response.status_code == 200
@@ -43,7 +43,7 @@ def test_nap_ramsund(docker_service: str) -> None:
 @pytest.mark.docker
 def test_invalid_filter(docker_service: str) -> None:
     """Should return 400."""
-    url = f"{docker_service}/organizationcatalog/910244132?filter=invalid"
+    url = f"{docker_service}/organizationcatalogs/910244132?filter=invalid"
     response = requests.get(url)
 
     assert response.status_code == 400
