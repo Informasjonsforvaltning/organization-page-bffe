@@ -16,10 +16,10 @@ ramsund = """{
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
-    "total": 70,
-    "new": 3,
-    "authoritative": 10,
-    "open": 15,
+    "totalCount": 70,
+    "newCount": 3,
+    "authoritativeCount": 10,
+    "openCount": 15,
     "quality": {
       "category": "sufficient",
       "percentage": 33
@@ -43,10 +43,10 @@ fiskeri = """{
     "icon": "https://orglogo.difi.no/api/logo/org/971203420"
   },
   "datasets": {
-    "total": 10,
-    "new": 0,
-    "authoritative": 0,
-    "open": 9,
+    "totalCount": 10,
+    "newCount": 0,
+    "authoritativeCount": 0,
+    "openCount": 9,
     "quality": {
       "category": "excellent",
       "percentage": 85
@@ -119,10 +119,10 @@ ramsund_nap = """{
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
-    "total": 7,
-    "new": 0,
-    "authoritative": 2,
-    "open": 2,
+    "totalCount": 7,
+    "newCount": 0,
+    "authoritativeCount": 2,
+    "openCount": 2,
     "quality": {
       "category": "sufficient",
       "percentage": 33

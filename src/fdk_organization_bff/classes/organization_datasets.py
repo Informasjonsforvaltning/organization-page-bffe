@@ -9,8 +9,8 @@ from fdk_organization_bff.classes.catalog_quality_rating import CatalogQualityRa
 class OrganizationDatasets:
     """Data class with amount of and quality of an organizations datasets."""
 
-    total: int
-    new: int
-    authoritative: int
-    open: int
+    totalCount: int
+    newCount: int
+    authoritativeCount: int
+    openCount: int
     quality: Optional[CatalogQualityRating]
