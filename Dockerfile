@@ -1,6 +1,5 @@
 FROM python:3.9
 
-RUN mkdir -p /app
 WORKDIR /app
 
 RUN pip install "poetry==1.1.4"
