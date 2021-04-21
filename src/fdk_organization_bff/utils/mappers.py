@@ -54,10 +54,10 @@ def map_org_datasets(
             open_datasets += 1
 
     return OrganizationDatasets(
-        total=len(org_datasets),
-        new=new_datasets,
-        authoritative=authoritative_datasets,
-        open=open_datasets,
+        totalCount=len(org_datasets),
+        newCount=new_datasets,
+        authoritativeCount=authoritative_datasets,
+        openCount=open_datasets,
         quality=map_catalog_quality_rating(assessment_data),
     )
 
