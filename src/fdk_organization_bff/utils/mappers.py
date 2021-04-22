@@ -41,23 +41,26 @@ def map_org_datasets(
     open_licenses: List,
 ) -> OrganizationDatasets:
     """Map data from fdk-sparql-service and fdk-metadata-quality-service to OrganizationDatasets."""
-    authoritative_datasets = 0
-    new_datasets = 0
-    open_datasets = 0
+    datasets = set()
+    authoritative_datasets = set()
+    new_datasets = set()
+    open_datasets = set()
 
     for dataset in org_datasets:
+        dataset_uri = dataset["dataset"]["value"]
+        datasets.add(dataset_uri)
         if dataset_has_national_provenance(dataset):
-            authoritative_datasets += 1
+            authoritative_datasets.add(dataset_uri)
         if dataset_is_new(dataset):
-            new_datasets += 1
+            new_datasets.add(dataset_uri)
         if dataset_is_open(dataset, open_licenses):
-            open_datasets += 1
+            open_datasets.add(dataset_uri)
 
     return OrganizationDatasets(
-        totalCount=len(org_datasets),
-        newCount=new_datasets,
-        authoritativeCount=authoritative_datasets,
-        openCount=open_datasets,
+        totalCount=len(datasets),
+        newCount=len(new_datasets),
+        authoritativeCount=len(authoritative_datasets),
+        openCount=len(open_datasets),
         quality=map_catalog_quality_rating(assessment_data),
     )
 
