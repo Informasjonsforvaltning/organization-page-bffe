@@ -65,7 +65,7 @@ async def fetch_brreg_data(id: str, session: ClientSession) -> Dict:
 
 async def query_sparql_service(query: str, session: ClientSession) -> Dict:
     """Query fdk-sparql-service."""
-    url = f"{Config.portal_uri()}/sparql"
+    url = f"{Config.sparql_uri()}/fuseki/harvested/query"
     params = {"query": query}
     datasets = await fetch_json_data(url, params, session)
     if datasets and isinstance(datasets, Dict):

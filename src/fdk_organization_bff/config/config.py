@@ -29,6 +29,10 @@ class Config:
         "FDK_PORTAL_URI",
         "https://staging.fellesdatakatalog.digdir.no",
     )
+    _FDK_SPARQL_URI = os.getenv(
+        "FDK_SPARQL_URI",
+        "https://sparql.staging.fellesdatakatalog.digdir.no",
+    )
     _FDK_METADATA_QUALITY_URI = os.getenv(
         "FDK_METADATA_QUALITY_URI",
         "https://metadata-quality.staging.fellesdatakatalog.digdir.no",
@@ -89,6 +93,11 @@ class Config:
     def portal_uri(cls: Type[T]) -> str:
         """FDK Portal URI."""
         return cls._FDK_PORTAL_URI
+
+    @classmethod
+    def sparql_uri(cls: Type[T]) -> str:
+        """FDK SPARQL URI."""
+        return cls._FDK_SPARQL_URI
 
     @classmethod
     def metadata_uri(cls: Type[T]) -> str:
