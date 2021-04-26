@@ -2,7 +2,7 @@
   "id" : "767627a7-28c2-4d65-b5ce-835effab0ee5",
   "name" : "sparql",
   "request" : {
-    "url" : "/fuseki/harvested/query?query=%0APREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0APREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0APREFIX+dcat:+%3Chttp://www.w3.org/ns/dcat%23%3E%0ASELECT+?organizationNumber+(COUNT(DISTINCT+?dataset)+AS+?count)%0AFROM+%3Chttps://datasets.fellesdatakatalog.digdir.no%3E%0AWHERE+%7B%7B%0A++++?dataset+a+dcat:Dataset+.%0A++++?catalog+dcat:dataset+?dataset+.%0A++++OPTIONAL+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D%0A++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catPublisher+.+%7D%7D%0A++++BIND+(+IF(+EXISTS+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D,%0A++++++++?dsPublisher,+?catPublisher+)+AS+?publisher+)+.%0A++++?publisher+dct:identifier+?organizationNumber+.%0A%7D%7D%0AGROUP+BY+?organizationNumber",
+    "url" : "?query=%0APREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0APREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0APREFIX+dcat:+%3Chttp://www.w3.org/ns/dcat%23%3E%0ASELECT+?organizationNumber+(COUNT(DISTINCT+?dataset)+AS+?count)%0AFROM+%3Chttps://datasets.fellesdatakatalog.digdir.no%3E%0AWHERE+%7B%7B%0A++++?dataset+a+dcat:Dataset+.%0A++++?catalog+dcat:dataset+?dataset+.%0A++++OPTIONAL+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D%0A++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catPublisher+.+%7D%7D%0A++++BIND+(+IF(+EXISTS+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D,%0A++++++++?dsPublisher,+?catPublisher+)+AS+?publisher+)+.%0A++++?publisher+dct:identifier+?organizationNumber+.%0A%7D%7D%0AGROUP+BY+?organizationNumber",
     "method" : "GET"
   },
   "response" : {
