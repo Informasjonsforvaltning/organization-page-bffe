@@ -36,6 +36,7 @@ def unit_tests(session: Session) -> None:
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+            "FDK_SPARQL_URI": "http://localhost:8000/sparql",
         },
     )
 
@@ -62,6 +63,7 @@ def integration_tests(session: Session) -> None:
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+            "FDK_SPARQL_URI": "http://localhost:8000/sparql",
         },
     )
 
@@ -89,6 +91,7 @@ def tests(session: Session) -> None:
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
+            "FDK_SPARQL_URI": "http://localhost:8000/sparql",
         },
     )
 
