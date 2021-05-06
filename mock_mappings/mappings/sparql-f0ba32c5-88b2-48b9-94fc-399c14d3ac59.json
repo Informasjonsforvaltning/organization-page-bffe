@@ -1,0 +1,26 @@
+{
+  "id" : "f0ba32c5-88b2-48b9-94fc-399c14d3ac59",
+  "name" : "",
+  "request" : {
+    "url" : "/sparql?query=%0APREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0APREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0APREFIX+dcat:+%3Chttp://www.w3.org/ns/dcat%23%3E%0APREFIX+fdk:+%3Chttps://raw.githubusercontent.com/Informasjonsforvaltning/fdk-data-transformation-service/master/src/main/resources/ontology/fdk.owl%23%3E%0A%0ASELECT+?organizationNumber+(COUNT(DISTINCT+?dataset)+AS+?count)%0AFROM+%3Chttps://datasets.fellesdatakatalog.digdir.no%3E%0AWHERE+%7B%7B%0A++++?dataset+a+dcat:Dataset+.%0A++++?dataset+fdk:isRelatedToTransportportal+?isNAP+.%0A++++FILTER+(STR(?isNAP)+%3D+%22true%22)%0A++++?catalog+dcat:dataset+?dataset+.%0A++++OPTIONAL+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D%0A++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catPublisher+.+%7D%7D%0A++++BIND+(+IF(+EXISTS+%7B%7B+?dataset+dct:publisher+?dsPublisher+.+%7D%7D,%0A++++++++?dsPublisher,+?catPublisher+)+AS+?publisher+)+.%0A++++?publisher+dct:identifier+?organizationNumber+.%0A%7D%7D%0AGROUP+BY+?organizationNumber",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{ \"head\": {\n    \"vars\": [ \"organizationNumber\" , \"count\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"910244132\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"7\" }\n      } ,\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"910258028\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"3\" }\n      } ,\n      { \n        \"organizationNumber\": { \"type\": \"literal\" , \"value\": \"971032081\" } ,\n        \"count\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#integer\" , \"value\": \"21\" }\n      }\n    ]\n  }\n}\n",
+    "headers" : {
+      "Server" : "nginx/1.19.10",
+      "Date" : "Thu, 06 May 2021 07:23:52 GMT",
+      "Content-Type" : "application/sparql-results+json; charset=utf-8",
+      "Fuseki-Request-Id" : "1651",
+      "Vary" : "Accept,Accept-Encoding,Accept-Charset",
+      "Cache-Control" : "must-revalidate,no-cache,no-store",
+      "Pragma" : "no-cache",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "f0ba32c5-88b2-48b9-94fc-399c14d3ac59",
+  "persistent" : true,
+  "insertionIndex" : 17
+}

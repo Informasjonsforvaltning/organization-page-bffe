@@ -20,7 +20,6 @@ from fdk_organization_bff.sparql.queries import (
 )
 from fdk_organization_bff.utils.mappers import (
     count_list_from_sparql_response,
-    expand_open_licenses_with_https,
     map_org_datasets,
     map_org_details,
     map_org_summaries,
@@ -133,19 +132,6 @@ async def fetch_org_dataset_catalog_rating(
         return dict()
 
 
-async def fetch_open_licenses(session: ClientSession) -> List:
-    """Fetch open licenses from fdk-reference-data."""
-    url = f"{Config.portal_uri()}/reference-data/codes/openlicenses"
-    open_licenses = await fetch_json_data(url, None, session)
-    license_uris = (
-        [open_license.get("uri") for open_license in open_licenses]
-        if open_licenses
-        else []
-    )
-
-    return expand_open_licenses_with_https(license_uris)
-
-
 async def get_organization_catalog(
     id: str, filter: FilterEnum
 ) -> Optional[OrganizationCatalog]:
@@ -160,7 +146,6 @@ async def get_organization_catalog(
             asyncio.ensure_future(
                 fetch_org_dataset_catalog_rating(id, filter, session)
             ),
-            asyncio.ensure_future(fetch_open_licenses(session)),
         )
 
     """Respond with None if no datasets are found."""
@@ -172,7 +157,6 @@ async def get_organization_catalog(
             datasets=map_org_datasets(
                 org_datasets=responses[2],
                 assessment_data=responses[3],
-                open_licenses=responses[4],
             ),
         )
     else:

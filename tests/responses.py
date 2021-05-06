@@ -16,8 +16,8 @@ ramsund = """{
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
-    "totalCount": 70,
-    "newCount": 3,
+    "totalCount": 71,
+    "newCount": 4,
     "authoritativeCount": 10,
     "openCount": 15,
     "quality": {
@@ -84,7 +84,7 @@ all_catalogs = """{
       "prefLabel": {
         "nb": "Ramsund og Rognand revisjon"
       },
-      "datasetCount": 70,
+      "datasetCount": 71,
       "conceptCount": 0,
       "dataserviceCount": 20,
       "informationmodelCount": 0
