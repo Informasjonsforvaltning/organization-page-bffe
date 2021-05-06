@@ -115,13 +115,20 @@ async def query_all_datasets_ordered_by_publisher(
     return count_list_from_sparql_response(response)
 
 
-async def fetch_org_datasets_assessment(id: str, session: ClientSession) -> Dict:
-    """Fetch organization datasets assessment from fdk-metadata-quality-service."""
+async def fetch_org_dataset_catalog_rating(
+    id: str, filter: FilterEnum, session: ClientSession
+) -> Dict:
+    """Fetch rating for organization's dataset catalog from fdk-metadata-quality-service."""
     url = f"{Config.metadata_uri()}/rating/catalog"
     params = {"entityType": "dataset", "catalogId": id}
-    assessment = await fetch_json_data(url, params, session)
-    if assessment and isinstance(assessment, Dict):
-        return assessment
+
+    if filter is FilterEnum.NAP:
+        params.update({"contexts": "NAP"})
+
+    rating = await fetch_json_data(url, params, session)
+
+    if rating and isinstance(rating, Dict):
+        return rating
     else:
         return dict()
 
@@ -150,7 +157,9 @@ async def get_organization_catalog(
             asyncio.ensure_future(fetch_org_cat_data(id, session)),
             asyncio.ensure_future(fetch_brreg_data(id, session)),
             asyncio.ensure_future(query_publisher_datasets(id, filter, session)),
-            asyncio.ensure_future(fetch_org_datasets_assessment(id, session)),
+            asyncio.ensure_future(
+                fetch_org_dataset_catalog_rating(id, filter, session)
+            ),
             asyncio.ensure_future(fetch_open_licenses(session)),
         )
 
