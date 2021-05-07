@@ -1,7 +1,7 @@
 """Unit test cases for utils."""
 import pytest
 
-from fdk_organization_bff.utils.utils import dataset_is_new, url_with_params
+from fdk_organization_bff.utils.utils import resource_is_new, url_with_params
 
 
 @pytest.mark.unit
@@ -21,11 +21,11 @@ def test_url_with_params() -> None:
 
 
 @pytest.mark.unit
-def test_dataset_is_new_handles_bad_date_format() -> None:
-    """Check that dataset_is_new handles bad data."""
-    res_0 = dataset_is_new({})
-    res_1 = dataset_is_new({"issued": {}})
-    res_2 = dataset_is_new({"issued": {"value": "2020/10/10"}})
+def test_resource_is_new_handles_bad_date_format() -> None:
+    """Check that resource_is_new handles bad data."""
+    res_0 = resource_is_new({})
+    res_1 = resource_is_new({"issued": {}})
+    res_2 = resource_is_new({"issued": {"value": "2020/10/10"}})
 
     assert res_0 is False
     assert res_1 is False

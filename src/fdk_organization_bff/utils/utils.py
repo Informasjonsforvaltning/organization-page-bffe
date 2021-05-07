@@ -38,9 +38,9 @@ def dataset_is_authoritative(dataset: Dict) -> bool:
     return False
 
 
-def dataset_is_new(dataset: Dict) -> bool:
-    """Check if dataset was first published within the last 7 days."""
-    issued = dataset.get("issued")
+def resource_is_new(resource: Dict) -> bool:
+    """Check if resource was first published within the last 7 days."""
+    issued = resource.get("issued")
     if issued:
         date_format = "%Y-%m-%d"
         try:
@@ -50,7 +50,7 @@ def dataset_is_new(dataset: Dict) -> bool:
             seven_days_ago = datetime.date.today() - datetime.timedelta(days=7)
             return issued_date >= seven_days_ago
         except BaseException:
-            logging.error("failed to parse dataset issued date")
+            logging.error("failed to parse issued date")
     return False
 
 
