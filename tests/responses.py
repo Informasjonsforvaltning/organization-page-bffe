@@ -24,6 +24,10 @@ ramsund = """{
       "category": "sufficient",
       "percentage": 33
     }
+  },
+  "dataservices": {
+    "totalCount": 20,
+    "newCount": 1
   }
 }"""
 
@@ -51,6 +55,10 @@ fiskeri = """{
       "category": "excellent",
       "percentage": 85
     }
+  },
+  "dataservices": {
+    "totalCount": 0,
+    "newCount": 0
   }
 }"""
 
@@ -127,6 +135,10 @@ ramsund_nap = """{
       "category": "sufficient",
       "percentage": 33
     }
+  },
+  "dataservices": {
+    "totalCount": 0,
+    "newCount": 0
   }
 }"""
 

@@ -11,8 +11,11 @@ from fdk_organization_bff.classes import (
     OrganizationCatalogList,
 )
 from fdk_organization_bff.config import Config
-from fdk_organization_bff.sparql.queries import (
+from fdk_organization_bff.sparql.dataservice_queries import (
     build_dataservices_by_publisher_query,
+    build_org_dataservice_query,
+)
+from fdk_organization_bff.sparql.dataset_queries import (
     build_datasets_by_publisher_query,
     build_nap_datasets_by_publisher_query,
     build_nap_org_datasets_query,
@@ -20,6 +23,7 @@ from fdk_organization_bff.sparql.queries import (
 )
 from fdk_organization_bff.utils.mappers import (
     count_list_from_sparql_response,
+    map_org_dataservices,
     map_org_datasets,
     map_org_details,
     map_org_summaries,
@@ -88,6 +92,19 @@ async def query_publisher_datasets(
     return org_datasets if org_datasets else []
 
 
+async def query_publisher_dataservices(
+    id: str, filter: FilterEnum, session: ClientSession
+) -> List:
+    """Query publisher dataservices from fdk-sparql-service."""
+    if filter is FilterEnum.NAP:
+        return list()
+    else:
+        response = await query_sparql_service(build_org_dataservice_query(id), session)
+        results = response.get("results")
+        org_dataservices = results.get("bindings") if results else []
+        return org_dataservices if org_dataservices else []
+
+
 async def query_all_dataservices_ordered_by_publisher(
     filter: FilterEnum, session: ClientSession
 ) -> List:
@@ -146,6 +163,7 @@ async def get_organization_catalog(
             asyncio.ensure_future(
                 fetch_org_dataset_catalog_rating(id, filter, session)
             ),
+            asyncio.ensure_future(query_publisher_dataservices(id, filter, session)),
         )
 
     """Respond with None if no datasets are found."""
@@ -158,6 +176,7 @@ async def get_organization_catalog(
                 org_datasets=responses[2],
                 assessment_data=responses[3],
             ),
+            dataservices=map_org_dataservices(org_dataservices=responses[4]),
         )
     else:
         return None

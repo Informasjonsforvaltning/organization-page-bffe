@@ -5,13 +5,14 @@ from typing import Dict, List, Optional
 from fdk_organization_bff.classes import (
     CatalogQualityRating,
     OrganizationCatalogSummary,
+    OrganizationDataservices,
     OrganizationDatasets,
     OrganizationDetails,
 )
 from fdk_organization_bff.utils.utils import (
     dataset_is_authoritative,
-    dataset_is_new,
     dataset_is_open_data,
+    resource_is_new,
 )
 
 
@@ -50,7 +51,7 @@ def map_org_datasets(
         datasets.add(dataset_uri)
         if dataset_is_authoritative(dataset):
             authoritative_datasets.add(dataset_uri)
-        if dataset_is_new(dataset):
+        if resource_is_new(dataset):
             new_datasets.add(dataset_uri)
         if dataset_is_open_data(dataset):
             open_datasets.add(dataset_uri)
@@ -184,3 +185,22 @@ def map_org_summaries(
         map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
         for org_id in org_counts
     ]
+
+
+def map_org_dataservices(
+    org_dataservices: List,
+) -> OrganizationDataservices:
+    """Map data from fdk-sparql-service to OrganizationDataservices."""
+    services = set()
+    new_services = set()
+
+    for service in org_dataservices:
+        service_uri = service["service"]["value"]
+        services.add(service_uri)
+        if resource_is_new(service):
+            new_services.add(service_uri)
+
+    return OrganizationDataservices(
+        totalCount=len(services),
+        newCount=len(new_services),
+    )

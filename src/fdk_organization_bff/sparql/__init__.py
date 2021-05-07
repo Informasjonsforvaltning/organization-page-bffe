@@ -1,5 +1,6 @@
 """SPARQL package.
 
 Modules:
-    queries
+    dataset_queries
+    dataservice_queries
 """
