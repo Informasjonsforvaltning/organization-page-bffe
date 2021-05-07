@@ -156,7 +156,13 @@ async def get_organization_catalog(
     logging.debug(f"Fetching catalog for organization with id {id}")
 
     async with ClientSession() as session:
-        responses = await asyncio.gather(
+        (
+            org_cat_data,
+            brreg_data,
+            org_datasets,
+            org_datasets_rating,
+            org_dataservices,
+        ) = await asyncio.gather(
             asyncio.ensure_future(fetch_org_cat_data(id, session)),
             asyncio.ensure_future(fetch_brreg_data(id, session)),
             asyncio.ensure_future(query_publisher_datasets(id, filter, session)),
@@ -167,16 +173,16 @@ async def get_organization_catalog(
         )
 
     """Respond with None if no datasets are found."""
-    if responses[2] and len(responses[2]) > 0:
+    if org_datasets and len(org_datasets) > 0:
         return OrganizationCatalog(
             organization=map_org_details(
-                org_cat_data=responses[0], brreg_data=responses[1]
+                org_cat_data=org_cat_data, brreg_data=brreg_data
             ),
             datasets=map_org_datasets(
-                org_datasets=responses[2],
-                assessment_data=responses[3],
+                org_datasets=org_datasets,
+                assessment_data=org_datasets_rating,
             ),
-            dataservices=map_org_dataservices(org_dataservices=responses[4]),
+            dataservices=map_org_dataservices(org_dataservices=org_dataservices),
         )
     else:
         return None
@@ -187,7 +193,7 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
     logging.debug("Fetching all catalogs")
 
     async with ClientSession() as session:
-        responses = await asyncio.gather(
+        organizations, datasets, dataservices = await asyncio.gather(
             asyncio.ensure_future(fetch_all_organizations(session)),
             asyncio.ensure_future(
                 query_all_datasets_ordered_by_publisher(filter, session)
@@ -198,6 +204,6 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
         )
     return OrganizationCatalogList(
         organizations=map_org_summaries(
-            organizations=responses[0], datasets=responses[1], dataservices=responses[2]
+            organizations=organizations, datasets=datasets, dataservices=dataservices
         )
     )
