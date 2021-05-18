@@ -155,15 +155,21 @@ def map_org_summary(
     dataservice_count = (
         int(org_counts["dataservices"]) if org_counts.get("dataservices") else 0
     )
+    concept_count = int(org_counts["concepts"]) if org_counts.get("concepts") else 0
+    informationmodel_count = (
+        int(org_counts["informationmodels"])
+        if org_counts.get("informationmodels")
+        else 0
+    )
 
     return OrganizationCatalogSummary(
         id=org_id,
         name=org_data["name"] if org_data else org_id,
         prefLabel=org_data["prefLabel"] if org_data else dict(),
         datasetCount=dataset_count,
-        conceptCount=0,
+        conceptCount=concept_count,
         dataserviceCount=dataservice_count,
-        informationmodelCount=0,
+        informationmodelCount=informationmodel_count,
     )
 
 
@@ -171,6 +177,8 @@ def map_org_summaries(
     organizations: Dict,
     datasets: List,
     dataservices: List,
+    concepts: List,
+    informationmodels: List,
 ) -> List[OrganizationCatalogSummary]:
     """Map data from fdk-sparql-service and organization-ctalogue to a list of OrganizationCatalogSummary."""
     org_counts = {count["org"]: {"datasets": count["count"]} for count in datasets}
@@ -180,6 +188,18 @@ def map_org_summaries(
             org_counts[count["org"]]["dataservices"] = count["count"]
         else:
             org_counts[count["org"]] = {"dataservices": count["count"]}
+
+    for count in concepts:
+        if org_counts.get(count["org"]):
+            org_counts[count["org"]]["concepts"] = count["count"]
+        else:
+            org_counts[count["org"]] = {"concepts": count["count"]}
+
+    for count in informationmodels:
+        if org_counts.get(count["org"]):
+            org_counts[count["org"]]["informationmodels"] = count["count"]
+        else:
+            org_counts[count["org"]] = {"informationmodels": count["count"]}
 
     return [
         map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
