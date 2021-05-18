@@ -11,6 +11,9 @@ from fdk_organization_bff.classes import (
     OrganizationCatalogList,
 )
 from fdk_organization_bff.config import Config
+from fdk_organization_bff.sparql.concept_queries import (
+    build_concepts_by_publisher_query,
+)
 from fdk_organization_bff.sparql.dataservice_queries import (
     build_dataservices_by_publisher_query,
     build_org_dataservice_query,
@@ -20,6 +23,9 @@ from fdk_organization_bff.sparql.dataset_queries import (
     build_nap_datasets_by_publisher_query,
     build_nap_org_datasets_query,
     build_org_datasets_query,
+)
+from fdk_organization_bff.sparql.informationmodel_queries import (
+    build_informationmodels_by_publisher_query,
 )
 from fdk_organization_bff.utils.mappers import (
     count_list_from_sparql_response,
@@ -118,6 +124,32 @@ async def query_all_dataservices_ordered_by_publisher(
         return count_list_from_sparql_response(response)
 
 
+async def query_all_concepts_ordered_by_publisher(
+    filter: FilterEnum, session: ClientSession
+) -> List:
+    """Query all dataservices from fdk-sparql-service and order by publisher."""
+    if filter is FilterEnum.NAP:
+        return list()
+    else:
+        response = await query_sparql_service(
+            build_concepts_by_publisher_query(), session
+        )
+        return count_list_from_sparql_response(response)
+
+
+async def query_all_informationmodels_ordered_by_publisher(
+    filter: FilterEnum, session: ClientSession
+) -> List:
+    """Query all dataservices from fdk-sparql-service and order by publisher."""
+    if filter is FilterEnum.NAP:
+        return list()
+    else:
+        response = await query_sparql_service(
+            build_informationmodels_by_publisher_query(), session
+        )
+        return count_list_from_sparql_response(response)
+
+
 async def query_all_datasets_ordered_by_publisher(
     filter: FilterEnum, session: ClientSession
 ) -> List:
@@ -193,7 +225,13 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
     logging.debug("Fetching all catalogs")
 
     async with ClientSession() as session:
-        organizations, datasets, dataservices = await asyncio.gather(
+        (
+            organizations,
+            datasets,
+            dataservices,
+            concepts,
+            informationmodels,
+        ) = await asyncio.gather(
             asyncio.ensure_future(fetch_all_organizations(session)),
             asyncio.ensure_future(
                 query_all_datasets_ordered_by_publisher(filter, session)
@@ -201,9 +239,19 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
             asyncio.ensure_future(
                 query_all_dataservices_ordered_by_publisher(filter, session)
             ),
+            asyncio.ensure_future(
+                query_all_concepts_ordered_by_publisher(filter, session)
+            ),
+            asyncio.ensure_future(
+                query_all_informationmodels_ordered_by_publisher(filter, session)
+            ),
         )
     return OrganizationCatalogList(
         organizations=map_org_summaries(
-            organizations=organizations, datasets=datasets, dataservices=dataservices
+            organizations=organizations,
+            datasets=datasets,
+            dataservices=dataservices,
+            concepts=concepts,
+            informationmodels=informationmodels,
         )
     )
