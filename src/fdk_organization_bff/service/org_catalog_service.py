@@ -13,6 +13,7 @@ from fdk_organization_bff.classes import (
 from fdk_organization_bff.config import Config
 from fdk_organization_bff.sparql.concept_queries import (
     build_concepts_by_publisher_query,
+    build_org_concepts_query,
 )
 from fdk_organization_bff.sparql.dataservice_queries import (
     build_dataservices_by_publisher_query,
@@ -26,12 +27,15 @@ from fdk_organization_bff.sparql.dataset_queries import (
 )
 from fdk_organization_bff.sparql.informationmodel_queries import (
     build_informationmodels_by_publisher_query,
+    build_org_informationmodels_query,
 )
 from fdk_organization_bff.utils.mappers import (
     count_list_from_sparql_response,
+    map_org_concepts,
     map_org_dataservices,
     map_org_datasets,
     map_org_details,
+    map_org_informationmodels,
     map_org_summaries,
 )
 from fdk_organization_bff.utils.utils import url_with_params
@@ -96,6 +100,36 @@ async def query_publisher_datasets(
     results = response.get("results")
     org_datasets = results.get("bindings") if results else []
     return org_datasets if org_datasets else []
+
+
+async def query_publisher_informationmodels(
+    id: str, filter: FilterEnum, session: ClientSession
+) -> List:
+    """Query publisher informationmodels from fdk-sparql-service."""
+    if filter is FilterEnum.NAP:
+        return list()
+
+    results = (
+        await query_sparql_service(build_org_informationmodels_query(id), session)
+    ).get("results")
+    org_concepts = results.get("bindings") if results else []
+
+    return org_concepts if org_concepts else []
+
+
+async def query_publisher_concepts(
+    id: str, filter: FilterEnum, session: ClientSession
+) -> List:
+    """Query publisher concepts from fdk-sparql-service."""
+    if filter is FilterEnum.NAP:
+        return list()
+
+    results = (await query_sparql_service(build_org_concepts_query(id), session)).get(
+        "results"
+    )
+    org_concepts = results.get("bindings") if results else []
+
+    return org_concepts if org_concepts else []
 
 
 async def query_publisher_dataservices(
@@ -194,6 +228,8 @@ async def get_organization_catalog(
             org_datasets,
             org_datasets_rating,
             org_dataservices,
+            org_concepts,
+            org_informationmodels,
         ) = await asyncio.gather(
             asyncio.ensure_future(fetch_org_cat_data(id, session)),
             asyncio.ensure_future(fetch_brreg_data(id, session)),
@@ -202,6 +238,10 @@ async def get_organization_catalog(
                 fetch_org_dataset_catalog_rating(id, filter, session)
             ),
             asyncio.ensure_future(query_publisher_dataservices(id, filter, session)),
+            asyncio.ensure_future(query_publisher_concepts(id, filter, session)),
+            asyncio.ensure_future(
+                query_publisher_informationmodels(id, filter, session)
+            ),
         )
 
     """Respond with None if no datasets are found."""
@@ -215,6 +255,10 @@ async def get_organization_catalog(
                 assessment_data=org_datasets_rating,
             ),
             dataservices=map_org_dataservices(org_dataservices=org_dataservices),
+            concepts=map_org_concepts(org_concepts=org_concepts),
+            informationmodels=map_org_informationmodels(
+                org_informationmodels=org_informationmodels
+            ),
         )
     else:
         return None

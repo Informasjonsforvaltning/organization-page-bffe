@@ -5,9 +5,11 @@ from typing import Dict, List, Optional
 from fdk_organization_bff.classes import (
     CatalogQualityRating,
     OrganizationCatalogSummary,
+    OrganizationConcepts,
     OrganizationDataservices,
     OrganizationDatasets,
     OrganizationDetails,
+    OrganizationInformationmodels,
 )
 from fdk_organization_bff.utils.utils import (
     dataset_is_authoritative,
@@ -223,4 +225,42 @@ def map_org_dataservices(
     return OrganizationDataservices(
         totalCount=len(services),
         newCount=len(new_services),
+    )
+
+
+def map_org_concepts(
+    org_concepts: List,
+) -> OrganizationConcepts:
+    """Map data from fdk-sparql-concept to OrganizationConcepts."""
+    concepts = set()
+    new_concepts = set()
+
+    for concept in org_concepts:
+        concept_uri = concept["concept"]["value"]
+        concepts.add(concept_uri)
+        if resource_is_new(concept):
+            new_concepts.add(concept_uri)
+
+    return OrganizationConcepts(
+        totalCount=len(concepts),
+        newCount=len(new_concepts),
+    )
+
+
+def map_org_informationmodels(
+    org_informationmodels: List,
+) -> OrganizationInformationmodels:
+    """Map data from fdk-sparql-informationmodel to OrganizationInformationmodel."""
+    informationmodels = set()
+    new_informationmodels = set()
+
+    for informationmodel in org_informationmodels:
+        informationmodel_uri = informationmodel["informationmodel"]["value"]
+        informationmodels.add(informationmodel_uri)
+        if resource_is_new(informationmodel):
+            new_informationmodels.add(informationmodel_uri)
+
+    return OrganizationInformationmodels(
+        totalCount=len(informationmodels),
+        newCount=len(new_informationmodels),
     )
