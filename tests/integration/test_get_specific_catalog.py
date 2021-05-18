@@ -23,13 +23,13 @@ async def test_ramsund(
 
 @pytest.mark.integration
 @pytest.mark.docker
-async def test_fiskeri(client: TestClient, docker_service: str) -> None:
-    """Should return the fiskeri response."""
-    response = await client.get("/organizationcatalogs/971203420")
+async def test_liland(client: TestClient, docker_service: str) -> None:
+    """Should return the liland response."""
+    response = await client.get("/organizationcatalogs/910258028")
     response_json = await response.json()
 
     assert response.status == 200
-    assert response_json == json.loads(responses.fiskeri)
+    assert response_json == json.loads(responses.liland)
 
 
 @pytest.mark.integration

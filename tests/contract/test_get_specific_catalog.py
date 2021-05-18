@@ -9,13 +9,13 @@ from tests import responses
 
 @pytest.mark.contract
 @pytest.mark.docker
-def test_fiskeri(docker_service: str) -> None:
-    """Should return the fiskeri response."""
-    url = f"{docker_service}/organizationcatalogs/971203420"
+def test_liland(docker_service: str) -> None:
+    """Should return the liland response."""
+    url = f"{docker_service}/organizationcatalogs/910258028"
     response = requests.get(url)
 
     assert response.status_code == 200
-    assert response.json() == json.loads(responses.fiskeri)
+    assert response.json() == json.loads(responses.liland)
 
 
 @pytest.mark.contract

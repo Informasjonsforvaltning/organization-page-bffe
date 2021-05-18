@@ -1,0 +1,26 @@
+{
+  "id" : "09356022-3b25-41f3-8bed-bf475c8e1a4b",
+  "name" : "",
+  "request" : {
+    "url" : "/sparql?query=%0A++++++++PREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0A++++++++PREFIX+modelldcatno:+%3Chttps://data.norge.no/vocabulary/modelldcatno%23%3E%0A++++++++SELECT+?organizationNumber+(COUNT(DISTINCT+?informationmodel)+AS+?count)%0A++++++++FROM+%3Chttps://informationmodels.fellesdatakatalog.digdir.no%3E%0A++++++++WHERE+%7B%7B%0A++++++++++++?informationmodel+a+modelldcatno:InformationModel+.%0A++++++++++++?catalog+modelldcatno:model+?informationmodel+.%0A++++++++++++OPTIONAL+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D%0A++++++++++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catalogPublisher+.+%7D%7D%0A++++++++++++BIND+(+IF(+EXISTS+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D,%0A++++++++++++++++?informationmodelPublisher,+?catalogPublisher+)+AS+?publisher+)+.%0A++++++++++++?publisher+dct:identifier+?organizationNumber+.%0A++++++++%7D%7D%0A++++++++GROUP+BY+?organizationNumber%0A++++",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"head\":{\"vars\":[\"organizationNumber\",\"count\"]},\"results\":{\"bindings\":[{\"organizationNumber\":{\"type\":\"literal\",\"value\":\"910258028\"},\"count\":{\"type\":\"literal\",\"datatype\":\"http://www.w3.org/2001/XMLSchema#integer\",\"value\":\"2\"}}]}}",
+    "headers" : {
+      "Server" : "nginx/1.19.10",
+      "Date" : "Wed, 19 May 2021 07:56:50 GMT",
+      "Content-Type" : "application/sparql-results+json; charset=utf-8",
+      "Fuseki-Request-Id" : "4462",
+      "Vary" : "Accept,Accept-Encoding,Accept-Charset",
+      "Cache-Control" : "must-revalidate,no-cache,no-store",
+      "Pragma" : "no-cache",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "09356022-3b25-41f3-8bed-bf475c8e1a4b",
+  "persistent" : true,
+  "insertionIndex" : 23
+}

@@ -1,0 +1,26 @@
+{
+  "id" : "e06965ee-8935-494b-bbf8-5f1750208fdf",
+  "name" : "",
+  "request" : {
+    "url" : "/sparql?query=%0A++++++++PREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0A++++++++PREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0A++++++++PREFIX+modelldcatno:+%3Chttps://data.norge.no/vocabulary/modelldcatno%23%3E%0A++++++++SELECT+DISTINCT+?informationmodel+?issued%0A++++++++FROM+%3Chttps://informationmodels.fellesdatakatalog.digdir.no%3E%0A++++++++WHERE+%7B%7B%0A++++++++++++?informationmodel+a+modelldcatno:InformationModel+.%0A++++++++++++?record+foaf:primaryTopic+?informationmodel+.%0A++++++++++++?record+dct:issued+?issued+.%0A++++++++++++?catalog+modelldcatno:model+?informationmodel+.%0A++++++++++++OPTIONAL+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D%0A++++++++++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catalogPublisher+.+%7D%7D%0A++++++++++++BIND+(+IF(+EXISTS+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D,%0A++++++++++++++++?informationmodelPublisher,+?catalogPublisher+)+AS+?publisher+)+.%0A++++++++++++?publisher+dct:identifier+%22910258028%22+.%0A++++++++%7D%7D%0A++++",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{ \"head\": {\n    \"vars\": [ \"informationmodel\" , \"issued\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      { \n        \"informationmodel\": { \"type\": \"uri\" , \"value\": \"https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-testdata/master/testdata/SkatvalModellkatalog.ttl#AdresseModell\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-12-02T08:35:16.054Z\" }\n      } ,\n      { \n        \"informationmodel\": { \"type\": \"uri\" , \"value\": \"https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-testdata/master/testdata/SkatvalModellkatalog.ttl#PersonOgEnhet\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-12-02T08:35:16.054Z\" }\n      }\n    ]\n  }\n}\n",
+    "headers" : {
+      "Server" : "nginx/1.19.10",
+      "Date" : "Wed, 19 May 2021 10:11:24 GMT",
+      "Content-Type" : "application/sparql-results+json; charset=utf-8",
+      "Fuseki-Request-Id" : "4601",
+      "Vary" : "Accept,Accept-Encoding,Accept-Charset",
+      "Cache-Control" : "must-revalidate,no-cache,no-store",
+      "Pragma" : "no-cache",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "e06965ee-8935-494b-bbf8-5f1750208fdf",
+  "persistent" : true,
+  "insertionIndex" : 20
+}
