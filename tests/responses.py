@@ -28,6 +28,14 @@ ramsund = """{
   "dataservices": {
     "totalCount": 20,
     "newCount": 1
+  },
+  "concepts": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "informationmodels": {
+    "totalCount": 0,
+    "newCount": 0
   }
 }"""
 
@@ -59,7 +67,38 @@ fiskeri = """{
   "dataservices": {
     "totalCount": 0,
     "newCount": 0
+  },
+  "concepts": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "informationmodels": {
+    "totalCount": 0,
+    "newCount": 0
   }
+}"""
+
+liland = """{
+    "organization": null,
+    "datasets": {
+        "totalCount": 19,
+        "newCount": 0,
+        "authoritativeCount": 0,
+        "openCount": 3,
+        "quality": null
+    },
+    "dataservices": {
+        "totalCount": 18,
+        "newCount": 0
+    },
+    "concepts": {
+        "totalCount": 5,
+        "newCount": 0
+    },
+    "informationmodels": {
+        "totalCount": 2,
+        "newCount": 0
+    }
 }"""
 
 all_catalogs = """{
@@ -71,9 +110,9 @@ all_catalogs = """{
         "nb": "Liland og erdal revisjon"
       },
       "datasetCount": 20,
-      "conceptCount": 0,
+      "conceptCount": 5,
       "dataserviceCount": 18,
-      "informationmodelCount": 0
+      "informationmodelCount": 2
     },
     {
       "id": "971203420",
@@ -93,7 +132,7 @@ all_catalogs = """{
         "nb": "Ramsund og Rognand revisjon"
       },
       "datasetCount": 71,
-      "conceptCount": 0,
+      "conceptCount": 22,
       "dataserviceCount": 20,
       "informationmodelCount": 0
     },
@@ -137,6 +176,14 @@ ramsund_nap = """{
     }
   },
   "dataservices": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "concepts": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "informationmodels": {
     "totalCount": 0,
     "newCount": 0
   }

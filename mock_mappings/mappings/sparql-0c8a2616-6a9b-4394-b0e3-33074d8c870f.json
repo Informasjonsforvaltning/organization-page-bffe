@@ -1,0 +1,26 @@
+{
+  "id" : "0c8a2616-6a9b-4394-b0e3-33074d8c870f",
+  "name" : "",
+  "request" : {
+    "url" : "/sparql?query=%0A++++++++PREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0A++++++++PREFIX+foaf:+%3Chttp://xmlns.com/foaf/0.1/%3E%0A++++++++PREFIX+skos:+%3Chttp://www.w3.org/2004/02/skos/core%23%3E%0A++++++++SELECT+DISTINCT+?concept+?issued%0A++++++++FROM+%3Chttps://concepts.fellesdatakatalog.digdir.no%3E%0A++++++++WHERE+%7B%7B%0A++++++++++++?concept+a+skos:Concept+.%0A++++++++++++?record+foaf:primaryTopic+?concept+.%0A++++++++++++?record+dct:issued+?issued+.%0A++++++++++++?collection+skos:member+?concept+.%0A++++++++++++OPTIONAL+%7B%7B+?concept+dct:publisher+?conceptPublisher+.+%7D%7D%0A++++++++++++OPTIONAL+%7B%7B+?collection+dct:publisher+?collectionPublisher+.+%7D%7D%0A++++++++++++BIND+(+IF(+EXISTS+%7B%7B+?concept+dct:publisher+?conceptPublisher+.+%7D%7D,%0A++++++++++++++++?conceptPublisher,+?collectionPublisher+)+AS+?publisher+)+.%0A++++++++++++?publisher+dct:identifier+%22910258028%22+.%0A++++++++%7D%7D%0A++++",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{ \"head\": {\n    \"vars\": [ \"concept\" , \"issued\" ]\n  } ,\n  \"results\": {\n    \"bindings\": [\n      { \n        \"concept\": { \"type\": \"uri\" , \"value\": \"https://registrering-begrep-api.staging.fellesdatakatalog.digdir.no/910258028/523ff894-638b-44a2-a4fd-3e96a5a8a5a3\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-07-03T09:57:22.824Z\" }\n      } ,\n      { \n        \"concept\": { \"type\": \"uri\" , \"value\": \"https://registrering-begrep-api.staging.fellesdatakatalog.digdir.no/910258028/c4ae179e-6a3a-42bc-85a2-1e32d75fc013\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-07-03T09:57:23.964Z\" }\n      } ,\n      { \n        \"concept\": { \"type\": \"uri\" , \"value\": \"https://registrering-begrep-api.staging.fellesdatakatalog.digdir.no/910258028/3609b02d-72c5-47e0-a6b8-df0a503cf190\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-07-03T09:57:30.5Z\" }\n      } ,\n      { \n        \"concept\": { \"type\": \"uri\" , \"value\": \"https://registrering-begrep-api.staging.fellesdatakatalog.digdir.no/910258028/1843b048-f9af-4665-8e53-3c001d0166c0\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-07-03T09:57:31.653Z\" }\n      } ,\n      { \n        \"concept\": { \"type\": \"uri\" , \"value\": \"https://registrering-begrep-api.staging.fellesdatakatalog.digdir.no/910258028/9f25b5ad-8aa7-4233-853b-7434e20aeaef\" } ,\n        \"issued\": { \"type\": \"literal\" , \"datatype\": \"http://www.w3.org/2001/XMLSchema#dateTime\" , \"value\": \"2020-07-03T09:57:34.911Z\" }\n      }\n    ]\n  }\n}\n",
+    "headers" : {
+      "Server" : "nginx/1.19.10",
+      "Date" : "Wed, 19 May 2021 10:11:25 GMT",
+      "Content-Type" : "application/sparql-results+json; charset=utf-8",
+      "Fuseki-Request-Id" : "4598",
+      "Vary" : "Accept,Accept-Encoding,Accept-Charset",
+      "Cache-Control" : "must-revalidate,no-cache,no-store",
+      "Pragma" : "no-cache",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "0c8a2616-6a9b-4394-b0e3-33074d8c870f",
+  "persistent" : true,
+  "insertionIndex" : 22
+}

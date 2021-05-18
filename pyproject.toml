@@ -55,7 +55,7 @@ omit = ["*__init__.py", "*gunicorn_config.py"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 100
+fail_under = 90
 
 [build-system]
 requires = ["poetry>=1.1.4"]
