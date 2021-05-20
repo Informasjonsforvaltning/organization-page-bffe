@@ -244,8 +244,18 @@ async def get_organization_catalog(
             ),
         )
 
-    """Respond with None if no datasets are found."""
-    if org_datasets and len(org_datasets) > 0:
+    """Respond with None if no data is found."""
+    if (
+        None
+        not in (org_datasets, org_dataservices, org_concepts, org_informationmodels)
+        and (
+            len(org_datasets)
+            + len(org_dataservices)
+            + len(org_concepts)
+            + len(org_informationmodels)
+        )
+        > 0
+    ):
         return OrganizationCatalog(
             organization=map_org_details(
                 org_cat_data=org_cat_data, brreg_data=brreg_data
