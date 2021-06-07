@@ -20,6 +20,20 @@ def test_liland(docker_service: str) -> None:
 
 @pytest.mark.contract
 @pytest.mark.docker
+def test_response_has_mo_cache_headers(docker_service: str) -> None:
+    """Should include no-cache headers."""
+    url = f"{docker_service}/organizationcatalogs/910258028"
+    response = requests.get(url)
+
+    assert response.status_code == 200
+    assert (
+        response.headers.get("Cache-Control")
+        == "no-cache, no-store, max-age=0, must-revalidate"
+    )
+
+
+@pytest.mark.contract
+@pytest.mark.docker
 def test_not_found(docker_service: str) -> None:
     """Should return 404."""
     url = f"{docker_service}/organizationcatalogs/123"
