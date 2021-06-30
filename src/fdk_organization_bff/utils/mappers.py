@@ -1,5 +1,6 @@
 """Mapper module."""
 import logging
+import traceback
 from typing import Dict, List, Optional
 
 from fdk_organization_bff.classes import (
@@ -34,7 +35,9 @@ def map_catalog_quality_rating(
                 else None,
             )
         except BaseException:
-            logging.error("bad data from fdk-metadata-quality-service", assessment_data)
+            logging.error(
+                f"{traceback.format_exc()}: bad data from fdk-metadata-quality-service {assessment_data}"
+            )
     return None
 
 

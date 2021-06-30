@@ -1,6 +1,7 @@
 """Util module."""
 import datetime
 import logging
+import traceback
 from typing import Dict, Optional
 from urllib.parse import quote_plus
 
@@ -50,7 +51,7 @@ def resource_is_new(resource: Dict) -> bool:
             seven_days_ago = datetime.date.today() - datetime.timedelta(days=7)
             return issued_date >= seven_days_ago
         except BaseException:
-            logging.error("failed to parse issued date")
+            logging.error(f"{traceback.format_exc()}: failed to parse issued date")
     return False
 
 

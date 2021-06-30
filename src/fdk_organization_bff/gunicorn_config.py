@@ -40,6 +40,7 @@ class StackdriverJsonFormatter(jsonlogger.JsonFormatter, object):
         """Process log record to a json-format compatible with Stackdriver."""
         log_record["severity"] = log_record["levelname"]
         del log_record["levelname"]
+        log_record["serviceContext"] = {"service": "fdk-organization-bff"}
         return super(StackdriverJsonFormatter, self).process_log_record(log_record)
 
 
