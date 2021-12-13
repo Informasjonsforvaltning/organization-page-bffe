@@ -1,7 +1,7 @@
 """Service layer module for fdk-organization-bff."""
 import asyncio
 import logging
-from typing import Dict, List, Optional, Union
+from typing import cast, Dict, List, Optional, Union
 
 from aiohttp import ClientSession
 
@@ -242,7 +242,31 @@ async def get_organization_catalog(
             asyncio.ensure_future(
                 query_publisher_informationmodels(id, filter, session)
             ),
+            return_exceptions=True,
         )
+    if isinstance(org_cat_data, BaseException):
+        logging.warning("Unable to fetch org catalog data")
+        org_cat_data = None
+    if isinstance(brreg_data, BaseException):
+        logging.warning("Unable to fetch Brreg data")
+        brreg_data = None
+    if isinstance(org_datasets, BaseException):
+        logging.warning("Unable to fetch org datasets")
+        org_datasets = []
+    if isinstance(org_datasets_rating, BaseException):
+        logging.warning("Unable to fetch org datasets rating")
+        org_datasets_rating = []
+    if isinstance(org_dataservices, BaseException):
+        logging.warning("Unable to fetch org dataservices")
+        org_dataservices = []
+    if isinstance(org_concepts, BaseException):
+        logging.warning("Unable to fetch org concepts")
+        org_concepts = []
+    if isinstance(org_informationmodels, BaseException):
+        logging.warning("Unable to fetch org info models")
+        org_informationmodels = []
+
+    logging.debug("Counts ")
 
     """Respond with None if no data is found."""
     if (
@@ -299,13 +323,31 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
             asyncio.ensure_future(
                 query_all_informationmodels_ordered_by_publisher(filter, session)
             ),
+            return_exceptions=True,
         )
+
+    if isinstance(organizations, BaseException):
+        logging.warning("Unable to fetch all organizations")
+        organizations = {}
+    if isinstance(datasets, BaseException):
+        logging.warning("Unable to fetch datasets")
+        datasets = []
+    if isinstance(dataservices, BaseException):
+        logging.warning("Unable to fetch dataservices")
+        dataservices = []
+    if isinstance(concepts, BaseException):
+        logging.warning("Unable to fetch concepts")
+        concepts = []
+    if isinstance(informationmodels, BaseException):
+        logging.warning("Unable to fetch informationmodels")
+        informationmodels = []
+
     return OrganizationCatalogList(
         organizations=map_org_summaries(
-            organizations=organizations,
-            datasets=datasets,
-            dataservices=dataservices,
-            concepts=concepts,
-            informationmodels=informationmodels,
+            organizations=cast(Dict, organizations),
+            datasets=cast(List, datasets),
+            dataservices=cast(List, dataservices),
+            concepts=cast(List, concepts),
+            informationmodels=cast(List, informationmodels),
         )
     )
