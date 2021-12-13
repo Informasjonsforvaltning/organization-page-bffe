@@ -61,3 +61,16 @@ async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
     response = await client.get("/organizationcatalogs/910244132?filter=invalid")
 
     assert response.status == 400
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_ntnu_remote_services_fail(
+    client: TestClient, docker_service: str
+) -> None:
+    """Should return 200."""
+    response = await client.get("/organizationcatalogs/974767880")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.ntnu)

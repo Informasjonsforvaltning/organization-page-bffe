@@ -146,9 +146,21 @@ all_catalogs = """{
       "conceptCount": 0,
       "dataserviceCount": 2,
       "informationmodelCount": 0
+    },
+    {
+      "id": "974767880",
+      "name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
+      "prefLabel": {
+        "nb": "Artsdatabanken"
+      },
+      "datasetCount": 0,
+      "conceptCount": 0,
+      "dataserviceCount": 1,
+      "informationmodelCount": 0
     }
   ]
-}"""
+}
+"""
 
 ramsund_nap = """{
   "organization": {
@@ -181,6 +193,42 @@ ramsund_nap = """{
   },
   "concepts": {
     "totalCount": 0,
+    "newCount": 0
+  },
+  "informationmodels": {
+    "totalCount": 0,
+    "newCount": 0
+  }
+}"""
+
+ntnu = """{
+  "organization": {
+    "organizationId": "974767880",
+    "name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
+    "orgType": null,
+    "orgPath": "/STAT/872417842/974767880",
+    "icon": "https://orglogo.difi.no/api/logo/org/974767880",
+    "industryCode": null,
+    "homepage": null,
+    "seeAlso": null,
+    "sectorCode": null,
+    "prefLabel": {
+        "nb": "Artsdatabanken"
+    }
+  },
+  "datasets": {
+    "totalCount": 0,
+    "newCount": 0,
+    "authoritativeCount": 0,
+    "openCount": 0,
+    "quality": null
+  },
+  "dataservices": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "concepts": {
+    "totalCount": 5,
     "newCount": 0
   },
   "informationmodels": {
