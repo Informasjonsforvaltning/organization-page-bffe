@@ -255,7 +255,7 @@ async def get_organization_catalog(
         org_datasets = []
     if isinstance(org_datasets_rating, BaseException):
         logging.warning("Unable to fetch org datasets rating")
-        org_datasets_rating = []
+        org_datasets_rating = {}
     if isinstance(org_dataservices, BaseException):
         logging.warning("Unable to fetch org dataservices")
         org_dataservices = []
