@@ -11,11 +11,7 @@ def build_informationmodels_by_publisher_query() -> str:
         FROM <https://informationmodels.fellesdatakatalog.digdir.no>
         WHERE {{
             ?informationmodel a modelldcatno:InformationModel .
-            ?catalog modelldcatno:model ?informationmodel .
-            OPTIONAL {{ ?informationmodel dct:publisher ?informationmodelPublisher . }}
-            OPTIONAL {{ ?catalog dct:publisher ?catalogPublisher . }}
-            BIND ( IF( EXISTS {{ ?informationmodel dct:publisher ?informationmodelPublisher . }},
-                ?informationmodelPublisher, ?catalogPublisher ) AS ?publisher ) .
+            ?informationmodel dct:publisher ?publisher .
             ?publisher dct:identifier ?organizationNumber .
         }}
         GROUP BY ?organizationNumber
@@ -35,11 +31,7 @@ def build_org_informationmodels_query(organization_id: str) -> str:
             ?informationmodel a modelldcatno:InformationModel .
             ?record foaf:primaryTopic ?informationmodel .
             ?record dct:issued ?issued .
-            ?catalog modelldcatno:model ?informationmodel .
-            OPTIONAL {{ ?informationmodel dct:publisher ?informationmodelPublisher . }}
-            OPTIONAL {{ ?catalog dct:publisher ?catalogPublisher . }}
-            BIND ( IF( EXISTS {{ ?informationmodel dct:publisher ?informationmodelPublisher . }},
-                ?informationmodelPublisher, ?catalogPublisher ) AS ?publisher ) .
+            ?informationmodel dct:publisher ?publisher .
             ?publisher dct:identifier "$org_id" .
         }}
     """
