@@ -2,7 +2,7 @@
   "id" : "09356022-3b25-41f3-8bed-bf475c8e1a4b",
   "name" : "",
   "request" : {
-    "url" : "/sparql?query=%0A++++++++PREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0A++++++++PREFIX+modelldcatno:+%3Chttps://data.norge.no/vocabulary/modelldcatno%23%3E%0A++++++++SELECT+?organizationNumber+(COUNT(DISTINCT+?informationmodel)+AS+?count)%0A++++++++FROM+%3Chttps://informationmodels.fellesdatakatalog.digdir.no%3E%0A++++++++WHERE+%7B%7B%0A++++++++++++?informationmodel+a+modelldcatno:InformationModel+.%0A++++++++++++?catalog+modelldcatno:model+?informationmodel+.%0A++++++++++++OPTIONAL+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D%0A++++++++++++OPTIONAL+%7B%7B+?catalog+dct:publisher+?catalogPublisher+.+%7D%7D%0A++++++++++++BIND+(+IF(+EXISTS+%7B%7B+?informationmodel+dct:publisher+?informationmodelPublisher+.+%7D%7D,%0A++++++++++++++++?informationmodelPublisher,+?catalogPublisher+)+AS+?publisher+)+.%0A++++++++++++?publisher+dct:identifier+?organizationNumber+.%0A++++++++%7D%7D%0A++++++++GROUP+BY+?organizationNumber%0A++++",
+    "url" : "/sparql?query=%0A++++++++PREFIX+dct:+%3Chttp://purl.org/dc/terms/%3E%0A++++++++PREFIX+modelldcatno:+%3Chttps://data.norge.no/vocabulary/modelldcatno%23%3E%0A++++++++SELECT+?organizationNumber+(COUNT(DISTINCT+?informationmodel)+AS+?count)%0A++++++++FROM+%3Chttps://informationmodels.fellesdatakatalog.digdir.no%3E%0A++++++++WHERE+%7B%7B%0A++++++++++++?informationmodel+a+modelldcatno:InformationModel+.%0A++++++++++++?informationmodel+dct:publisher+?publisher+.%0A++++++++++++?publisher+dct:identifier+?organizationNumber+.%0A++++++++%7D%7D%0A++++++++GROUP+BY+?organizationNumber%0A++++",
     "method" : "GET"
   },
   "response" : {

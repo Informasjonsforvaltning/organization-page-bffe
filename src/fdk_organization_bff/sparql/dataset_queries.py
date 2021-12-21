@@ -19,11 +19,7 @@ WHERE {{
     ?record dct:issued ?issued .
     OPTIONAL {{ ?dataset fdk:isOpenData ?isOpenData . }}
     OPTIONAL {{ ?dataset fdk:isAuthoritative ?isAuthoritative . }}
-    ?catalog dcat:dataset ?dataset .
-    OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
-    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
-    BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
-        ?dsPublisher, ?catPublisher ) AS ?publisher ) .
+    ?dataset dct:publisher ?publisher .
     ?publisher dct:identifier "$org_id" .
 }}"""
     )
@@ -50,11 +46,7 @@ WHERE {{
     ?record dct:issued ?issued .
     OPTIONAL {{ ?dataset fdk:isOpenData ?isOpenData . }}
     OPTIONAL {{ ?dataset fdk:isAuthoritative ?isAuthoritative . }}
-    ?catalog dcat:dataset ?dataset .
-    OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
-    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
-    BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
-        ?dsPublisher, ?catPublisher ) AS ?publisher ) .
+    ?dataset dct:publisher ?publisher .
     ?publisher dct:identifier "$org_id" .
 }}"""
     )
@@ -66,17 +58,12 @@ def build_datasets_by_publisher_query() -> str:
     """Build query to count datasets grouped by publisher."""
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
 FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
-    ?catalog dcat:dataset ?dataset .
-    OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
-    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
-    BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
-        ?dsPublisher, ?catPublisher ) AS ?publisher ) .
+    ?dataset dct:publisher ?publisher .
     ?publisher dct:identifier ?organizationNumber .
 }}
 GROUP BY ?organizationNumber"""
@@ -86,7 +73,6 @@ def build_nap_datasets_by_publisher_query() -> str:
     """Build query to count NAP datasets grouped by publisher."""
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/master/src/main/resources/ontology/fdk.owl#>
 
@@ -96,11 +82,7 @@ WHERE {{
     ?dataset a dcat:Dataset .
     ?dataset fdk:isRelatedToTransportportal ?isNAP .
     FILTER (STR(?isNAP) = "true")
-    ?catalog dcat:dataset ?dataset .
-    OPTIONAL {{ ?dataset dct:publisher ?dsPublisher . }}
-    OPTIONAL {{ ?catalog dct:publisher ?catPublisher . }}
-    BIND ( IF( EXISTS {{ ?dataset dct:publisher ?dsPublisher . }},
-        ?dsPublisher, ?catPublisher ) AS ?publisher ) .
+    ?dataset dct:publisher ?publisher .
     ?publisher dct:identifier ?organizationNumber .
 }}
 GROUP BY ?organizationNumber"""
