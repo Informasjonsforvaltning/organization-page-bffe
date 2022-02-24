@@ -50,7 +50,7 @@ async def fetch_json_data(
 
 
 async def fetch_org_cat_data(id: str, session: ClientSession) -> Dict:
-    """Fetch organization data from organization-catalogue."""
+    """Fetch organization data from organization-catalog."""
     url = f"{Config.org_cat_uri()}/organizations/{id}"
     org_cat_data = await fetch_json_data(url, None, session)
     if org_cat_data and isinstance(org_cat_data, Dict):
@@ -60,7 +60,7 @@ async def fetch_org_cat_data(id: str, session: ClientSession) -> Dict:
 
 
 async def fetch_all_organizations(session: ClientSession) -> Dict:
-    """Fetch all organizations from organization-catalogue."""
+    """Fetch all organizations from organization-catalog."""
     url = f"{Config.org_cat_uri()}/organizations"
     org_list = await fetch_json_data(url, None, session)
     return {org["organizationId"]: org for org in org_list} if org_list else dict()

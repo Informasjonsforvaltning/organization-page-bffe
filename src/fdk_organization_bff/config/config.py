@@ -17,9 +17,9 @@ class Config:
         "ORG_CATALOG": _ORG_CATALOG_PATH + "/{id}",
         "ORG_CATALOGS": _ORG_CATALOG_PATH,
     }
-    _ORGANIZATION_CATALOGUE_URI = os.getenv(
-        "ORGANIZATION_CATALOGUE_URI",
-        "https://organization-catalogue.staging.fellesdatakatalog.digdir.no",
+    _ORGANIZATION_CATALOG_URI = os.getenv(
+        "ORGANIZATION_CATALOG_URI",
+        "https://organization-catalog.staging.fellesdatakatalog.digdir.no",
     )
     _DATA_BRREG_URI = os.getenv(
         "DATA_BRREG_URI",
@@ -41,8 +41,8 @@ class Config:
 
     @classmethod
     def org_cat_uri(cls: Type[T]) -> str:
-        """Organization Catalogue URI."""
-        return cls._ORGANIZATION_CATALOGUE_URI
+        """Organization Catalog URI."""
+        return cls._ORGANIZATION_CATALOG_URI
 
     @classmethod
     def data_brreg_uri(cls: Type[T]) -> str:

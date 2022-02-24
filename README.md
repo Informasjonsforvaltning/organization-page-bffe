@@ -18,7 +18,7 @@ Backend-for-frontend service that provides content for fdk portal's organization
 
 #### Env variables:
 ```
-ORGANIZATION_CATALOGUE_URI
+ORGANIZATION_CATALOG_URI
 DATA_BRREG_URI
 FDK_PORTAL_URI
 FDK_METADATA_QUALITY_URI

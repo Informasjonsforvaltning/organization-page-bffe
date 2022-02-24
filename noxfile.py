@@ -34,7 +34,7 @@ def unit_tests(session: Session) -> None:
         "-rA",
         *args,
         env={
-            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
@@ -61,7 +61,7 @@ def integration_tests(session: Session) -> None:
         "-rA",
         *args,
         env={
-            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
@@ -89,7 +89,7 @@ def tests(session: Session) -> None:
         "-rA",
         *args,
         env={
-            "ORGANIZATION_CATALOGUE_URI": "http://localhost:8000",
+            "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
