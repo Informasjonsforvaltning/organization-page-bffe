@@ -73,7 +73,7 @@ def map_org_datasets(
 def map_org_details(
     org_cat_data: Dict, brreg_data: Dict
 ) -> Optional[OrganizationDetails]:
-    """Map data from Enhetsregisteret and organization-catalogue to OrganizationDetails."""
+    """Map data from Enhetsregisteret and organization-catalog to OrganizationDetails."""
     organization_id = org_cat_data.get("organizationId")
     if organization_id:
         org_id = str(organization_id)
@@ -155,7 +155,7 @@ def org_and_count_value_from_sparql_response(sparql_response: Dict) -> Optional[
 def map_org_summary(
     org_id: str, org_counts: Dict, org_data: Optional[Dict]
 ) -> OrganizationCatalogSummary:
-    """Map data from organization-catalogue and counts from sparql-queries to OrganizationCatalogSummary."""
+    """Map data from organization-catalog and counts from sparql-queries to OrganizationCatalogSummary."""
     dataset_count = int(org_counts["datasets"]) if org_counts.get("datasets") else 0
     dataservice_count = (
         int(org_counts["dataservices"]) if org_counts.get("dataservices") else 0

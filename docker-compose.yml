@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ORGANIZATION_CATALOGUE_URI=http://wiremock:8080
+      - ORGANIZATION_CATALOG_URI=http://wiremock:8080
       - DATA_BRREG_URI=http://wiremock:8080
       - FDK_PORTAL_URI=http://wiremock:8080
       - FDK_METADATA_QUALITY_URI=http://wiremock:8080
