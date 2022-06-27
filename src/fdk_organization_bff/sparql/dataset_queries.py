@@ -9,7 +9,7 @@ def build_org_datasets_query(organization_id: str) -> str:
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
-PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/master/src/main/resources/ontology/fdk.owl#>
+PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT DISTINCT ?dataset ?issued ?isAuthoritative ?isOpenData
 FROM <https://datasets.fellesdatakatalog.digdir.no>
@@ -34,7 +34,7 @@ def build_nap_org_datasets_query(organization_id: str) -> str:
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
-PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/master/src/main/resources/ontology/fdk.owl#>
+PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT DISTINCT ?dataset ?issued ?isAuthoritative ?isOpenData
 FROM <https://datasets.fellesdatakatalog.digdir.no>
@@ -74,7 +74,7 @@ def build_nap_datasets_by_publisher_query() -> str:
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
-PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/master/src/main/resources/ontology/fdk.owl#>
+PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
 FROM <https://datasets.fellesdatakatalog.digdir.no>
