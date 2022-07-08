@@ -31,7 +31,7 @@ class Config:
     )
     _FDK_METADATA_QUALITY_URI = os.getenv(
         "FDK_METADATA_QUALITY_URI",
-        "https://metadata-quality.staging.fellesdatakatalog.digdir.no",
+        "https://mqa-scoring-api.staging.fellesdatakatalog.digdir.no",
     )
 
     @classmethod

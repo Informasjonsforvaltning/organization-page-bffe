@@ -3,6 +3,7 @@ import json
 from unittest.mock import Mock
 
 from aiohttp.test_utils import TestClient
+from asynctest import CoroutineMock
 import pytest
 
 from tests import responses
@@ -74,3 +75,24 @@ async def test_ntnu_remote_services_fail(
 
     assert response.status == 200
     assert response_json == json.loads(responses.ntnu)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+async def test_get_organization_catalog_with_failing_quality(
+    client: TestClient,
+    docker_service: str,
+    mock_fetch_org_dataset_catalog_scores: Mock,
+    mock_datetime: Mock,
+) -> None:
+    """Mock closed session and get organization catalogs."""
+    mock_fetch_org_dataset_catalog_scores.return_value.__aenter__.return_value = (
+        CoroutineMock(side_effect=True)
+    )
+
+    """Should return the ramsund response."""
+    response = await client.get("/organizationcatalogs/910244132")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.ramsund_with_no_quality)

@@ -14,6 +14,7 @@ from requests.exceptions import ConnectionError
 
 from fdk_organization_bff import create_app
 
+
 load_dotenv()
 HOST_PORT = int(os.environ.get("HOST_PORT", "8080"))
 MOCKED_DATE = datetime.date(2021, 4, 10)
@@ -63,4 +64,13 @@ def mock_datetime(mocker: MockFixture) -> Mock:
     """Mock datetime."""
     mock = mocker.patch("datetime.date")
     mock.today.return_value = MOCKED_DATE
+    return mock
+
+
+@pytest.fixture
+def mock_fetch_org_dataset_catalog_scores(mocker: MockFixture) -> Mock:
+    """Mock fetch_org_dataset_catalog_scores."""
+    mock = mocker.patch(
+        "fdk_organization_bff.service.org_catalog_service.fetch_org_dataset_catalog_scores"
+    )
     return mock

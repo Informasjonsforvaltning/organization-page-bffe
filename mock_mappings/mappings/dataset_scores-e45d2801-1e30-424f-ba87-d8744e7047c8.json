@@ -1,13 +1,16 @@
 {
-  "id" : "948ee726-636f-4e62-ad22-034c1f436632",
-  "name" : "rating_catalog",
+  "id" : "e45d2801-1e30-424f-ba87-d8744e7047c8",
+  "name" : "dataset_scores",
   "request" : {
-    "url" : "/rating/catalog?entityType=dataset&catalogId=974767880",
-    "method" : "GET"
+    "url" : "/api/scores",
+    "method" : "POST",
+    "bodyPatterns": [{
+      "matchesJsonPath": "$.datasets[?(@ == 'url2')] "
+    }]
   },
   "response" : {
-    "status" : 500,
-    "body" : "",
+    "status" : 200,
+    "body" : "{\"scores\": {},\"aggregations\": []}",
     "headers" : {
       "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
       "Content-Type" : "application/json",
@@ -16,7 +19,7 @@
       "Alt-Svc" : "clear"
     }
   },
-  "uuid" : "948ee726-636f-4e62-ad22-034c1f436632",
+  "uuid" : "e45d2801-1e30-424f-ba87-d8744e7047c8",
   "persistent" : true,
   "insertionIndex" : 13
 }

@@ -1,7 +1,7 @@
 """Classes package.
 
 Modules:
-    catalog_quality_rating
+    catalog_quality_score
     filter_enum
     organization_catalog
     organization_catalog_list
@@ -12,7 +12,7 @@ Modules:
     organization_concepts
     organization_informationmodels
 """
-from fdk_organization_bff.classes.catalog_quality_rating import CatalogQualityRating
+from fdk_organization_bff.classes.catalog_quality_score import CatalogQualityScore
 from fdk_organization_bff.classes.filter_enum import FilterEnum
 from fdk_organization_bff.classes.organization_catalog import OrganizationCatalog
 from fdk_organization_bff.classes.organization_catalog_list import (

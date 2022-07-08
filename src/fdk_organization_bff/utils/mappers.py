@@ -4,7 +4,7 @@ import traceback
 from typing import Dict, List, Optional
 
 from fdk_organization_bff.classes import (
-    CatalogQualityRating,
+    CatalogQualityScore,
     OrganizationCatalogSummary,
     OrganizationConcepts,
     OrganizationDataservices,
@@ -19,31 +19,39 @@ from fdk_organization_bff.utils.utils import (
 )
 
 
-def map_catalog_quality_rating(
-    assessment_data: Dict,
-) -> Optional[CatalogQualityRating]:
-    """Map data from fdk-metadata-quality-service to CatalogQualityRating."""
-    score = assessment_data.get("score")
-    max_score = assessment_data.get("maxScore")
-    category = assessment_data.get("category")
-    if score and max_score and category:
-        try:
-            return CatalogQualityRating(
-                category=category,
-                percentage=int(round(100 * (int(score) / int(max_score))))
-                if score and max_score
-                else None,
-            )
-        except BaseException:
-            logging.error(
-                f"{traceback.format_exc()}: bad data from fdk-metadata-quality-service {assessment_data}"
-            )
+def map_catalog_quality_score(
+    score_data: Dict,
+) -> Optional[CatalogQualityScore]:
+    """Map data from fdk-mqa-score-api to CatalogQualityScore."""
+    score = 0
+    max_score = 0
+
+    try:
+        if "aggregations" in score_data:
+            for agg in score_data["aggregations"]:
+                if "score" in agg:
+                    score = score + int(agg["score"])
+                if "max_score" in agg:
+                    max_score = max_score + int(agg["max_score"])
+    except ValueError:
+        logging.error(
+            f"{traceback.format_exc()}: bad data from fdk-mqa-score-api {score_data}"
+        )
+
+    if score and max_score:
+        return CatalogQualityScore(
+            score=score,
+            percentage=int(round(100 * (int(score) / int(max_score))))
+            if score and max_score
+            else None,
+        )
+
     return None
 
 
 def map_org_datasets(
     org_datasets: List,
-    assessment_data: Dict,
+    score_data: Dict,
 ) -> OrganizationDatasets:
     """Map data from fdk-sparql-service and fdk-metadata-quality-service to OrganizationDatasets."""
     datasets = set()
@@ -66,7 +74,7 @@ def map_org_datasets(
         newCount=len(new_datasets),
         authoritativeCount=len(authoritative_datasets),
         openCount=len(open_datasets),
-        quality=map_catalog_quality_rating(assessment_data),
+        quality=map_catalog_quality_score(score_data),
     )
 
 

@@ -49,6 +49,14 @@ async def fetch_json_data(
         return await response.json() if response.status == 200 else None
 
 
+async def fetch_json_data_with_post(
+    url: str, data: Dict, session: ClientSession
+) -> Optional[Union[Dict, List]]:
+    """Fetch json data from url."""
+    async with session.post(url, json=data) as response:
+        return await response.json() if response.status == 200 else None
+
+
 async def fetch_org_cat_data(id: str, session: ClientSession) -> Dict:
     """Fetch organization data from organization-catalog."""
     url = f"{Config.org_cat_uri()}/organizations/{id}"
@@ -197,20 +205,16 @@ async def query_all_datasets_ordered_by_publisher(
     return count_list_from_sparql_response(response)
 
 
-async def fetch_org_dataset_catalog_rating(
-    id: str, filter: FilterEnum, session: ClientSession
+async def fetch_org_dataset_catalog_scores(
+    uris: List[str], session: ClientSession
 ) -> Dict:
     """Fetch rating for organization's dataset catalog from fdk-metadata-quality-service."""
-    url = f"{Config.metadata_uri()}/rating/catalog"
-    params = {"entityType": "dataset", "catalogId": id}
+    url = f"{Config.metadata_uri()}/api/scores"
 
-    if filter is FilterEnum.NAP:
-        params.update({"contexts": "NAP"})
+    scores = await fetch_json_data_with_post(url, {"datasets": uris}, session)
 
-    rating = await fetch_json_data(url, params, session)
-
-    if rating and isinstance(rating, Dict):
-        return rating
+    if scores and isinstance(scores, Dict):
+        return scores
     else:
         return dict()
 
@@ -226,7 +230,6 @@ async def get_organization_catalog(
             org_cat_data,
             brreg_data,
             org_datasets,
-            org_datasets_rating,
             org_dataservices,
             org_concepts,
             org_informationmodels,
@@ -234,9 +237,6 @@ async def get_organization_catalog(
             asyncio.ensure_future(fetch_org_cat_data(id, session)),
             asyncio.ensure_future(fetch_brreg_data(id, session)),
             asyncio.ensure_future(query_publisher_datasets(id, filter, session)),
-            asyncio.ensure_future(
-                fetch_org_dataset_catalog_rating(id, filter, session)
-            ),
             asyncio.ensure_future(query_publisher_dataservices(id, filter, session)),
             asyncio.ensure_future(query_publisher_concepts(id, filter, session)),
             asyncio.ensure_future(
@@ -244,6 +244,7 @@ async def get_organization_catalog(
             ),
             return_exceptions=True,
         )
+
     if isinstance(org_cat_data, BaseException):
         logging.warning("Unable to fetch org catalog data")
         org_cat_data = None
@@ -253,9 +254,6 @@ async def get_organization_catalog(
     if isinstance(org_datasets, BaseException):
         logging.warning("Unable to fetch org datasets")
         org_datasets = []
-    if isinstance(org_datasets_rating, BaseException):
-        logging.warning("Unable to fetch org datasets rating")
-        org_datasets_rating = {}
     if isinstance(org_dataservices, BaseException):
         logging.warning("Unable to fetch org dataservices")
         org_dataservices = []
@@ -265,6 +263,18 @@ async def get_organization_catalog(
     if isinstance(org_informationmodels, BaseException):
         logging.warning("Unable to fetch org info models")
         org_informationmodels = []
+
+    org_datasets_scores = {}
+    if len(org_datasets) > 0:
+        dataset_uris = [ds["dataset"]["value"] for ds in org_datasets]
+        async with ClientSession() as session:
+            org_datasets_scores = await asyncio.ensure_future(
+                fetch_org_dataset_catalog_scores(dataset_uris, session)
+            )
+
+    if isinstance(org_datasets_scores, BaseException):
+        logging.warning("Unable to fetch org datasets scores")
+        org_datasets_scores = {}
 
     logging.debug("Counts ")
 
@@ -286,7 +296,7 @@ async def get_organization_catalog(
             ),
             datasets=map_org_datasets(
                 org_datasets=org_datasets,
-                assessment_data=org_datasets_rating,
+                score_data=org_datasets_scores,
             ),
             dataservices=map_org_dataservices(org_dataservices=org_dataservices),
             concepts=map_org_concepts(org_concepts=org_concepts),

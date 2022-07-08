@@ -84,9 +84,9 @@ components:
             open:
               type: integer
             quality:
-              $ref: '#/components/schemas/CatalogQualityRating'
-    CatalogQualityRating:
-      title: CatalogQualityRating
+              $ref: '#/components/schemas/CatalogQualityScore'
+    CatalogQualityScore:
+      title: CatalogQualityScore
       type: object
       properties:
         category:
