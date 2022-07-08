@@ -1,0 +1,25 @@
+{
+  "id" : "a50f1eea-bf8a-4a62-bdf8-794a3d1df1d3",
+  "name" : "dataset_scores",
+  "request" : {
+    "url" : "/api/scores",
+    "method" : "POST",
+    "bodyPatterns": [{
+      "matchesJsonPath": "$.datasets[?(@ == 'http://brreg.no/catalogs/910244132/datasets/ac984e68-0a4d-4b97-9bf9-a121c8153c31')] "
+    }]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"scores\": {},\"aggregations\": [{\"id\": \"https://data.norge.no/vocabulary/dcatno-mqa#accessibility\",\"score\": 33.0,\"max_score\": 100.0},{\"id\": \"https://data.norge.no/vocabulary/dcatno-mqa#contextuality\",\"score\": 0,\"max_score\": 0},{\"id\": \"https://data.norge.no/vocabulary/dcatno-mqa#findability\",\"score\": 0,\"max_score\": 0},{\"id\": \"https://data.norge.no/vocabulary/dcatno-mqa#interoperability\",\"score\": 0,\"max_score\": 0},{\"id\": \"https://data.norge.no/vocabulary/dcatno-mqa#reusability\",\"score\": 0,\"max_score\": 0}]}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "Content-Type" : "application/json",
+      "Date" : "Mon, 19 Apr 2021 14:02:10 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "a50f1eea-bf8a-4a62-bdf8-794a3d1df1d3",
+  "persistent" : true,
+  "insertionIndex" : 14
+}

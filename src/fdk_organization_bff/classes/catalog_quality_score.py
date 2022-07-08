@@ -4,8 +4,8 @@ from typing import Optional
 
 
 @dataclass
-class CatalogQualityRating:
-    """Data class with quality assessment category and associated percentage."""
+class CatalogQualityScore:
+    """Data class with quality assessment score and associated percentage."""
 
-    category: Optional[str]
+    score: Optional[int]
     percentage: Optional[int]

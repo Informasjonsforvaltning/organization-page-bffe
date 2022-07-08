@@ -21,9 +21,45 @@ ramsund = """{
     "authoritativeCount": 10,
     "openCount": 15,
     "quality": {
-      "category": "sufficient",
+      "score": 33,
       "percentage": 33
     }
+  },
+  "dataservices": {
+    "totalCount": 20,
+    "newCount": 1
+  },
+  "concepts": {
+    "totalCount": 0,
+    "newCount": 0
+  },
+  "informationmodels": {
+    "totalCount": 0,
+    "newCount": 0
+  }
+}"""
+
+ramsund_with_no_quality = """{
+  "organization": {
+    "organizationId": "910244132",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "prefLabel": {
+      "nb": "Ramsund og Rognand revisjon"
+    },
+    "orgPath": "/ANNET/910244132",
+    "orgType": null,
+    "sectorCode": null,
+    "industryCode": null,
+    "homepage": null,
+    "seeAlso": null,
+    "icon": "https://orglogo.difi.no/api/logo/org/910244132"
+  },
+  "datasets": {
+    "totalCount": 71,
+    "newCount": 4,
+    "authoritativeCount": 10,
+    "openCount": 15,
+    "quality": null
   },
   "dataservices": {
     "totalCount": 20,
@@ -60,7 +96,7 @@ fiskeri = """{
     "authoritativeCount": 0,
     "openCount": 9,
     "quality": {
-      "category": "excellent",
+      "score": 85,
       "percentage": 85
     }
   },
@@ -183,7 +219,7 @@ ramsund_nap = """{
     "authoritativeCount": 2,
     "openCount": 2,
     "quality": {
-      "category": "sufficient",
+      "score": 33,
       "percentage": 33
     }
   },

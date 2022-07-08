@@ -1,0 +1,25 @@
+{
+  "id" : "948ee726-636f-4e62-ad22-034c1f436632",
+  "name" : "dataset_scores",
+  "request" : {
+    "url" : "/api/scores",
+    "method" : "POST",
+    "bodyPatterns": [{
+      "equalToJson": "{\"datasets\": []}"
+    }]
+  },
+  "response" : {
+    "status" : 500,
+    "body" : "",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "Content-Type" : "application/json",
+      "Date" : "Mon, 19 Apr 2021 14:01:55 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "clear"
+    }
+  },
+  "uuid" : "948ee726-636f-4e62-ad22-034c1f436632",
+  "persistent" : true,
+  "insertionIndex" : 13
+}

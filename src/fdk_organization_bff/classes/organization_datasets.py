@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from fdk_organization_bff.classes.catalog_quality_rating import CatalogQualityRating
+from fdk_organization_bff.classes.catalog_quality_score import CatalogQualityScore
 
 
 @dataclass
@@ -13,4 +13,4 @@ class OrganizationDatasets:
     newCount: int
     authoritativeCount: int
     openCount: int
-    quality: Optional[CatalogQualityRating]
+    quality: Optional[CatalogQualityScore]
