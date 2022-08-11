@@ -11,6 +11,7 @@ from tests import responses
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_ramsund(
     client: TestClient, docker_service: str, mock_datetime: Mock
 ) -> None:
@@ -24,6 +25,7 @@ async def test_ramsund(
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_liland(client: TestClient, docker_service: str) -> None:
     """Should return the liland response."""
     response = await client.get("/organizationcatalogs/910258028")
@@ -35,6 +37,7 @@ async def test_liland(client: TestClient, docker_service: str) -> None:
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_not_found(client: TestClient, docker_service: str) -> None:
     """Should return 404."""
     response = await client.get("/organizationcatalogs/123")
@@ -44,6 +47,7 @@ async def test_not_found(client: TestClient, docker_service: str) -> None:
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_nap_ramsund(client: TestClient, docker_service: str) -> None:
     """Should return the ramsund_nap response."""
     response = await client.get(
@@ -57,6 +61,7 @@ async def test_nap_ramsund(client: TestClient, docker_service: str) -> None:
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
     """Should return 400."""
     response = await client.get("/organizationcatalogs/910244132?filter=invalid")
@@ -66,6 +71,7 @@ async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_ntnu_remote_services_fail(
     client: TestClient, docker_service: str
 ) -> None:
@@ -79,6 +85,7 @@ async def test_ntnu_remote_services_fail(
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_get_organization_catalog_with_failing_quality(
     client: TestClient,
     docker_service: str,

@@ -14,36 +14,37 @@ classifiers=[
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 gunicorn = "^20.1.0"
 python-dotenv = "^0.20.0"
-requests = "^2.28.0"
+requests = "^2.28.1"
 aiohttp = "^3.8.1"
-python-json-logger = "^2.0.2"
-aiohttp-middlewares = "^2.0.0"
+python-json-logger = "^2.0.4"
+aiohttp-middlewares = "^2.1.0"
 asynctest = "^0.13.0"
+pytest-asyncio = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
-coverage = {extras = ["toml"], version = "^6.4.1"}
+coverage = {extras = ["toml"], version = "^6.4.3"}
 pytest-dotenv = "^0.5.2"
-pytest-docker = "^0.12.0"
+pytest-docker = "^1.0.0"
 pytest-cov = "^3.0.0"
 docker-compose = "^1.29.2"
-black = "^22.3.0"
+black = "^22.6.0"
 flake8 = "^4.0.1"
 flake8-bandit = "^3.0.0"
 flake8-black = "^0.3.3"
-flake8-bugbear = "^22.6.22"
+flake8-bugbear = "^22.7.1"
 flake8-docstrings = "^1.6.0"
 flake8-import-order = "^0.18.1"
-pep8-naming = "^0.13.0"
-safety = "^1.10.3"
-mypy = "^0.961"
-flake8-annotations = "^2.9.0"
+pep8-naming = "^0.13.1"
+safety = "^2.1.1"
+mypy = "^0.971"
+flake8-annotations = "^2.9.1"
 codecov = "^2.1.12"
 requests-mock = "^1.9.3"
-pytest-mock = "^3.8.1"
+pytest-mock = "^3.8.2"
 pytest-aiohttp = "^1.0.4"
 
 [tool.coverage.paths]
@@ -59,5 +60,5 @@ show_missing = true
 fail_under = 90
 
 [build-system]
-requires = ["poetry>=1.1.4"]
+requires = ["poetry>=1.1.14"]
 build-backend = "poetry.masonry.api"

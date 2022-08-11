@@ -11,14 +11,13 @@ locations = "src", "tests", "noxfile.py"
 nox.options.sessions = (
     "lint",
     "mypy",
-    "safety",
     "unit_tests",
     "integration_tests",
     "contract_tests",
 )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def unit_tests(session: Session) -> None:
     """Run the unit test suite."""
     args = session.posargs
@@ -43,7 +42,7 @@ def unit_tests(session: Session) -> None:
     )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def integration_tests(session: Session) -> None:
     """Run the integration test suite."""
     args = session.posargs
@@ -70,7 +69,7 @@ def integration_tests(session: Session) -> None:
     )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def tests(session: Session) -> None:
     """Run the integration test suite."""
     args = session.posargs or ["--cov"]
@@ -98,7 +97,7 @@ def tests(session: Session) -> None:
     )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def contract_tests(session: Session) -> None:
     """Run the contract test suite."""
     args = session.posargs
@@ -111,7 +110,7 @@ def contract_tests(session: Session) -> None:
     )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def black(session: Session) -> None:
     """Run black code formatter."""
     args = session.posargs or locations
@@ -119,7 +118,7 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def lint(session: Session) -> None:
     """Lint using flake8."""
     args = session.posargs or locations
@@ -136,7 +135,7 @@ def lint(session: Session) -> None:
     session.run("flake8", *args)
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
     with tempfile.NamedTemporaryFile() as requirements:
@@ -150,10 +149,12 @@ def safety(session: Session) -> None:
             external=True,
         )
         session.install("safety")
-        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
+        session.run(
+            "safety", "check", f"--file={requirements.name}", "--output", "text"
+        )
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or locations
@@ -161,7 +162,7 @@ def mypy(session: Session) -> None:
     session.run("mypy", *args)
 
 
-@nox_poetry.session
+@nox_poetry.session(python=["3.9"])
 def coverage(session: Session) -> None:
     """Upload coverage data."""
     session.install("coverage[toml]", "codecov")
