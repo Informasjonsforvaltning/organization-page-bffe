@@ -4,6 +4,7 @@ import pytest
 
 
 @pytest.mark.integration
+@pytest.mark.asyncio
 async def test_ping(client: TestClient) -> None:
     """Should return OK."""
     response = await client.get("/ping")
@@ -14,6 +15,7 @@ async def test_ping(client: TestClient) -> None:
 
 
 @pytest.mark.integration
+@pytest.mark.asyncio
 async def test_ready(client: TestClient) -> None:
     """Should return OK."""
     response = await client.get("/ready")

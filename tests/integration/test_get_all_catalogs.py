@@ -9,6 +9,7 @@ from tests import responses
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_all_catalogs(client: TestClient, docker_service: str) -> None:
     """Should return the all_catalogs response."""
     response = await client.get("/organizationcatalogs")
@@ -20,6 +21,7 @@ async def test_all_catalogs(client: TestClient, docker_service: str) -> None:
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_all_nap_catalogs(client: TestClient, docker_service: str) -> None:
     """Should return the all_nap response."""
     response = await client.get("/organizationcatalogs?filter=transportportal")
@@ -31,6 +33,7 @@ async def test_all_nap_catalogs(client: TestClient, docker_service: str) -> None
 
 @pytest.mark.integration
 @pytest.mark.docker
+@pytest.mark.asyncio
 async def test_invalid_filter(client: TestClient, docker_service: str) -> None:
     """Should return 400."""
     response = await client.get("/organizationcatalogs?filter=invalid")

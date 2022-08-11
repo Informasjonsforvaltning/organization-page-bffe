@@ -2,7 +2,7 @@ FROM python:3.9
 
 WORKDIR /app
 
-RUN pip install "poetry==1.1.4"
+RUN pip install "poetry==1.1.14"
 COPY poetry.lock pyproject.toml /app/
 
 # Project initialization:
