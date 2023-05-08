@@ -322,7 +322,9 @@ async def get_organization_catalog(
         return None
 
 
-async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogList:
+async def get_organization_catalogs(
+    filter: FilterEnum, include_empty: Optional[str]
+) -> OrganizationCatalogList:
     """Return all organization catalogs."""
     logging.debug("Fetching all catalogs")
 
@@ -373,5 +375,6 @@ async def get_organization_catalogs(filter: FilterEnum) -> OrganizationCatalogLi
             dataservices=cast(List, dataservices),
             concepts=cast(List, concepts),
             informationmodels=cast(List, informationmodels),
+            include_empty=include_empty.lower() == "true" if include_empty else False,
         )
     )

@@ -1,5 +1,6 @@
 """Resource module for specific organization catalog."""
 from dataclasses import asdict
+from typing import Optional
 
 from aiohttp.web import json_response, Response, View
 
@@ -15,8 +16,9 @@ class OrgCatalogs(View):
     async def get(self: View) -> Response:
         """Get all organization catalogs."""
         filter = filter_param_to_enum(self.request.rel_url.query.get("filter"))
+        include_empty: Optional[str] = self.request.rel_url.query.get("includeEmpty")
         if filter is FilterEnum.INVALID:
             return Response(status=400)
         else:
-            catalogs = await get_organization_catalogs(filter)
+            catalogs = await get_organization_catalogs(filter, include_empty)
             return json_response(asdict(catalogs), headers=no_cache_headers)
