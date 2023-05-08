@@ -177,9 +177,10 @@ def org_and_count_value_from_sparql_response(sparql_response: Dict) -> Optional[
 
 
 def map_org_summary(
-    org_id: str, org_counts: Dict, org_data: Optional[Dict]
+    org_id: str, org_counts: Optional[Dict], org_data: Optional[Dict]
 ) -> OrganizationCatalogSummary:
     """Map data from organization-catalog and counts from sparql-queries to OrganizationCatalogSummary."""
+    org_counts = dict() if org_counts is None else org_counts
     dataset_count = int(org_counts["datasets"]) if org_counts.get("datasets") else 0
     dataservice_count = (
         int(org_counts["dataservices"]) if org_counts.get("dataservices") else 0
@@ -218,6 +219,7 @@ def map_org_summaries(
     dataservices: List,
     concepts: List,
     informationmodels: List,
+    include_empty: bool,
 ) -> List[OrganizationCatalogSummary]:
     """Map data from fdk-sparql-service and organization-ctalogue to a list of OrganizationCatalogSummary."""
     org_counts = add_org_counts("datasets", datasets, {})
@@ -225,10 +227,38 @@ def map_org_summaries(
     org_counts = add_org_counts("concepts", concepts, org_counts)
     org_counts = add_org_counts("informationmodels", informationmodels, org_counts)
 
-    return [
-        map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
-        for org_id in org_counts
-    ]
+    if include_empty:
+        summaries: List[OrganizationCatalogSummary] = list()
+        for org_id in organizations:
+            if org_counts.get(org_id) is not None or org_is_stat_fylk_or_komm(
+                organizations[org_id]
+            ):
+                summaries.append(
+                    map_org_summary(
+                        org_id, org_counts.get(org_id), organizations[org_id]
+                    )
+                )
+        return summaries
+    else:
+        return [
+            map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
+            for org_id in org_counts
+        ]
+
+
+def org_is_stat_fylk_or_komm(org: Dict) -> bool:
+    """Check if an organization has orgPath with type STAT, KOMMUNE or FYLKE."""
+    org_path = org.get("orgPath")
+    if org_path is None:
+        return False
+    elif "/STAT/" in org_path:
+        return True
+    elif "/FYLKE/" in org_path:
+        return True
+    elif "/KOMMUNE/" in org_path:
+        return True
+    else:
+        return False
 
 
 def map_org_dataservices(

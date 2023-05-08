@@ -40,5 +40,5 @@ async def test_get_organization_catalog_with_closed_session(mock: MagicMock) -> 
 async def test_get_organization_catalogs_with_closed_session(mock: MagicMock) -> None:
     """Mock closed session and get organization catalogs."""
     mock.return_value.__aenter__.return_value = CoroutineMock(side_effect=True)
-    org = await org_catalog_service.get_organization_catalogs(FilterEnum.NONE)
+    org = await org_catalog_service.get_organization_catalogs(FilterEnum.NONE, None)
     assert len(org.organizations) == 0
