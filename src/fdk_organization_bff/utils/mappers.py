@@ -78,6 +78,17 @@ def map_org_datasets(
     )
 
 
+def empty_datasets() -> OrganizationDatasets:
+    """Empty response for OrganizationDatasets."""
+    return OrganizationDatasets(
+        totalCount=0,
+        newCount=0,
+        authoritativeCount=0,
+        openCount=0,
+        quality=None,
+    )
+
+
 def map_org_details(
     org_cat_data: Dict, brreg_data: Dict
 ) -> Optional[OrganizationDetails]:
@@ -234,6 +245,14 @@ def map_org_dataservices(
     )
 
 
+def empty_dataservices() -> OrganizationDataservices:
+    """Empty response for OrganizationDataservices."""
+    return OrganizationDataservices(
+        totalCount=0,
+        newCount=0,
+    )
+
+
 def map_org_concepts(
     org_concepts: List,
 ) -> OrganizationConcepts:
@@ -253,6 +272,14 @@ def map_org_concepts(
     )
 
 
+def empty_concepts() -> OrganizationConcepts:
+    """Empty response for OrganizationConcepts."""
+    return OrganizationConcepts(
+        totalCount=0,
+        newCount=0,
+    )
+
+
 def map_org_informationmodels(
     org_informationmodels: List,
 ) -> OrganizationInformationmodels:
@@ -269,4 +296,12 @@ def map_org_informationmodels(
     return OrganizationInformationmodels(
         totalCount=len(informationmodels),
         newCount=len(new_informationmodels),
+    )
+
+
+def empty_informationmodels() -> OrganizationInformationmodels:
+    """Empty response for OrganizationInformationmodel."""
+    return OrganizationInformationmodels(
+        totalCount=0,
+        newCount=0,
     )
