@@ -1,0 +1,29 @@
+{
+  "id" : "6998ea5c-50b5-4a30-a8bc-d9c7a5e627d0",
+  "name" : "organizations_910298062",
+  "request" : {
+    "url" : "/organizations/910298062",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"organizationId\":\"910298062\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/910298062\",\"name\":\"KARMSUND OG KYSNESSTRAND REVISJON\",\"orgPath\":\"/ANNET/910298062\",\"prefLabel\":{\"nb\":\"Karmsund og kysnesstrand revisjon\"},\"orgStatus\":\"NORMAL\"}",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Tue, 09 May 2023 10:34:31 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    }
+  },
+  "uuid" : "6998ea5c-50b5-4a30-a8bc-d9c7a5e627d0",
+  "persistent" : true,
+  "insertionIndex" : 25
+}
