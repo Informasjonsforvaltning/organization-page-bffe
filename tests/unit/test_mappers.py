@@ -51,6 +51,7 @@ def test_map_catalog_quality_score_handles_bad_data() -> None:
     assert rating_5 == CatalogQualityScore(score=112, percentage=56)
 
 
+@pytest.mark.unit
 def test_map_org_details_handles_missing_data() -> None:
     """Response from map_org_details is None when data is missing."""
     details = map_org_details({}, {})
