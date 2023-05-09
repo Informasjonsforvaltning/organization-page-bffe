@@ -310,3 +310,39 @@ all_nap = """{
     }
   ]
 }"""
+
+karmsund = """{
+    "organization": {
+        "organizationId": "910298062",
+        "name": "KARMSUND OG KYSNESSTRAND REVISJON",
+        "prefLabel": {
+            "nb": "Karmsund og kysnesstrand revisjon"
+        },
+        "orgPath": "/ANNET/910298062",
+        "orgType": null,
+        "sectorCode": null,
+        "industryCode": null,
+        "homepage": null,
+        "seeAlso": null,
+        "icon": "https://orglogo.difi.no/api/logo/org/910298062"
+    },
+    "datasets": {
+        "totalCount": 0,
+        "newCount": 0,
+        "authoritativeCount": 0,
+        "openCount": 0,
+        "quality": null
+    },
+    "dataservices": {
+        "totalCount": 0,
+        "newCount": 0
+    },
+    "concepts": {
+        "totalCount": 0,
+        "newCount": 0
+    },
+    "informationmodels": {
+        "totalCount": 0,
+        "newCount": 0
+    }
+}"""

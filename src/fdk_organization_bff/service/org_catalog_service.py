@@ -31,6 +31,10 @@ from fdk_organization_bff.sparql.informationmodel_queries import (
 )
 from fdk_organization_bff.utils.mappers import (
     count_list_from_sparql_response,
+    empty_concepts,
+    empty_dataservices,
+    empty_datasets,
+    empty_informationmodels,
     map_org_concepts,
     map_org_dataservices,
     map_org_datasets,
@@ -303,6 +307,16 @@ async def get_organization_catalog(
             informationmodels=map_org_informationmodels(
                 org_informationmodels=org_informationmodels
             ),
+        )
+    elif org_cat_data is not None and len(org_cat_data) > 0:
+        return OrganizationCatalog(
+            organization=map_org_details(
+                org_cat_data=org_cat_data, brreg_data=brreg_data
+            ),
+            datasets=empty_datasets(),
+            dataservices=empty_dataservices(),
+            concepts=empty_concepts(),
+            informationmodels=empty_informationmodels(),
         )
     else:
         return None

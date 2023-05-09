@@ -38,6 +38,20 @@ async def test_liland(client: TestClient, docker_service: str) -> None:
 @pytest.mark.integration
 @pytest.mark.docker
 @pytest.mark.asyncio
+async def test_karmsund_with_no_catalog_data(
+    client: TestClient, docker_service: str
+) -> None:
+    """Should return the karmsund response."""
+    response = await client.get("/organizationcatalogs/910298062")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.karmsund)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+@pytest.mark.asyncio
 async def test_not_found(client: TestClient, docker_service: str) -> None:
     """Should return 404."""
     response = await client.get("/organizationcatalogs/123")
