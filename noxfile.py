@@ -26,6 +26,7 @@ def unit_tests(session: Session) -> None:
         "pytest",
         "requests-mock",
         "pytest-mock",
+        "asynctest",
     )
     session.run(
         "pytest",
@@ -53,6 +54,7 @@ def integration_tests(session: Session) -> None:
         "requests-mock",
         "pytest-mock",
         "pytest-aiohttp",
+        "asynctest",
     )
     session.run(
         "pytest",
@@ -82,6 +84,7 @@ def tests(session: Session) -> None:
         "requests-mock",
         "pytest-mock",
         "pytest-aiohttp",
+        "asynctest",
     )
     session.run(
         "pytest",
@@ -101,7 +104,9 @@ def tests(session: Session) -> None:
 def contract_tests(session: Session) -> None:
     """Run the contract test suite."""
     args = session.posargs
-    session.install(".", "pytest", "pytest-docker", "requests_mock", "pytest_mock")
+    session.install(
+        ".", "pytest", "pytest-docker", "asynctest", "requests_mock", "pytest_mock"
+    )
     session.run(
         "pytest",
         "-m contract",
