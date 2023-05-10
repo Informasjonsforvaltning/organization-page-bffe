@@ -31,7 +31,7 @@ def unit_tests(session: Session) -> None:
     session.run(
         "pytest",
         "-m unit",
-        "-rA",
+        "-ra",
         *args,
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
@@ -59,7 +59,7 @@ def integration_tests(session: Session) -> None:
     session.run(
         "pytest",
         "-m integration",
-        "-rA",
+        "-ra",
         *args,
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
@@ -88,7 +88,7 @@ def tests(session: Session) -> None:
     )
     session.run(
         "pytest",
-        "-rA",
+        "-ra",
         *args,
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
@@ -110,7 +110,7 @@ def contract_tests(session: Session) -> None:
     session.run(
         "pytest",
         "-m contract",
-        "-rA",
+        "-ra",
         *args,
     )
 
