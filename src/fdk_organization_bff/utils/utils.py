@@ -2,7 +2,7 @@
 import datetime
 import logging
 import traceback
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from urllib.parse import quote_plus
 
 from fdk_organization_bff.classes import FilterEnum
@@ -61,3 +61,12 @@ def dataset_is_open_data(dataset: Dict) -> bool:
     if is_open_data:
         return is_open_data["value"] == "true"
     return False
+
+
+def to_int(value: Any) -> Optional[int]:
+    """Convert value to int."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        logging.warning(f"{traceback.format_exc()}: failed to convert {value} to int")
+        return None

@@ -13,6 +13,7 @@ ramsund = """{
     "industryCode": null,
     "homepage": null,
     "seeAlso": null,
+    "numberOfEmployees": null,
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
@@ -52,6 +53,7 @@ ramsund_with_no_quality = """{
     "industryCode": null,
     "homepage": null,
     "seeAlso": null,
+    "numberOfEmployees": null,
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
@@ -88,17 +90,15 @@ fiskeri = """{
     "industryCode": "84.130 Offentlig administrasjon tilknyttet næringsvirksomhet og arbeidsmarked",
     "homepage": "www.fiskeridir.no/",
     "seeAlso": "https://data.brreg.no/enhetsregisteret/oppslag/enheter/971203420",
+    "numberOfEmployees": 222,
     "icon": "https://orglogo.difi.no/api/logo/org/971203420"
   },
   "datasets": {
-    "totalCount": 10,
+    "totalCount": 0,
     "newCount": 0,
     "authoritativeCount": 0,
-    "openCount": 9,
-    "quality": {
-      "score": 85,
-      "percentage": 85
-    }
+    "openCount": 0,
+    "quality": null
   },
   "dataservices": {
     "totalCount": 0,
@@ -211,6 +211,7 @@ ramsund_nap = """{
     "industryCode": null,
     "homepage": null,
     "seeAlso": null,
+    "numberOfEmployees": null,
     "icon": "https://orglogo.difi.no/api/logo/org/910244132"
   },
   "datasets": {
@@ -247,6 +248,7 @@ ntnu = """{
     "industryCode": null,
     "homepage": null,
     "seeAlso": null,
+    "numberOfEmployees": null,
     "sectorCode": null,
     "prefLabel": {
         "nb": "Artsdatabanken"
@@ -324,6 +326,7 @@ karmsund = """{
         "industryCode": null,
         "homepage": null,
         "seeAlso": null,
+        "numberOfEmployees":  null,
         "icon": "https://orglogo.difi.no/api/logo/org/910298062"
     },
     "datasets": {

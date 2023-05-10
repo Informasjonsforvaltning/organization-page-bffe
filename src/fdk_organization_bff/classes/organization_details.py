@@ -16,4 +16,5 @@ class OrganizationDetails:
     industryCode: Optional[str]
     homepage: Optional[str]
     seeAlso: Optional[str]
+    numberOfEmployees: Optional[int]
     icon: str

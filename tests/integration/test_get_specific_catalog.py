@@ -38,6 +38,18 @@ async def test_liland(client: TestClient, docker_service: str) -> None:
 @pytest.mark.integration
 @pytest.mark.docker
 @pytest.mark.asyncio
+async def test_fiskeri_direktoratet(client: TestClient, docker_service: str) -> None:
+    """Should return the fiskeri response."""
+    response = await client.get("/organizationcatalogs/971203420")
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert response_json == json.loads(responses.fiskeri)
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+@pytest.mark.asyncio
 async def test_karmsund_with_no_catalog_data(
     client: TestClient, docker_service: str
 ) -> None:
