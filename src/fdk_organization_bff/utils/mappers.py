@@ -16,6 +16,7 @@ from fdk_organization_bff.utils.utils import (
     dataset_is_authoritative,
     dataset_is_open_data,
     resource_is_new,
+    to_int,
 )
 
 
@@ -102,6 +103,7 @@ def map_org_details(
         industry_code = None
         homepage = None
         see_also = None
+        number_of_employees = None
 
         if brreg_data:
             orgform = brreg_data.get("organisasjonsform")
@@ -127,6 +129,8 @@ def map_org_details(
                 f"https://data.brreg.no/enhetsregisteret/oppslag/enheter/{org_id}"
             )
 
+            number_of_employees = to_int(brreg_data.get("antallAnsatte"))
+
         name = org_cat_data.get("name")
         org_path = org_cat_data.get("orgPath")
 
@@ -140,6 +144,7 @@ def map_org_details(
             industryCode=industry_code,
             homepage=str(homepage) if homepage else None,
             seeAlso=see_also,
+            numberOfEmployees=number_of_employees if number_of_employees else None,
             icon=f"https://orglogo.difi.no/api/logo/org/{org_id}",
         )
     else:
