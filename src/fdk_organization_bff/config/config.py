@@ -10,12 +10,14 @@ class Config:
     """Configuration class."""
 
     _ORG_CATALOG_PATH = "/organizationcatalogs"
+    _ORG_CATEGORIES_PATH = "/organizationcategories"
 
     _ROUTES = {
         "PING": "/ping",
         "READY": "/ready",
         "ORG_CATALOG": _ORG_CATALOG_PATH + "/{id}",
         "ORG_CATALOGS": _ORG_CATALOG_PATH,
+        "STATE_CATEGORIES": _ORG_CATEGORIES_PATH + "/state",
     }
     _ORGANIZATION_CATALOG_URI = os.getenv(
         "ORGANIZATION_CATALOG_URI",

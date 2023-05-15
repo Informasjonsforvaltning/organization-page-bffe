@@ -5,8 +5,10 @@ Modules:
     ready
     org_catalog
     org_catalogs
+    state_categories
 """
 from .org_catalog import OrgCatalog
 from .org_catalogs import OrgCatalogs
 from .ping import Ping
 from .ready import Ready
+from .state_categories import StateCategories

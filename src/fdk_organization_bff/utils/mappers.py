@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 from fdk_organization_bff.classes import (
     CatalogQualityScore,
     OrganizationCatalogSummary,
+    OrganizationCategory,
     OrganizationConcepts,
     OrganizationDataservices,
     OrganizationDatasets,
@@ -196,6 +197,7 @@ def map_org_summary(
         id=org_id,
         name=org_data["name"] if org_data else org_id,
         prefLabel=org_data["prefLabel"] if org_data else dict(),
+        orgPath=org_data["orgPath"] if org_data else "",
         datasetCount=dataset_count,
         conceptCount=concept_count,
         dataserviceCount=dataservice_count,
@@ -244,6 +246,72 @@ def map_org_summaries(
             map_org_summary(org_id, org_counts[org_id], organizations.get(org_id))
             for org_id in org_counts
         ]
+
+
+def categorise_summaries_by_parent_org(
+    summaries: List[OrganizationCatalogSummary], include_empty: bool
+) -> List[OrganizationCategory]:
+    """Categorise summaries by parent organization."""
+    categorised_summaries: Dict[str, List[OrganizationCatalogSummary]] = dict()
+    for summary in summaries:
+        org_path_split = summary.orgPath.split("/")
+        if len(org_path_split) > 2:
+            main_org = summary.orgPath.split("/")[2]
+            list_by_main_org = categorised_summaries.get(main_org, [])
+            list_by_main_org.append(summary)
+            categorised_summaries[main_org] = list_by_main_org
+        else:
+            logging.warning(f"invalid orgPath for {summary.id}")
+
+    categories: List[OrganizationCategory] = list()
+    for main_org in categorised_summaries:
+        category = OrganizationCatalogSummary(
+            id=main_org,
+            name="",
+            prefLabel={},
+            orgPath="",
+            datasetCount=0,
+            conceptCount=0,
+            dataserviceCount=0,
+            informationmodelCount=0,
+        )
+
+        for summary in categorised_summaries[main_org]:
+            category.datasetCount += summary.datasetCount
+            category.conceptCount += summary.conceptCount
+            category.dataserviceCount += summary.dataserviceCount
+            category.informationmodelCount += summary.informationmodelCount
+            if summary.id == main_org:
+                category.name = summary.name
+                category.prefLabel = summary.prefLabel
+                category.orgPath = summary.orgPath
+
+        categories.append(
+            OrganizationCategory(
+                category=category,
+                organizations=categorised_summaries[main_org]
+                if include_empty
+                else remove_empty_summaries(categorised_summaries[main_org]),
+            )
+        )
+
+    return categories
+
+
+def remove_empty_summaries(
+    summaries: List[OrganizationCatalogSummary],
+) -> List[OrganizationCatalogSummary]:
+    """Remove all empty summaries from list."""
+    filtered: List[OrganizationCatalogSummary] = list()
+    for summary in summaries:
+        if (
+            summary.datasetCount > 0
+            or summary.conceptCount > 0
+            or summary.dataserviceCount > 0
+            or summary.informationmodelCount > 0
+        ):
+            filtered.append(summary)
+    return filtered
 
 
 def org_is_stat_fylk_or_komm(org: Dict) -> bool:
