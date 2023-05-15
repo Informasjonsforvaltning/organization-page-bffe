@@ -10,6 +10,7 @@ class OrganizationCatalogSummary:
     id: str
     name: str
     prefLabel: Dict
+    orgPath: str
     datasetCount: int
     conceptCount: int
     dataserviceCount: int

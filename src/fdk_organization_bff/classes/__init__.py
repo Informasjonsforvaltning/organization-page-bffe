@@ -6,6 +6,7 @@ Modules:
     organization_catalog
     organization_catalog_list
     organization_catalog_summary
+    organization_category
     organization_dataservices
     organization_datasets
     organization_details
@@ -20,6 +21,10 @@ from fdk_organization_bff.classes.organization_catalog_list import (
 )
 from fdk_organization_bff.classes.organization_catalog_summary import (
     OrganizationCatalogSummary,
+)
+from fdk_organization_bff.classes.organization_category import (
+    OrganizationCategories,
+    OrganizationCategory,
 )
 from fdk_organization_bff.classes.organization_concepts import OrganizationConcepts
 from fdk_organization_bff.classes.organization_dataservices import (

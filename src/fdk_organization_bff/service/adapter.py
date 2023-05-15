@@ -53,10 +53,13 @@ async def fetch_org_cat_data(id: str, session: ClientSession) -> Dict:
         return dict()
 
 
-async def fetch_all_organizations(session: ClientSession) -> Dict:
-    """Fetch all organizations from organization-catalog."""
+async def fetch_organizations_from_organization_catalog(
+    session: ClientSession, org_path: Optional[str]
+) -> Dict:
+    """Fetch organizations from organization-catalog."""
+    params = {"orgPath": org_path} if org_path else None
     url = f"{Config.org_cat_uri()}/organizations"
-    org_list = await fetch_json_data(url, None, session)
+    org_list = await fetch_json_data(url, params, session)
     return {org["organizationId"]: org for org in org_list} if org_list else dict()
 
 

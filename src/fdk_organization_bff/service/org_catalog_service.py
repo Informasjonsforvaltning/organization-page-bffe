@@ -9,12 +9,14 @@ from fdk_organization_bff.classes import (
     FilterEnum,
     OrganizationCatalog,
     OrganizationCatalogList,
+    OrganizationCatalogSummary,
+    OrganizationCategories,
 )
 from fdk_organization_bff.service.adapter import (
-    fetch_all_organizations,
     fetch_brreg_data,
     fetch_org_cat_data,
     fetch_org_dataset_catalog_scores,
+    fetch_organizations_from_organization_catalog,
     query_all_concepts_ordered_by_publisher,
     query_all_dataservices_ordered_by_publisher,
     query_all_datasets_ordered_by_publisher,
@@ -25,6 +27,7 @@ from fdk_organization_bff.service.adapter import (
     query_publisher_informationmodels,
 )
 from fdk_organization_bff.utils.mappers import (
+    categorise_summaries_by_parent_org,
     empty_concepts,
     empty_dataservices,
     empty_datasets,
@@ -137,12 +140,10 @@ async def get_organization_catalog(
         return None
 
 
-async def get_organization_catalogs(
-    filter: FilterEnum, include_empty: Optional[str]
-) -> OrganizationCatalogList:
-    """Return all organization catalogs."""
-    logging.debug("Fetching all catalogs")
-
+async def summarize_catalog_data_for_organizations(
+    filter: FilterEnum, include_empty: Optional[str], org_path: Optional[str]
+) -> List[OrganizationCatalogSummary]:
+    """Fetch and summarize organizations data."""
     async with ClientSession() as session:
         (
             organizations,
@@ -151,7 +152,9 @@ async def get_organization_catalogs(
             concepts,
             informationmodels,
         ) = await asyncio.gather(
-            asyncio.ensure_future(fetch_all_organizations(session)),
+            asyncio.ensure_future(
+                fetch_organizations_from_organization_catalog(session, org_path)
+            ),
             asyncio.ensure_future(
                 query_all_datasets_ordered_by_publisher(filter, session)
             ),
@@ -183,13 +186,39 @@ async def get_organization_catalogs(
         logging.warning("Unable to fetch informationmodels")
         informationmodels = []
 
-    return OrganizationCatalogList(
-        organizations=map_org_summaries(
-            organizations=cast(Dict, organizations),
-            datasets=cast(List, datasets),
-            dataservices=cast(List, dataservices),
-            concepts=cast(List, concepts),
-            informationmodels=cast(List, informationmodels),
-            include_empty=include_empty.lower() == "true" if include_empty else False,
+    return map_org_summaries(
+        organizations=cast(Dict, organizations),
+        datasets=cast(List, datasets),
+        dataservices=cast(List, dataservices),
+        concepts=cast(List, concepts),
+        informationmodels=cast(List, informationmodels),
+        include_empty=include_empty.lower() == "true" if include_empty else False,
+    )
+
+
+async def get_organization_catalogs(
+    filter: FilterEnum, include_empty: Optional[str]
+) -> OrganizationCatalogList:
+    """Return all organization catalogs."""
+    logging.debug("Fetching all catalogs")
+    org_summaries = await summarize_catalog_data_for_organizations(
+        filter, include_empty, None
+    )
+
+    return OrganizationCatalogList(organizations=org_summaries)
+
+
+async def get_state_categories(
+    filter: FilterEnum, include_empty: Optional[str]
+) -> OrganizationCategories:
+    """Return state categories."""
+    logging.debug("Fetching state categories")
+    org_summaries = await summarize_catalog_data_for_organizations(
+        filter, "true", "/STAT/"
+    )
+
+    return OrganizationCategories(
+        categories=categorise_summaries_by_parent_org(
+            org_summaries, include_empty == "true"
         )
     )
