@@ -9,6 +9,7 @@ services:
     environment:
       - ORGANIZATION_CATALOG_URI=http://wiremock:8080
       - DATA_BRREG_URI=http://wiremock:8080
+      - REFERENCE_DATA_URI=http://wiremock:8080
       - FDK_PORTAL_URI=http://wiremock:8080
       - FDK_METADATA_QUALITY_URI=http://wiremock:8080
       - FDK_SPARQL_URI=http://wiremock:8080/sparql

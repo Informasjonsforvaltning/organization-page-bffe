@@ -73,6 +73,16 @@ async def fetch_brreg_data(id: str, session: ClientSession) -> Dict:
         return dict()
 
 
+async def fetch_reference_data(path: str, session: ClientSession) -> Dict:
+    """Fetch reference data from reference-data."""
+    url = f"{Config.reference_data_uri()}/reference-data{path}"
+    reference_data = await fetch_json_data(url, None, session)
+    if reference_data and isinstance(reference_data, Dict):
+        return reference_data
+    else:
+        return dict()
+
+
 async def query_sparql_service(query: str, session: ClientSession) -> Dict:
     """Query fdk-sparql-service."""
     url = f"{Config.sparql_uri()}"

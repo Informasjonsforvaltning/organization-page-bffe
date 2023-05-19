@@ -31,3 +31,37 @@ async def test_state_categories_include_empty(
     assert len(response_json["categories"]) == 19
     assert response_json["categories"][0]["category"]["id"] == "912660680"
     assert len(response_json["categories"][0]["organizations"]) == 20
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+@pytest.mark.asyncio
+async def test_municipality_categories(client: TestClient, docker_service: str) -> None:
+    """Should return the municipality categories response without empty orgs."""
+    response = await client.get(
+        "/organizationcategories/municipality?includeEmpty=false"
+    )
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert len(response_json["categories"]) == 11
+    assert response_json["categories"][0]["category"]["id"] == "817920632"
+    assert len(response_json["categories"][0]["organizations"]) == 0
+
+
+@pytest.mark.integration
+@pytest.mark.docker
+@pytest.mark.asyncio
+async def test_municipality_categories_include_empty(
+    client: TestClient, docker_service: str
+) -> None:
+    """Should return the municipality categories response with empty orgs."""
+    response = await client.get(
+        "/organizationcategories/municipality?includeEmpty=true"
+    )
+    response_json = await response.json()
+
+    assert response.status == 200
+    assert len(response_json["categories"]) == 11
+    assert response_json["categories"][0]["category"]["id"] == "817920632"
+    assert len(response_json["categories"][0]["organizations"]) == 2

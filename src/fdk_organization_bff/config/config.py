@@ -18,6 +18,7 @@ class Config:
         "ORG_CATALOG": _ORG_CATALOG_PATH + "/{id}",
         "ORG_CATALOGS": _ORG_CATALOG_PATH,
         "STATE_CATEGORIES": _ORG_CATEGORIES_PATH + "/state",
+        "MUNICIPALITY_CATEGORIES": _ORG_CATEGORIES_PATH + "/municipality",
     }
     _ORGANIZATION_CATALOG_URI = os.getenv(
         "ORGANIZATION_CATALOG_URI",
@@ -34,6 +35,10 @@ class Config:
     _FDK_METADATA_QUALITY_URI = os.getenv(
         "FDK_METADATA_QUALITY_URI",
         "https://mqa-scoring-api.staging.fellesdatakatalog.digdir.no",
+    )
+    _REFERENCE_DATA_URI = os.getenv(
+        "REFERENCE_DATA_URI",
+        "https://staging.fellesdatakatalog.digdir.no",
     )
 
     @classmethod
@@ -60,3 +65,8 @@ class Config:
     def metadata_uri(cls: Type[T]) -> str:
         """FDK Metadata Quality Service URI."""
         return cls._FDK_METADATA_QUALITY_URI
+
+    @classmethod
+    def reference_data_uri(cls: Type[T]) -> str:
+        """Return reference-data URI."""
+        return cls._REFERENCE_DATA_URI

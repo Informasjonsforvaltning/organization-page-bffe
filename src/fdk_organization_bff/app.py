@@ -6,6 +6,7 @@ from aiohttp_middlewares import cors_middleware
 
 from fdk_organization_bff.config import Config
 from fdk_organization_bff.resources import (
+    MunicipalityCategories,
     OrgCatalog,
     OrgCatalogs,
     Ping,
@@ -23,6 +24,7 @@ def setup_routes(app: web.Application) -> None:
             web.get(Config.routes()["ORG_CATALOG"], OrgCatalog),
             web.get(Config.routes()["ORG_CATALOGS"], OrgCatalogs),
             web.get(Config.routes()["STATE_CATEGORIES"], StateCategories),
+            web.get(Config.routes()["MUNICIPALITY_CATEGORIES"], MunicipalityCategories),
         ]
     )
 

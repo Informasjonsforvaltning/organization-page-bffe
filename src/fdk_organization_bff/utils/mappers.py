@@ -298,6 +298,63 @@ def categorise_summaries_by_parent_org(
     return categories
 
 
+def categorise_summaries_by_municipality(
+    summaries: List[OrganizationCatalogSummary],
+    municipalities: Dict,
+    include_empty: bool,
+) -> List[OrganizationCategory]:
+    """Categorise summaries by municipalities."""
+    categories_dict: Dict[str, OrganizationCategory] = dict()
+    categorized_organization_numbers = dict()
+    filtered_summaries = (
+        summaries if include_empty else remove_empty_summaries(summaries)
+    )
+    for fylke in municipalities["fylke"]:
+        categories_dict[fylke["fylkesnummer"]] = OrganizationCategory(
+            category=OrganizationCatalogSummary(
+                id=fylke["organisasjonsnummer"],
+                name=fylke["fylkesnavn"],
+                prefLabel={"nb": fylke["fylkesnavn"]},
+                orgPath="/FYLKE/" + fylke["organisasjonsnummer"],
+                datasetCount=0,
+                conceptCount=0,
+                dataserviceCount=0,
+                informationmodelCount=0,
+            ),
+            organizations=list(),
+        )
+        categorized_organization_numbers[fylke["organisasjonsnummer"]] = fylke[
+            "fylkesnummer"
+        ]
+
+    for kommune in municipalities["kommune"]:
+        categorized_organization_numbers[kommune["organisasjonsnummer"]] = kommune[
+            "kommunenummer"
+        ][:2]
+
+    for org_summary in filtered_summaries:
+        org_path_split = org_summary.orgPath.split("/")
+        category_number = (
+            categorized_organization_numbers.get(org_path_split[2], "")
+            if len(org_path_split) > 2
+            else ""
+        )
+        municipality_category = categories_dict.get(category_number)
+        if municipality_category:
+            municipality_category.category.datasetCount += org_summary.datasetCount
+            municipality_category.category.conceptCount += org_summary.conceptCount
+            municipality_category.category.dataserviceCount += (
+                org_summary.dataserviceCount
+            )
+            municipality_category.category.informationmodelCount += (
+                org_summary.informationmodelCount
+            )
+            municipality_category.organizations.append(org_summary)
+            categories_dict[category_number] = municipality_category
+
+    return [categories_dict[key] for key in categories_dict]
+
+
 def remove_empty_summaries(
     summaries: List[OrganizationCatalogSummary],
 ) -> List[OrganizationCatalogSummary]:

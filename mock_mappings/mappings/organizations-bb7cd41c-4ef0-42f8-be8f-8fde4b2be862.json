@@ -1,0 +1,29 @@
+{
+  "id" : "bb7cd41c-4ef0-42f8-be8f-8fde4b2be862",
+  "name" : "organizations",
+  "request" : {
+    "url" : "/organizations?orgPath=/FYLKE/",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"organizationId\":\"984582021\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/984582021\",\"name\":\"ØSTFOLD KOLLEKTIVTRAFIKK\",\"orgPath\":\"/FYLKE/921693230/984582021\",\"subOrganizationOf\":\"921693230\",\"prefLabel\":{\"nb\":\"Østfold kollektivtrafikk\"},\"orgStatus\":\"NORMAL\"},{\"organizationId\":\"921693230\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/921693230\",\"name\":\"VIKEN FYLKESKOMMUNE\",\"orgType\":\"FYLK\",\"orgPath\":\"/FYLKE/921693230\",\"issued\":\"2018-11-09\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Viken fylkeskommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.viken.no\"},{\"organizationId\":\"964982953\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/964982953\",\"name\":\"NORDLAND FYLKESKOMMUNE\",\"orgType\":\"FYLK\",\"orgPath\":\"/FYLKE/964982953\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"1804\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Nordland fylkeskommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.nfk.no/\"},{\"organizationId\":\"817920632\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/817920632\",\"name\":\"TRØNDELAG FYLKESKOMMUNE\",\"orgType\":\"FYLK\",\"orgPath\":\"/FYLKE/817920632\",\"issued\":\"2016-10-24\",\"municipalityNumber\":\"5006\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Trøndelag fylkeskommune\"},\"orgStatus\":\"NORMAL\"}]",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 19 May 2023 11:32:37 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    }
+  },
+  "uuid" : "bb7cd41c-4ef0-42f8-be8f-8fde4b2be862",
+  "persistent" : true,
+  "insertionIndex" : 27
+}
