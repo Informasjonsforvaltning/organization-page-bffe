@@ -36,6 +36,7 @@ def unit_tests(session: Session) -> None:
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
+            "REFERENCE_DATA_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
             "FDK_SPARQL_URI": "http://localhost:8000/sparql",
@@ -64,6 +65,7 @@ def integration_tests(session: Session) -> None:
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
+            "REFERENCE_DATA_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
             "FDK_SPARQL_URI": "http://localhost:8000/sparql",
@@ -93,6 +95,7 @@ def tests(session: Session) -> None:
         env={
             "ORGANIZATION_CATALOG_URI": "http://localhost:8000",
             "DATA_BRREG_URI": "http://localhost:8000",
+            "REFERENCE_DATA_URI": "http://localhost:8000",
             "FDK_PORTAL_URI": "http://localhost:8000",
             "FDK_METADATA_QUALITY_URI": "http://localhost:8000",
             "FDK_SPARQL_URI": "http://localhost:8000/sparql",

@@ -1,0 +1,29 @@
+{
+  "id" : "981eeb04-f24a-41bb-9c3a-87cd964a3ff3",
+  "name" : "organizations",
+  "request" : {
+    "url" : "/organizations?orgPath=/KOMMUNE/",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"organizationId\":\"964983291\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/964983291\",\"name\":\"BRØNNØY KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/964983291\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"1813\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Brønnøy kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.bronnoy.kommune.no/\"},{\"organizationId\":\"940039541\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/940039541\",\"name\":\"FREDRIKSTAD KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/940039541\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"3004\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Fredrikstad kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.fredrikstad.kommune.no/\"},{\"organizationId\":\"942110464\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/942110464\",\"name\":\"TRONDHEIM KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/942110464\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"5001\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Trondheim kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.trondheim.kommune.no/\"},{\"organizationId\":\"964948798\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/964948798\",\"name\":\"ÅS KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/964948798\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"3021\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Ås kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.as.kommune.no/\"},{\"organizationId\":\"918082956\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/918082956\",\"name\":\"LARVIK KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/918082956\",\"issued\":\"2016-11-21\",\"municipalityNumber\":\"3805\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Larvik kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.larvik.kommune.no\"},{\"organizationId\":\"958935420\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/958935420\",\"name\":\"OSLO KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/958935420\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"0301\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Oslo kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.oslo.kommune.no/\"},{\"organizationId\":\"964965226\",\"norwegianRegistry\":\"https://data.brreg.no/enhetsregisteret/api/enheter/964965226\",\"name\":\"STAVANGER KOMMUNE\",\"orgType\":\"KOMM\",\"orgPath\":\"/KOMMUNE/964965226\",\"issued\":\"1995-06-07\",\"municipalityNumber\":\"1103\",\"industryCode\":\"84.110\",\"sectorCode\":\"6500\",\"prefLabel\":{\"nb\":\"Stavanger kommune\"},\"orgStatus\":\"NORMAL\",\"homepage\":\"www.stavanger.kommune.no/\"}]",
+    "headers" : {
+      "Vary" : [ "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json",
+      "Date" : "Fri, 19 May 2023 11:32:46 GMT",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    }
+  },
+  "uuid" : "981eeb04-f24a-41bb-9c3a-87cd964a3ff3",
+  "persistent" : true,
+  "insertionIndex" : 28
+}

@@ -1,0 +1,31 @@
+{
+  "id" : "56a553ac-b936-486e-8032-ca169f62a8ad",
+  "name" : "reference-data_ssb_fylke-organisasjoner",
+  "request" : {
+    "url" : "/reference-data/ssb/fylke-organisasjoner",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"fylkeOrganisasjoner\":[{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/817920632\",\"organisasjonsnummer\":\"817920632\",\"organisasjonsnavn\":\"TRØNDELAG FYLKESKOMMUNE\",\"fylkesnavn\":\"Trøndelag - Trööndelage\",\"fylkesnummer\":\"50\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/821227062\",\"organisasjonsnummer\":\"821227062\",\"organisasjonsnavn\":\"VESTFOLD OG TELEMARK FYLKESKOMMUNE\",\"fylkesnavn\":\"Vestfold og Telemark\",\"fylkesnummer\":\"38\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/821311632\",\"organisasjonsnummer\":\"821311632\",\"organisasjonsnavn\":\"VESTLAND FYLKESKOMMUNE\",\"fylkesnavn\":\"Vestland\",\"fylkesnummer\":\"46\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/920717152\",\"organisasjonsnummer\":\"920717152\",\"organisasjonsnavn\":\"INNLANDET FYLKESKOMMUNE\",\"fylkesnavn\":\"Innlandet\",\"fylkesnummer\":\"34\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/921693230\",\"organisasjonsnummer\":\"921693230\",\"organisasjonsnavn\":\"VIKEN FYLKESKOMMUNE\",\"fylkesnavn\":\"Viken\",\"fylkesnummer\":\"30\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/921707134\",\"organisasjonsnummer\":\"921707134\",\"organisasjonsnavn\":\"AGDER FYLKESKOMMUNE\",\"fylkesnavn\":\"Agder\",\"fylkesnummer\":\"42\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/922420866\",\"organisasjonsnummer\":\"922420866\",\"organisasjonsnavn\":\"TROMS OG FINNMARK FYLKESKOMMUNE\",\"fylkesnavn\":\"Troms og Finnmark - Romsa ja Finnmárku - Tromssa ja Finmarkku\",\"fylkesnummer\":\"54\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/944183779\",\"organisasjonsnummer\":\"944183779\",\"organisasjonsnavn\":\"MØRE OG ROMSDAL FYLKESKOMMUNE\",\"fylkesnavn\":\"Møre og Romsdal\",\"fylkesnummer\":\"15\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/958935420\",\"organisasjonsnummer\":\"958935420\",\"organisasjonsnavn\":\"OSLO KOMMUNE\",\"fylkesnavn\":\"Oslo\",\"fylkesnummer\":\"03\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/964982953\",\"organisasjonsnummer\":\"964982953\",\"organisasjonsnavn\":\"NORDLAND FYLKESKOMMUNE\",\"fylkesnavn\":\"Nordland - Nordlánnda\",\"fylkesnummer\":\"18\"},{\"uri\":\"https://data.brreg.no/enhetsregisteret/api/enheter/971045698\",\"organisasjonsnummer\":\"971045698\",\"organisasjonsnavn\":\"ROGALAND FYLKESKOMMUNE\",\"fylkesnavn\":\"Rogaland\",\"fylkesnummer\":\"11\"}]}",
+    "headers" : {
+      "Server" : "nginx/1.23.4",
+      "Date" : "Fri, 19 May 2023 13:23:05 GMT",
+      "Content-Type" : "application/json",
+      "Vary" : [ "origin,access-control-request-method,access-control-request-headers,accept-encoding", "Accept, Accept-Encoding" ],
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "0",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "Strict-Transport-Security" : "max-age=31536000 ; includeSubDomains",
+      "X-Frame-Options" : "DENY",
+      "X-Robots-Tag" : "noindex, nofollow, nosnippet, noarchive",
+      "Via" : "1.1 google",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    }
+  },
+  "uuid" : "56a553ac-b936-486e-8032-ca169f62a8ad",
+  "persistent" : true,
+  "insertionIndex" : 30
+}

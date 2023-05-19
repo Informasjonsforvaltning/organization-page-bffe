@@ -17,6 +17,7 @@ from fdk_organization_bff.service.adapter import (
     fetch_org_cat_data,
     fetch_org_dataset_catalog_scores,
     fetch_organizations_from_organization_catalog,
+    fetch_reference_data,
     query_all_concepts_ordered_by_publisher,
     query_all_dataservices_ordered_by_publisher,
     query_all_datasets_ordered_by_publisher,
@@ -27,6 +28,7 @@ from fdk_organization_bff.service.adapter import (
     query_publisher_informationmodels,
 )
 from fdk_organization_bff.utils.mappers import (
+    categorise_summaries_by_municipality,
     categorise_summaries_by_parent_org,
     empty_concepts,
     empty_dataservices,
@@ -141,7 +143,7 @@ async def get_organization_catalog(
 
 
 async def summarize_catalog_data_for_organizations(
-    filter: FilterEnum, include_empty: Optional[str], org_path: Optional[str]
+    filter: FilterEnum, include_empty: Optional[str], org_paths: Optional[List[str]]
 ) -> List[OrganizationCatalogSummary]:
     """Fetch and summarize organizations data."""
     async with ClientSession() as session:
@@ -153,7 +155,7 @@ async def summarize_catalog_data_for_organizations(
             informationmodels,
         ) = await asyncio.gather(
             asyncio.ensure_future(
-                fetch_organizations_from_organization_catalog(session, org_path)
+                fetch_organizations_for_org_paths(org_paths, session)
             ),
             asyncio.ensure_future(
                 query_all_datasets_ordered_by_publisher(filter, session)
@@ -214,7 +216,7 @@ async def get_state_categories(
     """Return state categories."""
     logging.debug("Fetching state categories")
     org_summaries = await summarize_catalog_data_for_organizations(
-        filter, "true", "/STAT/"
+        filter, "true", ["/STAT/"]
     )
 
     return OrganizationCategories(
@@ -222,3 +224,83 @@ async def get_state_categories(
             org_summaries, include_empty == "true"
         )
     )
+
+
+async def fetch_organizations_for_org_paths(
+    org_paths: Optional[List[str]], session: ClientSession
+) -> Dict:
+    """Fetch orgs for list of orgPahs."""
+    if org_paths:
+        tasks = [
+            asyncio.ensure_future(
+                fetch_organizations_from_organization_catalog(session, org_path)
+            )
+            for org_path in org_paths
+        ]
+    else:
+        tasks = [
+            asyncio.ensure_future(
+                fetch_organizations_from_organization_catalog(session, None)
+            )
+        ]
+
+    org_path_responses = await asyncio.gather(*tasks)
+    orgs = dict()
+    for org_path_response in org_path_responses:
+        for key in org_path_response:
+            orgs[key] = org_path_response[key]
+
+    return orgs
+
+
+async def get_municipality_categories(
+    filter: FilterEnum, include_empty: Optional[str]
+) -> OrganizationCategories:
+    """Return municipality categories."""
+    logging.debug("Fetching municipality categories")
+    (
+        org_summaries,
+        municipalities,
+    ) = await asyncio.gather(
+        asyncio.ensure_future(
+            summarize_catalog_data_for_organizations(
+                filter, "true", ["/FYLKE/", "/KOMMUNE/"]
+            )
+        ),
+        asyncio.ensure_future(fetch_municipality_data()),
+    )
+
+    return OrganizationCategories(
+        categories=categorise_summaries_by_municipality(
+            org_summaries, municipalities, include_empty == "true"
+        )
+    )
+
+
+async def fetch_municipality_data() -> Dict:
+    """Return map of municipality numbers to connected organization number."""
+    async with ClientSession() as session:
+        (
+            fylke,
+            kommune,
+        ) = await asyncio.gather(
+            asyncio.ensure_future(
+                fetch_reference_data("/ssb/fylke-organisasjoner", session)
+            ),
+            asyncio.ensure_future(
+                fetch_reference_data("/ssb/kommune-organisasjoner", session)
+            ),
+            return_exceptions=True,
+        )
+
+    if isinstance(fylke, BaseException):
+        logging.warning("Unable to fetch fylke data from reference data")
+        fylke = []
+    if isinstance(kommune, BaseException):
+        logging.warning("Unable to fetch kommune data from reference data")
+        kommune = []
+
+    return {
+        "fylke": fylke.get("fylkeOrganisasjoner"),
+        "kommune": kommune.get("kommuneOrganisasjoner"),
+    }
