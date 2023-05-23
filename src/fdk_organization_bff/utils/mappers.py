@@ -286,16 +286,22 @@ def categorise_summaries_by_parent_org(
                 category.prefLabel = summary.prefLabel
                 category.orgPath = summary.orgPath
 
+        category_summaries = (
+            categorised_summaries[main_org]
+            if include_empty
+            else remove_empty_summaries(categorised_summaries[main_org])
+        )
+
         categories.append(
             OrganizationCategory(
                 category=category,
-                organizations=categorised_summaries[main_org]
-                if include_empty
-                else remove_empty_summaries(categorised_summaries[main_org]),
+                organizations=sorted(
+                    category_summaries, key=lambda org: org.sort_compare()
+                ),
             )
         )
 
-    return categories
+    return sorted(categories, key=lambda org: org.sort_compare())
 
 
 def categorise_summaries_by_municipality(
@@ -352,7 +358,14 @@ def categorise_summaries_by_municipality(
             municipality_category.organizations.append(org_summary)
             categories_dict[category_number] = municipality_category
 
-    return [categories_dict[key] for key in categories_dict]
+    categories: List[OrganizationCategory] = list()
+    for key in categories_dict:
+        categories_dict[key].organizations = sorted(
+            categories_dict[key].organizations, key=lambda org: org.sort_compare()
+        )
+        categories.append(categories_dict[key])
+
+    return sorted(categories, key=lambda org: org.sort_compare())
 
 
 def remove_empty_summaries(

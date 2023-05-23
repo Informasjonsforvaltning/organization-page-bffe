@@ -14,6 +14,11 @@ class OrganizationCategory:
     category: OrganizationCatalogSummary
     organizations: List[OrganizationCatalogSummary]
 
+    def sort_compare(self: "OrganizationCategory") -> str:
+        """Get value for sorting."""
+        nb = self.category.prefLabel.get("nb")
+        return nb if nb else self.category.name
+
 
 @dataclass
 class OrganizationCategories:

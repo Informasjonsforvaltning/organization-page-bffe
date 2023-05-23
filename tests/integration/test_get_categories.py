@@ -13,8 +13,8 @@ async def test_state_categories(client: TestClient, docker_service: str) -> None
 
     assert response.status == 200
     assert len(response_json["categories"]) == 19
-    assert response_json["categories"][0]["category"]["id"] == "912660680"
-    assert len(response_json["categories"][0]["organizations"]) == 1
+    assert response_json["categories"][1]["category"]["id"] == "972417793"
+    assert len(response_json["categories"][1]["organizations"]) == 0
 
 
 @pytest.mark.integration
@@ -29,8 +29,8 @@ async def test_state_categories_include_empty(
 
     assert response.status == 200
     assert len(response_json["categories"]) == 19
-    assert response_json["categories"][0]["category"]["id"] == "912660680"
-    assert len(response_json["categories"][0]["organizations"]) == 20
+    assert response_json["categories"][1]["category"]["id"] == "972417793"
+    assert len(response_json["categories"][1]["organizations"]) == 7
 
 
 @pytest.mark.integration
@@ -45,8 +45,8 @@ async def test_municipality_categories(client: TestClient, docker_service: str) 
 
     assert response.status == 200
     assert len(response_json["categories"]) == 11
-    assert response_json["categories"][0]["category"]["id"] == "817920632"
-    assert len(response_json["categories"][0]["organizations"]) == 0
+    assert response_json["categories"][3]["category"]["id"] == "964982953"
+    assert len(response_json["categories"][3]["organizations"]) == 0
 
 
 @pytest.mark.integration
@@ -63,5 +63,5 @@ async def test_municipality_categories_include_empty(
 
     assert response.status == 200
     assert len(response_json["categories"]) == 11
-    assert response_json["categories"][0]["category"]["id"] == "817920632"
-    assert len(response_json["categories"][0]["organizations"]) == 2
+    assert response_json["categories"][3]["category"]["id"] == "964982953"
+    assert len(response_json["categories"][3]["organizations"]) == 2

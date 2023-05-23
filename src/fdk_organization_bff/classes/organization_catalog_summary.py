@@ -15,3 +15,8 @@ class OrganizationCatalogSummary:
     conceptCount: int
     dataserviceCount: int
     informationmodelCount: int
+
+    def sort_compare(self: "OrganizationCatalogSummary") -> str:
+        """Get value for sorting."""
+        nb = self.prefLabel.get("nb")
+        return nb if nb else self.name
