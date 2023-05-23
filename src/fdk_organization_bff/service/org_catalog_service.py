@@ -207,7 +207,9 @@ async def get_organization_catalogs(
         filter, include_empty, None
     )
 
-    return OrganizationCatalogList(organizations=org_summaries)
+    return OrganizationCatalogList(
+        organizations=sorted(org_summaries, key=lambda org: org.sort_compare())
+    )
 
 
 async def get_state_categories(

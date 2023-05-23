@@ -140,16 +140,16 @@ liland = """{
 all_catalogs = """{
   "organizations": [
     {
-      "id": "910258028",
-      "name": "LILAND OG ERDAL REVISJON",
+      "id": "974767880",
+      "name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
       "prefLabel": {
-        "nb": "Liland og erdal revisjon"
+        "nb": "Artsdatabanken"
       },
-      "orgPath": "/ANNET/910258028",
-      "datasetCount": 20,
-      "conceptCount": 5,
-      "dataserviceCount": 18,
-      "informationmodelCount": 2
+      "orgPath": "/STAT/872417842/974767880",
+      "datasetCount": 0,
+      "conceptCount": 0,
+      "dataserviceCount": 1,
+      "informationmodelCount": 0
     },
     {
       "id": "971203420",
@@ -164,6 +164,28 @@ all_catalogs = """{
       "informationmodelCount": 0
     },
     {
+      "id": "555111290",
+      "name": "Høgskolen for IT og arkitektur",
+      "prefLabel": {},
+      "orgPath": "/ANNET/555111290",
+      "datasetCount": 0,
+      "conceptCount": 0,
+      "dataserviceCount": 2,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "910258028",
+      "name": "LILAND OG ERDAL REVISJON",
+      "prefLabel": {
+        "nb": "Liland og erdal revisjon"
+      },
+      "orgPath": "/ANNET/910258028",
+      "datasetCount": 20,
+      "conceptCount": 5,
+      "dataserviceCount": 18,
+      "informationmodelCount": 2
+    },
+    {
       "id": "910244132",
       "name": "RAMSUND OG ROGNAN REVISJON",
       "prefLabel": {
@@ -173,30 +195,6 @@ all_catalogs = """{
       "datasetCount": 71,
       "conceptCount": 22,
       "dataserviceCount": 20,
-      "informationmodelCount": 0
-    },
-    {
-      "id": "555111290",
-      "name": "Høgskolen for IT og arkitektur",
-      "prefLabel": {
-        "nb": "Høgskolen for it og arkitektur"
-      },
-      "orgPath": "/ANNET/555111290",
-      "datasetCount": 0,
-      "conceptCount": 0,
-      "dataserviceCount": 2,
-      "informationmodelCount": 0
-    },
-    {
-      "id": "974767880",
-      "name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
-      "prefLabel": {
-        "nb": "Artsdatabanken"
-      },
-      "orgPath": "/STAT/872417842/974767880",
-      "datasetCount": 0,
-      "conceptCount": 0,
-      "dataserviceCount": 1,
       "informationmodelCount": 0
     }
   ]
@@ -283,18 +281,6 @@ ntnu = """{
 all_nap = """{
   "organizations": [
     {
-      "id": "910244132",
-      "name": "RAMSUND OG ROGNAN REVISJON",
-      "prefLabel": {
-        "nb": "Ramsund og Rognand revisjon"
-      },
-      "orgPath": "/ANNET/910244132",
-      "datasetCount": 7,
-      "conceptCount": 0,
-      "dataserviceCount": 0,
-      "informationmodelCount": 0
-    },
-    {
       "id": "910258028",
       "name": "LILAND OG ERDAL REVISJON",
       "prefLabel": {
@@ -302,6 +288,18 @@ all_nap = """{
       },
       "orgPath": "/ANNET/910258028",
       "datasetCount": 3,
+      "conceptCount": 0,
+      "dataserviceCount": 0,
+      "informationmodelCount": 0
+    },
+    {
+      "id": "910244132",
+      "name": "RAMSUND OG ROGNAN REVISJON",
+      "prefLabel": {
+        "nb": "Ramsund og Rognand revisjon"
+      },
+      "orgPath": "/ANNET/910244132",
+      "datasetCount": 7,
       "conceptCount": 0,
       "dataserviceCount": 0,
       "informationmodelCount": 0
