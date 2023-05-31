@@ -55,6 +55,7 @@ class CustomGunicornLogger(glogging.Logger):
         access_logger = logging.getLogger("gunicorn.access")
         access_logger.addFilter(PingFilter())
         access_logger.addFilter(ReadyFilter())
+        access_logger.addFilter(BlackboxExporterFilter())
 
         root_logger = logging.getLogger()
         root_logger.setLevel(loglevel)
@@ -92,6 +93,14 @@ class ReadyFilter(logging.Filter):
     def filter(self: Any, record: logging.LogRecord) -> bool:
         """Filter function."""
         return "GET /ready" not in record.getMessage()
+
+
+class BlackboxExporterFilter(logging.Filter):
+    """Custom Blackbox Exporter Filter class."""
+
+    def filter(self: Any, record: logging.LogRecord) -> bool:
+        """Filter function."""
+        return "Blackbox Exporter" not in record.getMessage()
 
 
 logger_class = CustomGunicornLogger
