@@ -20,7 +20,7 @@ def test_all_catalogs(docker_service: str) -> None:
 
 @pytest.mark.contract
 @pytest.mark.docker
-def test_all_catalogs_has_no_cache_headers(docker_service: str) -> None:
+def test_all_catalogs_has_fifteen_min_cache_headers(docker_service: str) -> None:
     """Should include no-cache headers."""
     url = f"{docker_service}/organizationcatalogs"
     response = requests.get(url)
@@ -28,7 +28,7 @@ def test_all_catalogs_has_no_cache_headers(docker_service: str) -> None:
     assert response.status_code == 200
     assert (
         response.headers.get("Cache-Control")
-        == "no-cache, no-store, max-age=0, must-revalidate"
+        == "no-cache, no-store, max-age=900, must-revalidate"
     )
 
 
