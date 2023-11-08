@@ -8,7 +8,7 @@ import requests
 def test_ping(docker_service: str) -> None:
     """Should return OK."""
     url = f"{docker_service}/ping"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 200
     assert response.text == "OK"
@@ -19,7 +19,7 @@ def test_ping(docker_service: str) -> None:
 def test_ready(docker_service: str) -> None:
     """Should return OK."""
     url = f"{docker_service}/ready"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 200
     assert response.text == "OK"

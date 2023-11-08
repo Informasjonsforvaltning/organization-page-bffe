@@ -12,7 +12,7 @@ from tests import responses
 def test_all_catalogs(docker_service: str) -> None:
     """Should return the all_catalogs response."""
     url = f"{docker_service}/organizationcatalogs"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 200
     assert response.json() == json.loads(responses.all_catalogs)
@@ -23,7 +23,7 @@ def test_all_catalogs(docker_service: str) -> None:
 def test_all_catalogs_has_fifteen_min_cache_headers(docker_service: str) -> None:
     """Should include no-cache headers."""
     url = f"{docker_service}/organizationcatalogs"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 200
     assert (
@@ -48,7 +48,7 @@ def test_all_include_empty(docker_service: str) -> None:
 def test_all_nap_catalogs(docker_service: str) -> None:
     """Should return the all_nap response."""
     url = f"{docker_service}/organizationcatalogs?filter=transportportal"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 200
     assert response.json() == json.loads(responses.all_nap)
@@ -59,6 +59,6 @@ def test_all_nap_catalogs(docker_service: str) -> None:
 def test_invalid_filter(docker_service: str) -> None:
     """Should return 400."""
     url = f"{docker_service}/organizationcatalogs?filter=invalid"
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     assert response.status_code == 400
