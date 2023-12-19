@@ -10,9 +10,9 @@ Backend-for-frontend service that provides content for fdk portal's organization
 
 ### Install software:
 ```
-% pip install poetry==1.1.4
-% pip install nox==2020.12.31
-% pip install nox-poetry==0.8.4
+% pip install poetry==1.7.1
+% pip install nox==2023.4.22
+% pip install nox-poetry==1.0.3
 % poetry install
 ```
 
