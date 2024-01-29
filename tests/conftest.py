@@ -1,4 +1,5 @@
 """Conftest module."""
+
 from asyncio import AbstractEventLoop
 import datetime
 import os

@@ -1,4 +1,5 @@
 """Integration test cases for all organization catalogs."""
+
 import json
 
 from aiohttp.test_utils import TestClient

@@ -1,4 +1,5 @@
 """Module for Dataset SPARQL-queries."""
+
 from string import Template
 
 

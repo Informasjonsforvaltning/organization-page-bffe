@@ -1,4 +1,5 @@
 """Module for Concept SPARQL-queries."""
+
 from string import Template
 
 

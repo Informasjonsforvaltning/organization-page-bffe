@@ -1,4 +1,5 @@
 """Contract test cases for specific organization catalogs."""
+
 import json
 
 import pytest

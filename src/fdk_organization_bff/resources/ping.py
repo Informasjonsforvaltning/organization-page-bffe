@@ -1,4 +1,5 @@
 """Resource module for ping."""
+
 from aiohttp.web import Response, View
 
 

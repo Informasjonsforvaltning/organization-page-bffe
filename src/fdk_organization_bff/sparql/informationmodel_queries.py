@@ -1,4 +1,5 @@
 """Module for Information Model SPARQL-queries."""
+
 from string import Template
 
 

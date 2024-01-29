@@ -1,4 +1,5 @@
 """Integration test cases for organization categories."""
+
 from aiohttp.test_utils import TestClient
 import pytest
 

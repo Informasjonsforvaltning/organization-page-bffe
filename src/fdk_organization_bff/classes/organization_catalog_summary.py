@@ -1,4 +1,5 @@
 """Organization catalog summary data class."""
+
 from dataclasses import dataclass
 from typing import Dict
 

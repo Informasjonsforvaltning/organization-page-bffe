@@ -1,4 +1,5 @@
 """Gunicorn module."""
+
 import logging
 import multiprocessing
 from os import environ as env

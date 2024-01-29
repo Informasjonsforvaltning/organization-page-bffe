@@ -1,4 +1,5 @@
 """Adapter layer module for fdk-organization-bff."""
+
 from typing import Dict, List, Optional, Union
 
 from aiohttp import ClientSession

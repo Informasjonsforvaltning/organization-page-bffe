@@ -1,4 +1,5 @@
 """Resource module for ready."""
+
 from aiohttp.web import Response, View
 
 

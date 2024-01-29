@@ -1,4 +1,5 @@
 """Organization informationmodel data class."""
+
 from dataclasses import dataclass
 
 

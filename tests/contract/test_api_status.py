@@ -1,4 +1,5 @@
 """Contract test cases for ping & ready."""
+
 import pytest
 import requests
 

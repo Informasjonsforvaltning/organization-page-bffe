@@ -1,4 +1,5 @@
 """Mapper module."""
+
 import logging
 import traceback
 from typing import Dict, List, Optional
@@ -43,9 +44,11 @@ def map_catalog_quality_score(
     if score and max_score:
         return CatalogQualityScore(
             score=score,
-            percentage=int(round(100 * (int(score) / int(max_score))))
-            if score and max_score
-            else None,
+            percentage=(
+                int(round(100 * (int(score) / int(max_score))))
+                if score and max_score
+                else None
+            ),
         )
 
     return None

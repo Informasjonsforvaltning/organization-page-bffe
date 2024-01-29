@@ -1,4 +1,5 @@
 """Resource module for municipality categories."""
+
 from dataclasses import asdict
 from typing import Optional
 

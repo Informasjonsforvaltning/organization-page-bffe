@@ -1,4 +1,5 @@
 """Resource module for specific organization catalog."""
+
 from dataclasses import asdict
 
 from aiohttp.web import json_response, Response, View
