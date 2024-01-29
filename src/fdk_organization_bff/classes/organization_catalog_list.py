@@ -1,4 +1,5 @@
 """Organization catalog list data class."""
+
 from dataclasses import dataclass
 from typing import List
 

@@ -1,4 +1,5 @@
 """Organization datasets data class."""
+
 from dataclasses import dataclass
 
 

@@ -1,4 +1,5 @@
 """Unit test cases for service."""
+
 import asyncio
 from typing import Any
 

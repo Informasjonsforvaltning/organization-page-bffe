@@ -13,6 +13,7 @@ Modules:
     organization_concepts
     organization_informationmodels
 """
+
 from fdk_organization_bff.classes.catalog_quality_score import CatalogQualityScore
 from fdk_organization_bff.classes.filter_enum import FilterEnum
 from fdk_organization_bff.classes.organization_catalog import OrganizationCatalog

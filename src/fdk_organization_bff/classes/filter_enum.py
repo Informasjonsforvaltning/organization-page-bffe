@@ -1,4 +1,5 @@
 """Filter enum class."""
+
 from enum import Enum
 
 

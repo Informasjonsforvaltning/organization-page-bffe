@@ -1,4 +1,5 @@
 """Catalog quality rating data class."""
+
 from dataclasses import dataclass
 from typing import Optional
 

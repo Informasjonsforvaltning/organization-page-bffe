@@ -1,7 +1,8 @@
 """Service layer module for fdk-organization-bff."""
+
 import asyncio
 import logging
-from typing import cast, Dict, List, Optional
+from typing import cast, Dict, List, Optional, Union
 
 from aiohttp import ClientSession
 
@@ -282,6 +283,8 @@ async def get_municipality_categories(
 async def fetch_municipality_data() -> Dict:
     """Return map of municipality numbers to connected organization number."""
     async with ClientSession() as session:
+        fylke: Union[Dict, BaseException]
+        kommune: Union[Dict, BaseException]
         (
             fylke,
             kommune,
@@ -297,10 +300,10 @@ async def fetch_municipality_data() -> Dict:
 
     if isinstance(fylke, BaseException):
         logging.warning("Unable to fetch fylke data from reference data")
-        fylke = []
+        fylke = dict()
     if isinstance(kommune, BaseException):
         logging.warning("Unable to fetch kommune data from reference data")
-        kommune = []
+        kommune = dict()
 
     return {
         "fylke": fylke.get("fylkeOrganisasjoner"),

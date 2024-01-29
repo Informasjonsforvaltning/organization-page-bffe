@@ -1,4 +1,5 @@
 """Integration test cases for specific organizations."""
+
 import json
 from unittest.mock import Mock
 

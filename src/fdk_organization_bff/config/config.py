@@ -1,4 +1,5 @@
 """Configure fdk-organization-bff."""
+
 import os
 from typing import Dict, Type, TypeVar
 

@@ -1,4 +1,5 @@
 """Unit test cases for utils."""
+
 import pytest
 
 from fdk_organization_bff.utils.utils import resource_is_new, url_with_params

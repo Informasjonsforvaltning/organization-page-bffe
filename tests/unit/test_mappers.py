@@ -1,4 +1,5 @@
 """Unit test cases for mappers."""
+
 import pytest
 
 from fdk_organization_bff.classes import CatalogQualityScore

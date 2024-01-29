@@ -1,4 +1,5 @@
 """Module for starting an aiohttp API."""
+
 import logging
 
 from aiohttp import web
