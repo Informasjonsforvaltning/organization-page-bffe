@@ -7,11 +7,14 @@ def build_concepts_by_publisher_query() -> str:
     """Build query to count concepts grouped by publisher."""
     return """
         PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX dcat: <http://www.w3.org/ns/dcat#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?organizationNumber (COUNT(DISTINCT ?concept) AS ?count)
-        FROM <https://concepts.fellesdatakatalog.digdir.no>
         WHERE {{
             ?concept a skos:Concept .
+            ?record foaf:primaryTopic ?concept .
+            ?record a dcat:CatalogRecord .
             ?concept dct:publisher ?publisher .
             ?publisher dct:identifier ?organizationNumber .
         }}
@@ -24,13 +27,14 @@ def build_org_concepts_query(organization_id: str) -> str:
     return Template(
         """
         PREFIX dct: <http://purl.org/dc/terms/>
+        PREFIX dcat: <http://www.w3.org/ns/dcat#>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT DISTINCT ?concept ?issued
-        FROM <https://concepts.fellesdatakatalog.digdir.no>
         WHERE {{
             ?concept a skos:Concept .
             ?record foaf:primaryTopic ?concept .
+            ?record a dcat:CatalogRecord .
             ?record dct:issued ?issued .
             ?concept dct:publisher ?publisher .
             ?publisher dct:identifier "$org_id" .

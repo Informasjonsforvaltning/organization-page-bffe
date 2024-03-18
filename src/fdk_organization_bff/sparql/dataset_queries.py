@@ -13,10 +13,10 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT DISTINCT ?dataset ?issued ?isAuthoritative ?isOpenData
-FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
     ?record foaf:primaryTopic ?dataset .
+    ?record a dcat:CatalogRecord .
     ?record dct:issued ?issued .
     OPTIONAL {{ ?dataset fdk:isOpenData ?isOpenData . }}
     OPTIONAL {{ ?dataset fdk:isAuthoritative ?isAuthoritative . }}
@@ -38,12 +38,12 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT DISTINCT ?dataset ?issued ?isAuthoritative ?isOpenData
-FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
     ?dataset fdk:isRelatedToTransportportal ?isNAP .
     FILTER (STR(?isNAP) = "true")
     ?record foaf:primaryTopic ?dataset .
+    ?record a dcat:CatalogRecord .
     ?record dct:issued ?issued .
     OPTIONAL {{ ?dataset fdk:isOpenData ?isOpenData . }}
     OPTIONAL {{ ?dataset fdk:isAuthoritative ?isAuthoritative . }}
@@ -60,10 +60,12 @@ def build_datasets_by_publisher_query() -> str:
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
-FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
+    ?record foaf:primaryTopic ?dataset .
+    ?record a dcat:CatalogRecord .
     ?dataset dct:publisher ?publisher .
     ?publisher dct:identifier ?organizationNumber .
 }}
@@ -75,12 +77,14 @@ def build_nap_datasets_by_publisher_query() -> str:
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX fdk: <https://raw.githubusercontent.com/Informasjonsforvaltning/fdk-reasoning-service/main/src/main/resources/ontology/fdk.owl#>
 
 SELECT ?organizationNumber (COUNT(DISTINCT ?dataset) AS ?count)
-FROM <https://datasets.fellesdatakatalog.digdir.no>
 WHERE {{
     ?dataset a dcat:Dataset .
+    ?record foaf:primaryTopic ?dataset .
+    ?record a dcat:CatalogRecord .
     ?dataset fdk:isRelatedToTransportportal ?isNAP .
     FILTER (STR(?isNAP) = "true")
     ?dataset dct:publisher ?publisher .

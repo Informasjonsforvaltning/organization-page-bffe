@@ -8,10 +8,12 @@ def build_dataservices_by_publisher_query() -> str:
     return """
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT ?organizationNumber (COUNT(DISTINCT ?service) AS ?count)
-FROM <https://dataservices.fellesdatakatalog.digdir.no>
 WHERE {{
     ?service a dcat:DataService .
+    ?record foaf:primaryTopic ?service .
+    ?record a dcat:CatalogRecord .
     ?service dct:publisher ?publisher .
     ?publisher dct:identifier ?organizationNumber .
 }}
@@ -27,10 +29,10 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 
 SELECT DISTINCT ?service ?issued
-FROM <https://dataservices.fellesdatakatalog.digdir.no>
 WHERE {{
     ?service a dcat:DataService .
     ?record foaf:primaryTopic ?service .
+    ?record a dcat:CatalogRecord .
     ?record dct:issued ?issued .
     ?service dct:publisher ?publisher .
     ?publisher dct:identifier "$org_id" .
