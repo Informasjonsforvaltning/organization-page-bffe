@@ -51,7 +51,7 @@ def resource_is_new(resource: Dict) -> bool:
             ).date()
             seven_days_ago = datetime.date.today() - datetime.timedelta(days=7)
             return issued_date >= seven_days_ago
-        except Exception:
+        except ValueError:
             logging.error(f"{traceback.format_exc()}: failed to parse issued date")
     return False
 
