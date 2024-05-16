@@ -149,7 +149,7 @@ def map_org_details(
             homepage=str(homepage) if homepage else None,
             seeAlso=see_also,
             numberOfEmployees=number_of_employees if number_of_employees else None,
-            icon=f"https://orglogo.difi.no/api/logo/org/{org_id}",
+            icon=f"https://orglogo.digdir.no/api/logo/org/{org_id}",
         )
     else:
         return None

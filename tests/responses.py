@@ -14,7 +14,7 @@ ramsund = """{
     "homepage": null,
     "seeAlso": null,
     "numberOfEmployees": null,
-    "icon": "https://orglogo.difi.no/api/logo/org/910244132"
+    "icon": "https://orglogo.digdir.no/api/logo/org/910244132"
   },
   "datasets": {
     "totalCount": 71,
@@ -54,7 +54,7 @@ ramsund_with_no_quality = """{
     "homepage": null,
     "seeAlso": null,
     "numberOfEmployees": null,
-    "icon": "https://orglogo.difi.no/api/logo/org/910244132"
+    "icon": "https://orglogo.digdir.no/api/logo/org/910244132"
   },
   "datasets": {
     "totalCount": 71,
@@ -91,7 +91,7 @@ fiskeri = """{
     "homepage": "www.fiskeridir.no/",
     "seeAlso": "https://data.brreg.no/enhetsregisteret/oppslag/enheter/971203420",
     "numberOfEmployees": 222,
-    "icon": "https://orglogo.difi.no/api/logo/org/971203420"
+    "icon": "https://orglogo.digdir.no/api/logo/org/971203420"
   },
   "datasets": {
     "totalCount": 0,
@@ -215,7 +215,7 @@ ramsund_nap = """{
     "homepage": null,
     "seeAlso": null,
     "numberOfEmployees": null,
-    "icon": "https://orglogo.difi.no/api/logo/org/910244132"
+    "icon": "https://orglogo.digdir.no/api/logo/org/910244132"
   },
   "datasets": {
     "totalCount": 7,
@@ -247,7 +247,7 @@ ntnu = """{
     "name": "NORGES TEKNISK-NATURVITENSKAPELIGE UNIVERSITET NTNU",
     "orgType": null,
     "orgPath": "/STAT/872417842/974767880",
-    "icon": "https://orglogo.difi.no/api/logo/org/974767880",
+    "icon": "https://orglogo.digdir.no/api/logo/org/974767880",
     "industryCode": null,
     "homepage": null,
     "seeAlso": null,
@@ -333,7 +333,7 @@ karmsund = """{
         "homepage": null,
         "seeAlso": null,
         "numberOfEmployees":  null,
-        "icon": "https://orglogo.difi.no/api/logo/org/910298062"
+        "icon": "https://orglogo.digdir.no/api/logo/org/910298062"
     },
     "datasets": {
         "totalCount": 0,
