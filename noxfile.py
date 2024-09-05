@@ -153,6 +153,5 @@ def mypy(session: Session) -> None:
 @nox_poetry.session(python=["3.9"])
 def coverage(session: Session) -> None:
     """Upload coverage data."""
-    session.install("coverage[toml]", "codecov")
+    session.install("coverage[toml]")
     session.run("coverage", "xml", "--fail-under=0")
-    session.run("codecov", *session.posargs)
